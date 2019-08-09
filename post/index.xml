@@ -13,10 +13,10 @@
     
     <item>
       <title>K8s Aliyunlog</title>
-      <link>http://luwen.tech/post/k8s-aliyunlog/</link>
+      <link>http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%9C%8D%E5%8A%A1%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88/</link>
       <pubDate>Fri, 09 Aug 2019 16:16:24 +0800</pubDate>
       
-      <guid>http://luwen.tech/post/k8s-aliyunlog/</guid>
+      <guid>http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%9C%8D%E5%8A%A1%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88/</guid>
       <description>Kubernetes集群中的日志收集 通用做法： 方案 优点 缺点 每个app的镜像中都集成日志收集组件 部署方便，kubernetes的yaml文件无须特别配置，可以为每个app自定义日志收集配置 强耦合，不方便应用和日志收集组件升级和维护且会导致镜像过大 单独创建一个日志收集组件跟app的容</description>
     </item>
     
