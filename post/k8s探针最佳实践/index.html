@@ -16,7 +16,7 @@
     <meta name="description" content="">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/archives/">
+    <meta property="og:url" content="http://luwen.tech/post/k8s%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -47,11 +47,11 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://luwen.tech">首页</a>
+                    <a class="current" href="http://luwen.tech">首页</a>
                     
                     <a  href="http://luwen.tech/books/" title="新书">新书</a>
                     
-                    <a class="current" href="http://luwen.tech/archives/" title="归档">归档</a>
+                    <a  href="http://luwen.tech/archives/" title="归档">归档</a>
                     
                     <a  href="http://luwen.tech/about/" title="关于">关于</a>
                     
@@ -79,9 +79,29 @@
                         
                         
                         <div class="post-content">
-                            <p>title: &ldquo;归档&rdquo;
-description: Android资深工程师 ，Go和Java打杂师，《Android Gradle权威指南》作者，Android官方技术文档译者
-type: archives</p>
+                            
+
+<h4 id="1-存活和就绪的结果处理程序需要是互相独立的程序">1. 存活和就绪的结果处理程序需要是互相独立的程序</h4>
+
+<p>如前所述，对于在Kubernetes上下文中部署的每个产品，应该实现2个分别处理HTTP请求“存活”和“就绪”的处理程序。这些探测器的处理程序需要独立实现自己的功能。
+这适用于作业处理应用程序。对于Kubernetes，了解应用程序是否正在运行非常重要。如果存活/就绪逻辑被解耦了在新进程中运行，则结果不准确。</p>
+
+<h4 id="3-不要在-存活-处理程序里实现任何逻辑-如果主线程正在运行-它需要返回状态200-如果不是-则返回5xx">3. 不要在“存活”处理程序里实现任何逻辑。如果主线程正在运行，它需要返回状态200，如果不是，则返回5xx</h4>
+
+<p>这个探针让Kubernetes知道应用程序是正在运行还是停止运行。通过检查<strong>/.well-known/live</strong></p>
+
+<blockquote>
+<p>在这个上下文中，“逻辑”意味着对互相连接的服务实施某种检查</p>
+</blockquote>
+
+<h4 id="4-在-就绪-探针的处理程序中实现逻辑-以便提供有关应用程序准备情况的详情">4. 在“就绪”探针的处理程序中实现逻辑，以便提供有关应用程序准备情况的详情</h4>
+
+<p>就绪探针让Kubernetes知道Pod是否已准备好接收HTTP请求。作为开发人员，在此处实现一些逻辑来检查应用程序的所有后端依赖的可用性非常重要。当实现就绪处理程序时，需要清楚的知道您的应用程序依赖于哪些功能。换句话说，在就绪处理程序里，需要运行所有步骤以保证应用程序已准备好接收和处理https请求，这非常重要。例如，如果应用程序需要建立与数据库的连接以准备处理HTTP请求，那么在“就绪”的处理程序中就必须检查是否已建立与数据库连接并能正常使用。
+我并不建议实现任何让程序重新就绪的逻辑。这些逻辑可能会为系统中的某些组件带来危险。</p>
+
+<h4 id="5-不要尝试在就绪处理程序上重新建立应用程序的就绪状态-这个探针只是为了检查应用程序是否准备就绪-而不是让应用程序就绪">5. 不要尝试在就绪处理程序上重新建立应用程序的就绪状态。这个探针只是为了检查应用程序是否准备就绪，而不是让应用程序就绪。</h4>
+
+<p>我并不建议实现任何让程序重新就绪的逻辑。这些逻辑可能会为系统中的某些组件带来危险。</p>
 
                         </div>
 
@@ -94,7 +114,7 @@ type: archives</p>
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/k8s%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"></a></li>
+        <li><a href="/archives/"></a></li>
         
         <li><a href="/post/k8s%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/"></a></li>
         

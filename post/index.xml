@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>卢文的个人博客</title>
-    <link>http://luwen.tech/</link>
-    <description>Recent content on 卢文的个人博客</description>
+    <title>Posts on 卢文的个人博客</title>
+    <link>http://luwen.tech/post/</link>
+    <description>Recent content in Posts on 卢文的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     
-	<atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title></title>
-      <link>http://luwen.tech/archives/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://luwen.tech/archives/</guid>
-      <description>title: &amp;ldquo;归档&amp;rdquo; description: Android资深工程师 ，Go和Java打杂师，《Android Gradle权威指南》作者，Android官方技术文档译者 type: archives</description>
-    </item>
     
     <item>
       <title></title>
