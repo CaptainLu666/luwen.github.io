@@ -7,16 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title> | 卢文的博客</title>
-    <meta property="og:title" content=" - 卢文的博客">
+    <title>K8s Aliyunlog | 卢文的博客</title>
+    <meta property="og:title" content="K8s Aliyunlog - 卢文的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2019-08-09T16:16:24&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-08-09T16:16:24&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="">
+    <meta name="description" content="K8s Aliyunlog">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/k8s-aliyun-log/">
+    <meta property="og:url" content="http://luwen.tech/post/k8s-aliyunlog/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -70,13 +74,37 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title"></h1>
+                            <h1 class="post-title">K8s Aliyunlog</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            1年1月1日
+                            2019年8月9日
                         </date>
                         
                         
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li><a href="#kubernetes集群中的日志收集">Kubernetes集群中的日志收集</a>
+<ul>
+<li><a href="#通用做法">通用做法：</a></li>
+<li><a href="#阿里云日志服务">阿里云日志服务：</a>
+<ul>
+<li><a href="#容器文件自动渲染">容器文件自动渲染</a></li>
+<li><a href="#可靠性保证">可靠性保证</a>
+<ul>
+<li><a href="#容器标准输出checkpoint管理">容器标准输出checkpoint管理</a></li>
+<li><a href="#容器文件checkpoint管理">容器文件checkpoint管理</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#总结">总结:</a></li>
+</ul></li>
+</ul>
+</nav>
+                            </div>
+                        </div>
                         
                         <div class="post-content">
                             
@@ -137,7 +165,7 @@
 <li>采集性能低：正常情况下一个Docker Engine会运行数十个甚至数百个Container，此时开源Agent日志采集性能以及资源消耗十分堪忧。</li>
 </ol>
 
-<p>对比常用的日志收集客户端</p>
+<p>对比常用的日志收集客户端:</p>
 
 <table>
 <thead>
@@ -315,7 +343,7 @@
 <li>考虑到停止期间无法感知容器状态变化，所以每次启动时会渲染所有当前的配置。Logtail保证多次加载同一容器配置的幂等性。</li>
 </ol>
 
-<h2 id="总结">总结</h2>
+<h2 id="总结">总结:</h2>
 
 <p>阿里云日志服务提供的解决方案完美地解决了k8s上日志采集难的问题，从之前需要多个软件、几十个部署流程精简到1款软件、3个操作即可轻松上云，让广大用户真正体验到一个字：爽，从此日志运维人员的生活质量大大提高。</p>
 
@@ -336,15 +364,6 @@
 
 
                         
-
-<div class="post-archive">
-    <h2>See Also</h2>
-    <ul class="listing">
-        
-        <li><a href="/post/k8s-shijian/"></a></li>
-        
-    </ul>
-</div>
 
 
                         <div class="post-meta meta-tags">
@@ -375,11 +394,7 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://luwen.tech/post/k8s-aliyun-log/" title=""></a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/k8s-shijian/" title=""></a>
+        <a href="http://luwen.tech/post/k8s-aliyunlog/" title="K8s Aliyunlog">K8s Aliyunlog</a>
     </li>
     
 </ul>

@@ -6,9 +6,19 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
+    <lastBuildDate>Fri, 09 Aug 2019 16:16:24 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8s Aliyunlog</title>
+      <link>http://luwen.tech/post/k8s-aliyunlog/</link>
+      <pubDate>Fri, 09 Aug 2019 16:16:24 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/k8s-aliyunlog/</guid>
+      <description>Kubernetes集群中的日志收集 通用做法： 方案 优点 缺点 每个app的镜像中都集成日志收集组件 部署方便，kubernetes的yaml文件无</description>
+    </item>
     
   </channel>
 </rss>
