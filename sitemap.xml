@@ -14,7 +14,19 @@
   </url>
   
   <url>
+    <loc>http://luwen.tech/categories/</loc>
+    <lastmod>2019-08-09T16:16:24+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://luwen.tech/post/</loc>
+    <lastmod>2019-08-09T16:16:24+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/k8s/</loc>
     <lastmod>2019-08-09T16:16:24+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -27,11 +39,6 @@
   <url>
     <loc>http://luwen.tech/about/</loc>
     <lastmod>2019-08-09T15:54:12+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/categories/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
