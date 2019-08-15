@@ -96,12 +96,26 @@
                         <div class="clear">
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
-                                
+                                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#java-jdk-8部分版本和更新版本的应用资源限制">java jdk 8部分版本和更新版本的应用资源限制：</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            <pre><code class="language-yaml">          resources:
+                            
+
+<p>###普通应用资源限制</p>
+
+<pre><code class="language-yaml">          resources:
             limits:
               cpu: 100m
               memory: 1024Mi
@@ -110,7 +124,7 @@
               memory: 512Mi
 </code></pre>
 
-<p>java jdk 8/9的应用资源限制：</p>
+<h3 id="java-jdk-8部分版本和更新版本的应用资源限制">java jdk 8部分版本和更新版本的应用资源限制：</h3>
 
 <pre><code class="language-yaml">          env:
           - name: JAVA_OPTS
