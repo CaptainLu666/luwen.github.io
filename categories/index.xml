@@ -6,17 +6,17 @@
     <description>Recent content in Categories on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 09 Aug 2019 16:16:24 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 15 Aug 2019 21:52:19 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>k8s</title>
-      <link>http://luwen.tech/categories/k8s/</link>
-      <pubDate>Fri, 09 Aug 2019 16:16:24 +0800</pubDate>
+      <title>Kubernetes</title>
+      <link>http://luwen.tech/categories/Kubernetes/</link>
+      <pubDate>Thu, 15 Aug 2019 21:52:19 +0800</pubDate>
       
-      <guid>http://luwen.tech/categories/k8s/</guid>
+      <guid>http://luwen.tech/categories/Kubernetes/</guid>
       <description></description>
     </item>
     

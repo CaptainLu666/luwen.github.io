@@ -3,32 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://luwen.tech/categories/</loc>
+    <lastmod>2019-08-15T21:52:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/Kubernetes/</loc>
+    <lastmod>2019-08-15T21:52:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/kubernets%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/</loc>
+    <lastmod>2019-08-15T21:52:19+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2019-08-15T21:52:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://luwen.tech/</loc>
-    <lastmod>2019-08-10T23:27:31+08:00</lastmod>
+    <lastmod>2019-08-15T21:52:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://luwen.tech/archives/</loc>
     <lastmod>2019-08-10T23:27:31+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2019-08-09T16:16:24+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2019-08-09T16:16:24+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/categories/k8s/</loc>
-    <lastmod>2019-08-09T16:16:24+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
