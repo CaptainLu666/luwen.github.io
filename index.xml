@@ -6,10 +6,19 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 20 Aug 2019 08:57:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 12 Oct 2019 10:08:04 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rds优化</title>
+      <link>http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Sat, 12 Oct 2019 10:08:04 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/</guid>
+      <description>事务长事务的防范手段。参数loose_max_statement_time可以控制大查询的最大执行时间，超过这个时间后，会把查询kill掉。参数loose_rds_strict_trx_idle_timeout可以控制空闲事务的最长存活时间，当一个事务空闲状态超过这个值时候，会主</description>
+    </item>
     
     <item>
       <title>Kubernetes探针最佳实践</title>
@@ -22,10 +31,10 @@
     
     <item>
       <title>Kubernets资源限制</title>
-      <link>http://luwen.tech/post/kubernets%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/</link>
+      <link>http://luwen.tech/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/</link>
       <pubDate>Thu, 15 Aug 2019 21:52:19 +0800</pubDate>
       
-      <guid>http://luwen.tech/post/kubernets%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/</guid>
+      <guid>http://luwen.tech/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/</guid>
       <description>###普通应用资源限制 resources: limits: cpu: 100m memory: 1024Mi requests: cpu: 50m memory: 512Mi java jdk 8部分版本和更新版本的应用资源限制： env: - name: JAVA_OPTS value: &amp;quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&amp;quot; resources: limits: cpu: 100m memory: 1024Mi requests: cpu: 50m memory: 512Mi</description>
     </item>
     

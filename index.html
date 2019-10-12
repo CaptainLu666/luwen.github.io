@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/" title="Rds优化" >Rds优化</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月12日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                事务长事务的防范手段。参数loose_max_statement_time可以控制大查询的最大执行时间，超过这个时间后，会把查询kill掉。参数loose_rds_strict_trx_idle_timeout可以控制空闲事务的最长存活时间，当一个事务空闲状态超过这个值时候，会主……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes探针最佳实践" >Kubernetes探针最佳实践</a>
                                 </h1>
                             </header>
@@ -93,7 +116,7 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernets%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/" title="Kubernets资源限制" >Kubernets资源限制</a>
+                                    <a href="http://luwen.tech/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/" title="Kubernets资源限制" >Kubernets资源限制</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -110,7 +133,7 @@
                             <div class="post-content">
                                 ###普通应用资源限制 resources: limits: cpu: 100m memory: 1024Mi requests: cpu: 50m memory: 512Mi java jdk 8部分版本和更新版本的应用资源限制： env: - name: JAVA_OPTS value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&quot; resources: limits: cpu: 100m memory: 1024Mi requests: cpu: 50m memory: 512Mi……
                             </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/kubernets%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/">阅读全文</a></p>
+                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/">阅读全文</a></p>
                         </article>
                     
                         <article class="post">
@@ -192,11 +215,15 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/" title="Rds优化">Rds优化</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes探针最佳实践">Kubernetes探针最佳实践</a>
     </li>
     
     <li>
-        <a href="http://luwen.tech/post/kubernets%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/" title="Kubernets资源限制">Kubernets资源限制</a>
+        <a href="http://luwen.tech/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/" title="Kubernets资源限制">Kubernets资源限制</a>
     </li>
     
     <li>
@@ -214,6 +241,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(3)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(1)</a>
     </li>
     
 </ul>
