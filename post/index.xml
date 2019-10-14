@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 12 Oct 2019 10:08:04 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Oct 2019 14:02:43 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kubernetes弹性伸缩</title>
+      <link>http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/</link>
+      <pubDate>Mon, 14 Oct 2019 14:02:43 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/</guid>
+      <description>自动弹性伸缩(AutoScaling)，是Kubernetes的一大功能和亮点。在OpenStack IaaS云计算中也有类似的服务，即Senlin。即基于资源使用情况自动弹性缩容和扩容工作负载。Kubernetes的自动弹性伸缩有两个维度： Cluster Autoscaler：处理K8s集群N</description>
+    </item>
     
     <item>
       <title>Rds优化</title>
@@ -18,6 +27,15 @@
       
       <guid>http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/</guid>
       <description>事务长事务的防范手段。参数loose_max_statement_time可以控制大查询的最大执行时间，超过这个时间后，会把查询kill掉。参数loose_rds_strict_trx_idle_timeout可以控制空闲事务的最长存活时间，当一个事务空闲状态超过这个值时候，会主</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes常用命令</title>
+      <link>http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Sun, 29 Sep 2019 13:49:25 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+      <description>1.查看资源占用： kubectl describe node &amp;ldquo;cn-beijing.172.16.89.154&amp;rdquo; | sed &amp;lsquo;1,/Non-terminated Pods/d&amp;rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 nodeAffinity：功能更丰富的 Node 选择器，比如支持集合操作 podAffinit</description>
     </item>
     
     <item>

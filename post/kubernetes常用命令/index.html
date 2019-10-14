@@ -7,22 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>数据库 | 卢文的博客</title>
-    <meta property="og:title" content="数据库 - 卢文的博客">
+    <title>Kubernetes常用命令 | 卢文的博客</title>
+    <meta property="og:title" content="Kubernetes常用命令 - 卢文的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2019-09-29T13:49:25&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-09-29T13:49:25&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="数据库">
+    <meta name="description" content="Kubernetes常用命令">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+    <meta property="og:url" content="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
+        <link rel="stylesheet" href="/css/prism.css">
+    
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" title="卢文的博客" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -31,7 +36,6 @@
     
     
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -47,7 +51,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://luwen.tech">首页</a>
+                    <a class="current" href="http://luwen.tech">首页</a>
                     
                     <a  href="http://luwen.tech/books/" title="新书">新书</a>
                     
@@ -68,48 +72,131 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">数据库</span>
-                        中的文章
-                    </h3>
-                    
-
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/">Rds优化</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月12日
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Kubernetes常用命令</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年9月29日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
                             
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>
-                                
-                            </div>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
                             
-                            <div class="post-content">
-                                事务长事务的防范手段。参数loose_max_statement_time可以控制大查询的最大执行时间，超过这个时间后，会把查询kill掉。参数loose_rds_strict_trx_idle_timeout可以控制空闲事务的最长存活时间，当一个事务空闲状态超过这个值时候，会主……
-                                <p class="readmore"><a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/">阅读全文</a></p>
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#指定-node-节点调度">指定 Node 节点调度</a></li>
+</ul></li>
+</ul>
+</nav>
                             </div>
-                        </article>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<p>1.查看资源占用：</p>
+
+<p>kubectl describe node &ldquo;cn-beijing.172.16.89.154&rdquo; | sed &lsquo;1,/Non-terminated Pods/d&rsquo;</p>
+
+<p>2.进入pod</p>
+
+<p>Kubectl exec -it pod -n namespace /bin/bash</p>
+
+<p>3.查看pod资源消耗</p>
+
+<p>Kubectl top pod -n prod</p>
+
+<h2 id="指定-node-节点调度">指定 Node 节点调度</h2>
+
+<p>有三种方式指定 Pod 只运行在指定的 Node 节点上</p>
+
+<ul>
+<li>nodeSelector：只调度到匹配指定 label 的 Node 上</li>
+<li>nodeAffinity：功能更丰富的 Node 选择器，比如支持集合操作</li>
+<li>podAffinity：调度到满足条件的 Pod 所在的 Node 上</li>
+</ul>
+
+<p>kubelet配置策略</p>
+
+<p>&ndash;eviction-soft=memory.available&lt;1Gi</p>
+
+<p>&ndash;eviction-soft=memory.available&lt;10%</p>
+
+<p>&ndash;system-reserved=memory=2Gi</p>
+
+<p>&ndash;eviction-soft-grace-period=1m30s</p>
+
+<p>&ndash;eviction-hard=memory.available&lt;500Mi
+&ndash;system-reserved=memory=2Gi</p>
+
+<p>&ndash;eviction-minimum-reclaim=memory.available=2Gi</p>
+
+<p>&ndash;eviction-hard=memory.available&lt;500Mi,nodefs.available&lt;1Gi,imagefs.available&lt;100Gi &ndash;eviction-minimum-reclaim=&ldquo;memory.available=0Mi,nodefs.available=500Mi,imagefs.available=2Gi&rdquo;`</p>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Kubernetes探针最佳实践</a></li>
+        
+        <li><a href="/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/">Kubernets资源限制</a></li>
+        
+        <li><a href="/archives/">归档</a></li>
+        
+        <li><a href="/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%9C%8D%E5%8A%A1%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88/">阿里云Kubernetes服务日志收集方案</a></li>
+        
+        <li><a href="/about/">博客介绍</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
                     
+    
 
-                    
-
-
-
-
-
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -212,13 +299,28 @@
 </footer>
 
 
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
 
 
 
