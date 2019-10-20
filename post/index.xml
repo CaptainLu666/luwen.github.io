@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 14 Oct 2019 14:02:43 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 20 Oct 2019 11:24:39 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>解决golang依赖包问题</title>
+      <link>http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sun, 20 Oct 2019 11:24:39 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/</guid>
+      <description>问题描述 当我们使用 go get、go install、go mod 等命令时，会自动下载相应的包或依赖包。但由于众所周知的原因，类似于 golang.org/x/&amp;hellip; 的包会出现下载失败的情况。如下所示： 123 $ go get -u golang.org/x/sysgo get golang.org/x/sys: unrecognized import path &amp;ldquo;golang.org/x/sys&amp;rdquo; (https fetch: Get https://golang.org/x/sys?go-get=1: dial tcp 216.239.37.1:443: i/o timeout) 解决方式 那我们该如何解决问题呢？毕竟还要制造 bug 的嘛~ 手动下载 我们常见的 golang.org/x/&amp;hellip; 包，一般</description>
+    </item>
     
     <item>
       <title>Kubernetes弹性伸缩</title>

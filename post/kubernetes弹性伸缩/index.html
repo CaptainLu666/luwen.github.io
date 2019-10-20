@@ -108,6 +108,8 @@
 <li>Horizontal Pod Autoscaler（HPA）：处理Pod自动弹性伸缩副本集，该功能依赖于监控服务采集到的资源指标数据。</li>
 </ul>
 
+<p>节点自动伸缩组件是基于kubernetes资源调度的分配情况进行伸缩判断的，节点中资源的分配是通过资源请求（Request）进行计算的。当Pod由于资源请求（Request）无法满足并进入等待（Pending）状态时，节点自动伸缩组件会根据配置的弹性伸缩组配置信息中的资源规格以及约束配置，计算所需的节点数目，如果可以满足伸缩条件，则会触发伸缩组的节点加入。当一个节点在弹性伸缩组中且节点上Pod的资源请求低于阈值时，节点自动伸缩组件会将节点进行缩容。因此资源请求（Request）的正确、合理设置，是弹性伸缩的前提条件。</p>
+
                         </div>
 
                         
@@ -171,6 +173,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/" title="解决golang依赖包问题">解决golang依赖包问题</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/" title="Kubernetes弹性伸缩">Kubernetes弹性伸缩</a>
     </li>
     
@@ -202,6 +208,10 @@
     <section class="widget">
         <h3 class="widget-title">分类</h3>
 <ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/categories/Golang/">Golang(1)</a>
+    </li>
     
     <li>
         <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(5)</a>
