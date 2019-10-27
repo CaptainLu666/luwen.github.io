@@ -6,10 +6,19 @@
     <description>Recent content in Kubernetes on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 14 Oct 2019 14:02:43 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 28 Oct 2019 00:22:58 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/Kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8s Token</title>
+      <link>http://luwen.tech/post/k8s-token/</link>
+      <pubDate>Mon, 28 Oct 2019 00:22:58 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/k8s-token/</guid>
+      <description>kubectl get sa admin -n kube-system -o yaml apiVersion: v1 kind: ServiceAccount metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&amp;quot;apiVersion&amp;quot;:&amp;quot;v1&amp;quot;,&amp;quot;kind&amp;quot;:&amp;quot;ServiceAccount&amp;quot;,&amp;quot;metadata&amp;quot;:{&amp;quot;annotations&amp;quot;:{},&amp;quot;name&amp;quot;:&amp;quot;admin&amp;quot;,&amp;quot;namespace&amp;quot;:&amp;quot;kube-system&amp;quot;}} creationTimestamp: 2018-11-05T09:23:39Z name: admin namespace: kube-system resourceVersion: &amp;quot;889&amp;quot; selfLink: /api/v1/namespaces/kube-system/serviceaccounts/admin uid: 7af4f177-e0dc-11e8-8ef4-00163e009d2a secrets: - name: admin-token-5tctj 查看对应的clusterrolebinding： kubectl get clusterrolebinding admin -oyaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRoleBinding metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&amp;quot;apiVersion&amp;quot;:&amp;quot;rbac.authorization.k8s.io/v1beta1&amp;quot;,&amp;quot;kind&amp;quot;:&amp;quot;ClusterRoleBinding&amp;quot;,&amp;quot;metadata&amp;quot;:{&amp;quot;annotations&amp;quot;:{},&amp;quot;name&amp;quot;:&amp;quot;admin&amp;quot;,&amp;quot;namespace&amp;quot;:&amp;quot;&amp;quot;},&amp;quot;roleRef&amp;quot;:{&amp;quot;apiGroup&amp;quot;:&amp;quot;rbac.authorization.k8s.io&amp;quot;,&amp;quot;kind&amp;quot;:&amp;quot;ClusterRole&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;cluster-admin&amp;quot;},&amp;quot;subjects&amp;quot;:[{&amp;quot;kind&amp;quot;:&amp;quot;ServiceAccount&amp;quot;,&amp;quot;name&amp;quot;:&amp;quot;admin&amp;quot;,&amp;quot;namespace&amp;quot;:&amp;quot;kube-system&amp;quot;}]} creationTimestamp: 2018-11-05T09:23:39Z name: admin resourceVersion: &amp;quot;886&amp;quot; selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/admin uid: 7af6ff9d-e0dc-11e8-8ef4-00163e009d2a roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: admin namespace: kube-system 查看admin sa绑定的clusterrole和对应的权限。命令： kubectl get clusterrole cluster-admin -o yaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRole metadata:</description>
+    </item>
     
     <item>
       <title>Kubernetes弹性伸缩</title>
