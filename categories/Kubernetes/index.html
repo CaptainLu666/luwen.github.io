@@ -80,6 +80,52 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">Apollo总体设计</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月29日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Config Service提供配置的读取、推送等功能，服务对象是Apollo客户端 Admin Service提供配置的修改、发布等功能，服务对象是Apollo Portal（管理界面） Config Service和Admin Service都是多实例、无状态部署，所以需要将自己注册到Eureka中并保持心跳 在Eur……
+                                <p class="readmore"><a href="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">K8s持续集成和发布</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月29日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                应用构建和发布流程说明。 用户向Gitlab提交代码，代码中必须包含Dockerfile 将代码提交到远程仓库 用户在发布应用时需要填写git仓库地址和分支、服务类型、服务名称、资源数量、实例个数，确定后触发Jenkins自动构建 Jenkins的CI流水线自动编译代码并打包成docke……
+                                <p class="readmore"><a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/k8s-token/">K8s Token</a>
                                 </h1>
                             </header>
@@ -240,6 +286,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/" title="Apollo总体设计">Apollo总体设计</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/" title="K8s持续集成和发布">K8s持续集成和发布</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/k8s-token/" title="K8s Token">K8s Token</a>
     </li>
     
@@ -285,7 +339,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(6)</a>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(8)</a>
     </li>
     
     <li>

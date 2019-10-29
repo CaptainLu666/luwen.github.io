@@ -6,10 +6,28 @@
     <description>Recent content in Kubernetes on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 28 Oct 2019 00:22:58 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Oct 2019 14:53:26 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/Kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Apollo总体设计</title>
+      <link>http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Tue, 29 Oct 2019 14:53:26 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/</guid>
+      <description>Config Service提供配置的读取、推送等功能，服务对象是Apollo客户端 Admin Service提供配置的修改、发布等功能，服务对象是Apollo Portal（管理界面） Config Service和Admin Service都是多实例、无状态部署，所以需要将自己注册到Eureka中并保持心跳 在Eur</description>
+    </item>
+    
+    <item>
+      <title>K8s持续集成和发布</title>
+      <link>http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Tue, 29 Oct 2019 09:31:52 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/</guid>
+      <description>应用构建和发布流程说明。 用户向Gitlab提交代码，代码中必须包含Dockerfile 将代码提交到远程仓库 用户在发布应用时需要填写git仓库地址和分支、服务类型、服务名称、资源数量、实例个数，确定后触发Jenkins自动构建 Jenkins的CI流水线自动编译代码并打包成docke</description>
+    </item>
     
     <item>
       <title>K8s Token</title>

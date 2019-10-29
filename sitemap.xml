@@ -3,32 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/</loc>
+    <lastmod>2019-10-29T14:53:26+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2019-10-28T00:22:58+08:00</lastmod>
+    <lastmod>2019-10-29T14:53:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://luwen.tech/post/k8s-token/</loc>
-    <lastmod>2019-10-28T00:22:58+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://luwen.tech/categories/Kubernetes/</loc>
-    <lastmod>2019-10-28T00:22:58+08:00</lastmod>
+    <lastmod>2019-10-29T14:53:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://luwen.tech/post/</loc>
-    <lastmod>2019-10-28T00:22:58+08:00</lastmod>
+    <lastmod>2019-10-29T14:53:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://luwen.tech/</loc>
-    <lastmod>2019-10-28T00:22:58+08:00</lastmod>
+    <lastmod>2019-10-29T14:53:26+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/</loc>
+    <lastmod>2019-10-29T09:31:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/k8s-token/</loc>
+    <lastmod>2019-10-28T00:22:58+08:00</lastmod>
   </url>
   
   <url>
