@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Kubernets资源限制 | 卢文的博客</title>
-    <meta property="og:title" content="Kubernets资源限制 - 卢文的博客">
+    <title>配置kong发现linux系统limit文件作用域问题 | 卢文的博客</title>
+    <meta property="og:title" content="配置kong发现linux系统limit文件作用域问题 - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-08-15T21:52:19&#43;08:00">
+    <meta property="article:published_time" content="2019-11-03T10:38:36&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-08-15T21:52:19&#43;08:00">
+    <meta property="article:modified_time" content="2019-11-03T10:38:36&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Kubernets资源限制">
+    <meta name="description" content="配置kong发现linux系统limit文件作用域问题">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/">
+    <meta property="og:url" content="http://luwen.tech/post/%E9%85%8D%E7%BD%AEkong%E5%8F%91%E7%8E%B0linux%E7%B3%BB%E7%BB%9Flimit%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,16 +74,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Kubernets资源限制</h1>
+                            <h1 class="post-title">配置kong发现linux系统limit文件作用域问题</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年8月15日
+                            2019年11月3日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Linux">Linux</a></span>
                             
                         </div>
                         
@@ -102,7 +102,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#java-jdk-8部分版本和更新版本的应用资源限制">java jdk 8部分版本和更新版本的应用资源限制：</a></li>
+<li><a href="#查阅资料发现-kong网关的这两个参数是根据linux系统的ulimit-值来设置的">查阅资料发现，kong网关的这两个参数是根据linux系统的ulimit 值来设置的：</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -113,29 +113,65 @@
                         <div class="post-content">
                             
 
-<p>###普通应用资源限制</p>
+<p>###配置kong网关，修改nginx.conf文件的worker_rlimit_nofile 65535；worker_connections 65535；参数后重启linux系统参数会变成1024.</p>
 
-<pre><code class="language-yaml">          resources:
-            limits:
-              cpu: 100m
-              memory: 1024Mi
-            requests:
-              cpu: 50m
-              memory: 512Mi
+<h3 id="查阅资料发现-kong网关的这两个参数是根据linux系统的ulimit-值来设置的">查阅资料发现，kong网关的这两个参数是根据linux系统的ulimit 值来设置的：</h3>
+
+<blockquote>
+<p>The worker_connections will be automatically set to the ulimit you set for the Kong process.
+If you wish to set it to a value higher than the default 16384, you need to bump up the ulimit and Kong will automatically render the Nginx template with the increased worker_connections count.</p>
+</blockquote>
+
+<p>Ulimit -a 查看系统值，发现都是65535</p>
+
+<pre><code class="language-shell">Cat /etc/security/limits.conf
+
+* soft nofile 65535
+* hard nofile 65535
+* soft noproc 65535
+* hard noproc 65535
 </code></pre>
 
-<h3 id="java-jdk-8部分版本和更新版本的应用资源限制">java jdk 8部分版本和更新版本的应用资源限制：</h3>
+<p>###使用命令kong reload重新加载后发现参数会修改正确，kong是通过/etc/rc.local来启动的，改为systemd启动</p>
 
-<pre><code class="language-yaml">          env:
-          - name: JAVA_OPTS
-            value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&quot;
-          resources:
-            limits:
-              cpu: 100m
-              memory: 1024Mi
-            requests:
-              cpu: 50m
-              memory: 512Mi
+<pre><code class="language-shell">cat /etc/systemd/system/kong.service
+
+​ [Unit]
+​ Description=Kong API Gateway
+​ After=network.target
+
+​ [Service]
+​ User=root
+​	Group=root
+​	ExecStart=/usr/local/bin/kong start -c /etc/kong/kong.conf
+​	ExecStop=/usr/local/bin/kong stop
+​	ExecReload=/usr/local/bin/kong reload -c /etc/kong/kong.conf
+​	Type=forking
+​	PIDFile=/usr/local/kong/pids/nginx.pid
+​	RestartSec=60
+​	Restart=on-failure
+
+​	[Install]
+​	WantedBy=default.target
+</code></pre>
+
+<p>###重启后现象不变，参数还是1024，查看启动日志发现</p>
+
+<blockquote>
+<p>[warn] ulimit is currently set to &ldquo;1024&rdquo;.</p>
+</blockquote>
+
+<p>###分析原因是</p>
+
+<blockquote>
+<p>在Centos7系统中，使用Systemd替代了之前的SysV。/etc/security/limits.conf文件的配置作用域缩小了。/etc/security/limits.conf的配置，只适用于通过PAM认证登录用户的资源限制，它对systemd的service的资源限制不生效。因此登录用户的限制，通过/etc/security/limits.conf与/etc/security/limits.d下的文件设置即可。</p>
+
+<p>对于systemd service的资源设置，则需修改全局配置，全局配置文件放在/etc/systemd/system.conf和/etc/systemd/user.conf，同时也会加载两个对应目录中的所有.conf文件/etc/systemd/system.conf.d/<em>.conf和/etc/systemd/user.conf.d/</em>.conf。system.conf是系统实例使用的，user.conf是用户实例使用的。</p>
+</blockquote>
+
+<pre><code>vim /etc/systemd/system.conf
+DefaultLimitNOFILE=100000
+DefaultLimitNPROC=65535
 </code></pre>
 
                         </div>
@@ -149,11 +185,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/archives/">归档</a></li>
+        <li><a href="/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">Apollo总体设计</a></li>
         
-        <li><a href="/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%9C%8D%E5%8A%A1%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88/">阿里云Kubernetes服务日志收集方案</a></li>
+        <li><a href="/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">K8s持续集成和发布</a></li>
         
-        <li><a href="/about/">博客介绍</a></li>
+        <li><a href="/post/k8s-token/">K8s Token</a></li>
+        
+        <li><a href="/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/">解决golang依赖包问题</a></li>
+        
+        <li><a href="/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">Kubernetes弹性伸缩</a></li>
         
     </ul>
 </div>
