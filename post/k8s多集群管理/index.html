@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>K8s Token | 卢文的博客</title>
-    <meta property="og:title" content="K8s Token - 卢文的博客">
+    <title>K8s多集群管理 | 卢文的博客</title>
+    <meta property="og:title" content="K8s多集群管理 - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-10-28T00:22:58&#43;08:00">
+    <meta property="article:published_time" content="2019-11-14T14:32:30&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-10-28T00:22:58&#43;08:00">
+    <meta property="article:modified_time" content="2019-11-14T14:32:30&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="K8s Token">
+    <meta name="description" content="K8s多集群管理">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/k8s-token/">
+    <meta property="og:url" content="http://luwen.tech/post/k8s%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,10 +74,10 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">K8s Token</h1>
+                            <h1 class="post-title">K8s多集群管理</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年10月28日
+                            2019年11月14日
                         </date>
                         
                         <div class="post-meta">
@@ -101,90 +101,28 @@
                         </div>
                         
                         <div class="post-content">
-                            <pre><code class="language-none">kubectl get sa admin -n kube-system -o yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {&quot;apiVersion&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}}
-  creationTimestamp: 2018-11-05T09:23:39Z
-  name: admin
-  namespace: kube-system
-  resourceVersion: &quot;889&quot;
-  selfLink: /api/v1/namespaces/kube-system/serviceaccounts/admin
-  uid: 7af4f177-e0dc-11e8-8ef4-00163e009d2a
-secrets:
-- name: admin-token-5tctj
+                            <p>当前您可以在容器服务控制台集群详情页面，获取到当前登录用户对指定集群的 kubeconfig 访问凭证，或者通过调用 <a href="https://help.aliyun.com/document_detail/86798.html#reference-np5-jsl-xdb">openapi</a></p>
+
+<pre><code>KUBECONFIG=file1:file2:file3 kubectl config view --merge --flatten &gt; ~/.kube/all-config
+export KUBECONFIG=~/.kube/all-config
 </code></pre>
 
-<pre><code class="language-none">查看对应的clusterrolebinding：
-kubectl get clusterrolebinding admin -oyaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {&quot;apiVersion&quot;:&quot;rbac.authorization.k8s.io/v1beta1&quot;,&quot;kind&quot;:&quot;ClusterRoleBinding&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;&quot;},&quot;roleRef&quot;:{&quot;apiGroup&quot;:&quot;rbac.authorization.k8s.io&quot;,&quot;kind&quot;:&quot;ClusterRole&quot;,&quot;name&quot;:&quot;cluster-admin&quot;},&quot;subjects&quot;:[{&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}]}
-  creationTimestamp: 2018-11-05T09:23:39Z
-  name: admin
-  resourceVersion: &quot;886&quot;
-  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/admin
-  uid: 7af6ff9d-e0dc-11e8-8ef4-00163e009d2a
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-- kind: ServiceAccount
-  name: admin
-  namespace: kube-system
-</code></pre>
+<ul>
+<li><p>执行如下命令，查看所有的可使用的 context 上下文。</p>
 
-<pre><code class="language-none">查看admin sa绑定的clusterrole和对应的权限。命令：
-kubectl get clusterrole cluster-admin -o yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  annotations:
-    rbac.authorization.kubernetes.io/autoupdate: &quot;true&quot;
-  creationTimestamp: 2018-11-05T09:18:49Z
-  labels:
-    kubernetes.io/bootstrapping: rbac-defaults
-  name: cluster-admin
-  resourceVersion: &quot;38&quot;
-  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/cluster-admin
-  uid: ce28c0e7-e0db-11e8-9852-00163e009d2a
-rules:
-- apiGroups:
-  - '*'
-  resources:
-  - '*'
-  verbs:
-  - '*'
-- nonResourceURLs:
-  - '*'
-  verbs:
-  - '*'
-</code></pre>
+<pre><code>kubectl config get-contexts
+</code></pre></li>
 
-<pre><code class="language-none">最后使用该token访问apiserver：
-最后使用公网slb地址访问。curl -k -H 'Authorization: Bearer token' https://111.111.111.111:6443
-例如：
-curl -k -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi01dGN0aiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjdhZjRmMTc3LWUwZGMtMTFlOC04ZWY0LTAwMTYzZTAwOWQyYSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.aMzef7qssxhFCkKHYFX99XBCkA_lnpKQhBvWPJ_AEsg89HUJ9cgYs2M7VRQJ2KcsG1BndSW0Ne-yLdsXFGDMaIRF58Rz02V99ViqAH8W86UZqcgARlw6DbYtpyHx2LZp4_HbrOy0xHJXGOx0FzwbCNJR5TE5LAZWx2Q5WowuxzdIhpkr15tn9UTZB0i2VXyANG3D6xyf1M67ojav59eC04qWu3ZuFC2GgngHGbZ1qnP55UnFTHWdFtHAzU5qAX7jrWJAOBdSPXwoxC9XTIBoL2umQk2XQN-OsBnQ_saXXLPe2cdpKdoboJCZgcUfO-5D94KO-5P8wNVhGWubNutvug' https://111.111.111.111:6443/api
-{
-  &quot;kind&quot;: &quot;APIVersions&quot;,
-  &quot;versions&quot;: [
-    &quot;v1&quot;
-  ],
-  &quot;serverAddressByClientCIDRs&quot;: [
-    {
-      &quot;clientCIDR&quot;: &quot;0.0.0.0/0&quot;,
-      &quot;serverAddress&quot;: &quot;192.168.0.252:6443&quot;
-    }
-  ]
-}
-</code></pre>
+<li><p>执行如下命令，查看 config 配置的帮助信息。</p>
+
+<pre><code>kubectl config --help
+</code></pre></li>
+
+<li><p>执行如下命令，切换 context 上下文配置。</p>
+
+<pre><code>kubectl config use-context {your-contexts}
+</code></pre></li>
+</ul>
 
                         </div>
 
@@ -197,15 +135,15 @@ curl -k -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrd
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/post/%E9%85%8D%E7%BD%AEkong%E5%8F%91%E7%8E%B0linux%E7%B3%BB%E7%BB%9Flimit%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">配置kong发现linux系统limit文件作用域问题</a></li>
+        
+        <li><a href="/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">Apollo总体设计</a></li>
+        
+        <li><a href="/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">K8s持续集成和发布</a></li>
+        
+        <li><a href="/post/k8s-token/">K8s Token</a></li>
+        
         <li><a href="/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/">解决golang依赖包问题</a></li>
-        
-        <li><a href="/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">Kubernetes弹性伸缩</a></li>
-        
-        <li><a href="/post/rds%E4%BC%98%E5%8C%96/">Rds优化</a></li>
-        
-        <li><a href="/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Kubernetes常用命令</a></li>
-        
-        <li><a href="/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Kubernetes探针最佳实践</a></li>
         
     </ul>
 </div>

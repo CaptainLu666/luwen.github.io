@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 03 Nov 2019 10:38:36 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 14 Nov 2019 14:32:30 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8s多集群管理</title>
+      <link>http://luwen.tech/post/k8s%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Thu, 14 Nov 2019 14:32:30 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/k8s%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/</guid>
+      <description>当前您可以在容器服务控制台集群详情页面，获取到当前登录用户对指定集群的 kubeconfig 访问凭证，或者通过调用 openapi KUBECONFIG=file1:file2:file3 kubectl config view --merge --flatten &amp;gt; ~/.kube/all-config export KUBECONFIG=~/.kube/all-config 执行如下命令，查看所有的可使用的 context 上下文。 kubectl config get-contexts 执行如下命令，查看 config 配置的帮助信息。 kubectl config --help 执行如下命令，切换 context 上下文配置。 kubectl config use-context {your-contexts}</description>
+    </item>
     
     <item>
       <title>配置kong发现linux系统limit文件作用域问题</title>
