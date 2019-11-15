@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator" >Prometheus Operator</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年11月15日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Prometheus Operator 中所有的 API 对象都是 CRD 中定义好的 Schema，API Server会校验。当开发者使用 ConfigMap 保存配置没有任何校验，配置文件写错时，自表现为功能不可用，问题排查复杂。在 Prometheus Operator 中，所有在 Prometheus 对象、ServiceMonitor 对象、PrometheusRule 对象中的配置都是有 Schema 校验的，校验失……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/prometheus-operator/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/" title="Redis慢分析" >Redis慢分析</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Kubernetes常用命令" >Kubernetes常用命令</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月29日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                1.查看资源占用： kubectl describe node &ldquo;cn-beijing.172.16.89.154&rdquo; | sed &lsquo;1,/Non-terminated Pods/d&rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 nodeAffinity：功能更丰富的 Node 选择器，比如支持集合操作 podAffinit……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -341,6 +341,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator">Prometheus Operator</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/" title="Redis慢分析">Redis慢分析</a>
     </li>
     
@@ -376,10 +380,6 @@
         <a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/" title="Rds优化">Rds优化</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Kubernetes常用命令">Kubernetes常用命令</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -394,7 +394,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(9)</a>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(10)</a>
     </li>
     
     <li>
