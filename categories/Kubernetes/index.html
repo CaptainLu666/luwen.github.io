@@ -233,7 +233,7 @@
                             </div>
                             
                             <div class="post-content">
-                                1.查看资源占用： kubectl describe node &ldquo;cn-beijing.172.16.89.154&rdquo; | sed &lsquo;1,/Non-terminated Pods/d&rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 nodeAffinity：功能更丰富的 Node 选择器，比如支持集合操作 podAffinit……
+                                1.查看资源占用： kubectl describe node &ldquo;cn-beijing.172.16.89.154&rdquo; | sed &lsquo;1,/Non-terminated Pods/d&rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 4.kubectl get nodes &ndash;show-labels 5.kubectl get nodes 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 nodeAffinity：功能更丰富的 Node 选择器，比如支持集合操作 pod……
                                 <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
                             </div>
                         </article>
@@ -332,6 +332,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/prometheus/" title="Prometheus">Prometheus</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/" title="Docker构建镜像">Docker构建镜像</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator">Prometheus Operator</a>
     </li>
     
@@ -363,14 +371,6 @@
         <a href="http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/" title="解决golang依赖包问题">解决golang依赖包问题</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/" title="Kubernetes弹性伸缩">Kubernetes弹性伸缩</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/" title="Rds优化">Rds优化</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -379,6 +379,10 @@
     <section class="widget">
         <h3 class="widget-title">分类</h3>
 <ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/categories/Docker/">Docker(1)</a>
+    </li>
     
     <li>
         <a href="http://luwen.tech/categories/Golang/">Golang(1)</a>
@@ -390,6 +394,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/Linux/">Linux(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(1)</a>
     </li>
     
     <li>
@@ -435,7 +443,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2019 <a href="http://luwen.tech">卢文的博客 By SniperLu</a>.
+        &copy; 2020 <a href="http://luwen.tech">卢文的博客 By SniperLu</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

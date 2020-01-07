@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>配置kong发现linux系统limit文件作用域问题 | 卢文的博客</title>
-    <meta property="og:title" content="配置kong发现linux系统limit文件作用域问题 - 卢文的博客">
+    <title>Prometheus | 卢文的博客</title>
+    <meta property="og:title" content="Prometheus - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-11-03T10:38:36&#43;08:00">
+    <meta property="article:published_time" content="2020-01-07T22:34:52&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-11-03T10:38:36&#43;08:00">
+    <meta property="article:modified_time" content="2020-01-07T22:34:52&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="配置kong发现linux系统limit文件作用域问题">
+    <meta name="description" content="Prometheus">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/%E9%85%8D%E7%BD%AEkong%E5%8F%91%E7%8E%B0linux%E7%B3%BB%E7%BB%9Flimit%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+    <meta property="og:url" content="http://luwen.tech/post/prometheus/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,16 +74,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">配置kong发现linux系统limit文件作用域问题</h1>
+                            <h1 class="post-title">Prometheus</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年11月3日
+                            2020年1月7日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Linux">Linux</a></span>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Prometheus">Prometheus</a></span>
                             
                         </div>
                         
@@ -100,9 +100,19 @@
 <ul>
 <li>
 <ul>
-<li>
+<li><a href="#自定义exporter实现">自定义exporter实现</a>
 <ul>
-<li><a href="#查阅资料发现-kong网关的这两个参数是根据linux系统的ulimit-值来设置的">查阅资料发现，kong网关的这两个参数是根据linux系统的ulimit 值来设置的：</a></li>
+<li><a href="#concepts-https-prometheus-io-docs-concepts-data-model"><a href="https://prometheus.io/docs/concepts/data_model/#">Concepts</a></a>
+<ul>
+<li><a href="#data-model-https-prometheus-io-docs-concepts-data-model"><a href="https://prometheus.io/docs/concepts/data_model/">Data model</a></a></li>
+<li><a href="#metric-types-https-prometheus-io-docs-concepts-metric-types"><a href="https://prometheus.io/docs/concepts/metric_types/">Metric types</a></a></li>
+</ul></li>
+<li><a href="#sample">Sample</a></li>
+<li><a href="#writing-exporters-https-prometheus-io-docs-instrumenting-writing-exporters"><a href="https://prometheus.io/docs/instrumenting/writing_exporters/">Writing exporters</a></a>
+<ul>
+<li><a href="#官方建议">官方建议:</a></li>
+</ul></li>
+<li><a href="#参考资料">参考资料</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -113,93 +123,84 @@
                         <div class="post-content">
                             
 
-<p>###配置kong网关，修改nginx.conf文件的worker_rlimit_nofile 65535；worker_connections 65535；参数后重启linux系统参数会变成1024.</p>
+<h2 id="自定义exporter实现">自定义exporter实现</h2>
 
-<h3 id="查阅资料发现-kong网关的这两个参数是根据linux系统的ulimit-值来设置的">查阅资料发现，kong网关的这两个参数是根据linux系统的ulimit 值来设置的：</h3>
+<h3 id="concepts-https-prometheus-io-docs-concepts-data-model"><a href="https://prometheus.io/docs/concepts/data_model/#">Concepts</a></h3>
 
-<blockquote>
-<p>The worker_connections will be automatically set to the ulimit you set for the Kong process.
-If you wish to set it to a value higher than the default 16384, you need to bump up the ulimit and Kong will automatically render the Nginx template with the increased worker_connections count.</p>
-</blockquote>
+<h4 id="data-model-https-prometheus-io-docs-concepts-data-model"><a href="https://prometheus.io/docs/concepts/data_model/">Data model</a></h4>
 
-<p>Ulimit -a 查看系统值，发现都是65535</p>
+<p><strong>prometheus</strong> 原理上以<a href="https://en.wikipedia.org/wiki/Time_series">Time_series</a> 的方式存储数据。流的时间戳值属于同样的度量和同样的标记维度。</p>
 
-<pre><code class="language-shell">Cat /etc/security/limits.conf
+<ul>
+<li><p>Metric names and labels</p>
 
-* soft nofile 65535
-* hard nofile 65535
-* soft noproc 65535
-* hard noproc 65535
-</code></pre>
+<ul>
+<li><strong>metric name</strong> 指定了系统的一般特性,比如http_request_total 表示全部接收到的HTTP请求。</li>
+<li>Label启用了Prometheus的多维数据模型，对于相同的<strong>metric name</strong>任何给定的标签组合指示这个度量的一个特定维度的实例化。</li>
+</ul></li>
 
-<p>###使用命令kong reload重新加载后发现参数会修改正确，kong是通过/etc/rc.local来启动的，改为systemd启动</p>
+<li><p>Notation</p>
 
-<pre><code class="language-shell">cat /etc/systemd/system/kong.service
+<ul>
+<li><p>给定一个<strong>metric name</strong>和一组<strong>Label</strong>，时间序列经常使用这个符号来标识</p>
 
-​ [Unit]
-​ Description=Kong API Gateway
-​ After=network.target
+<pre><code>&lt;metric name&gt;{&lt;label name&gt;=&lt;label value&gt;, ...}
+</code></pre></li>
 
-​ [Service]
-​ User=root
-​	Group=root
-​	ExecStart=/usr/local/bin/kong start -c /etc/kong/kong.conf
-​	ExecStop=/usr/local/bin/kong stop
-​	ExecReload=/usr/local/bin/kong reload -c /etc/kong/kong.conf
-​	Type=forking
-​	PIDFile=/usr/local/kong/pids/nginx.pid
-​	RestartSec=60
-​	Restart=on-failure
+<li><p>举个例子，比如一个时间序列,<strong>metric name</strong>为api_http_requests_total, label名字为method=“POST”,同时handler=&ldquo;/messages&rdquo;,可以写成下面的格式。</p>
 
-​	[Install]
-​	WantedBy=default.target
-</code></pre>
+<pre><code>api_http_requests_total{method=&quot;POST&quot;, handler=&quot;/messages&quot;}
+</code></pre></li>
+</ul></li>
+</ul>
 
-<p>###重启后现象不变，参数还是1024，查看启动日志发现</p>
+<h4 id="metric-types-https-prometheus-io-docs-concepts-metric-types"><a href="https://prometheus.io/docs/concepts/metric_types/">Metric types</a></h4>
 
-<blockquote>
-<p>[warn] ulimit is currently set to &ldquo;1024&rdquo;.</p>
-</blockquote>
+<ul>
+<li><strong>Counter</strong></li>
+</ul>
 
-<p>###分析原因是</p>
+<p>Counter 表示收集的数据是按照某个趋势（增加／减少）一直变化的，我们往往用它记录服务请求总量、错误总数等。</p>
 
-<blockquote>
-<p>在Centos7系统中，使用Systemd替代了之前的SysV。/etc/security/limits.conf文件的配置作用域缩小了。/etc/security/limits.conf的配置，只适用于通过PAM认证登录用户的资源限制，它对systemd的service的资源限制不生效。因此登录用户的限制，通过/etc/security/limits.conf与/etc/security/limits.d下的文件设置即可。</p>
+<ul>
+<li><strong>Gauge</strong></li>
+</ul>
 
-<p>对于systemd service的资源设置，则需修改全局配置，全局配置文件放在/etc/systemd/system.conf和/etc/systemd/user.conf，同时也会加载两个对应目录中的所有.conf文件/etc/systemd/system.conf.d/<em>.conf和/etc/systemd/user.conf.d/</em>.conf。system.conf是系统实例使用的，user.conf是用户实例使用的。</p>
-</blockquote>
+<p>Gauge 表示搜集的数据是一个瞬时的值，与时间没有关系，可以任意变高变低，往往可以用来记录内存使用率、磁盘使用率等。</p>
 
-<pre><code>vim /etc/systemd/system.conf
-DefaultLimitNOFILE=100000
-DefaultLimitNPROC=65535
-</code></pre>
+<ul>
+<li><strong>Histogram</strong></li>
+</ul>
 
-<p>查看进程的limit限制：</p>
+<p>Histogram 由 <code>&lt;basename&gt;_bucket{le=&quot;&lt;upper inclusive bound&gt;&quot;}</code>，<code>&lt;basename&gt;_bucket{le=&quot;+Inf&quot;}</code>, <code>&lt;basename&gt;_sum</code>，<code>&lt;basename&gt;_count</code> 组成，主要用于表示一段时间范围内对数据进行采样（通常是请求持续时间或响应大小），并能够对其指定区间以及总数进行统计，通常它采集的数据展示为直方图。</p>
 
-<pre><code>cat /proc/pid/limits
-</code></pre>
+<ul>
+<li><strong>Summary</strong></li>
+</ul>
 
-<p>查看进程实时打开的文件数：</p>
+<p>Summary 和 Histogram 类似，由 <code>&lt;basename&gt;{quantile=&quot;&lt;φ&gt;&quot;}</code>，<code>&lt;basename&gt;_sum</code>，<code>&lt;basename&gt;_count</code>组成，主要用于表示一段时间内数据采样结果（通常是请求持续时间或响应大小），它直接存储了 quantile 数据，而不是根据统计区间计算出来的。</p>
 
-<pre><code>lsof -p PID |wc -l
-</code></pre>
+<h3 id="sample">Sample</h3>
 
-<p>查看系统总限制打开的文件数：</p>
+<p><a href="https://github.com/prometheus/client_golang/tree/master/examples/random">examples/random</a> 观察数据采集的效果。</p>
 
-<pre><code>cat /proc/sys/fs/file-max
-</code></pre>
+<h3 id="writing-exporters-https-prometheus-io-docs-instrumenting-writing-exporters"><a href="https://prometheus.io/docs/instrumenting/writing_exporters/">Writing exporters</a></h3>
 
-<p>查看系统修改成功参数</p>
+<h4 id="官方建议">官方建议:</h4>
 
-<p><img src="/Users/luwen/Library/Application Support/typora-user-images/image-20191114180504351.png" alt="image-20191114180504351" /></p>
+<ul>
+<li>如果系统的度量指标很少变化，可以参考<a href="https://github.com/prometheus/haproxy_exporter">haproxy_exporter</a> 。</li>
+<li>如果系统的度量指标在新的版本中经常变化，可以参考<a href="https://github.com/prometheus/mysqld_exporter">mysqld_exporter</a>。</li>
+<li><a href="https://github.com/prometheus/node_exporter">node_exporter</a>是这些组件的混合，其复杂性随模块的不同而变化。</li>
+</ul>
 
-<p>还要一个坑就是/etc/security/limits.d/20-nproc.conf默认配置</p>
+<h3 id="参考资料">参考资料</h3>
 
-<pre><code>*          soft    nproc     4096
-root       soft    nproc     unlimited
-</code></pre>
-
-<p>除了root，其它用户默认限制4096个进程</p>
+<ul>
+<li><a href="https://weibo.com/p/23041882419ac10102x1ah?sudaref=www.baidu.com&amp;display=0&amp;retcode=6102&amp;sudaref=passport.weibo.com">《Prometheus监控系统小结》</a></li>
+<li><a href="https://prometheus.io/docs/instrumenting/exporters/">官方提供的exporters </a></li>
+<li><a href="https://prometheus.io/docs/instrumenting/writing_exporters/">writing_exporters</a></li>
+</ul>
 
                         </div>
 
@@ -212,15 +213,15 @@ root       soft    nproc     unlimited
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">Apollo总体设计</a></li>
+        <li><a href="/post/docker%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/">Docker构建镜像</a></li>
         
-        <li><a href="/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">K8s持续集成和发布</a></li>
+        <li><a href="/post/prometheus-operator/">Prometheus Operator</a></li>
         
-        <li><a href="/post/k8s-token/">K8s Token</a></li>
+        <li><a href="/post/redis%E6%85%A2%E5%88%86%E6%9E%90/">Redis慢分析</a></li>
         
-        <li><a href="/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/">解决golang依赖包问题</a></li>
+        <li><a href="/post/k8s%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/">K8s多集群管理</a></li>
         
-        <li><a href="/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">Kubernetes弹性伸缩</a></li>
+        <li><a href="/post/%E9%85%8D%E7%BD%AEkong%E5%8F%91%E7%8E%B0linux%E7%B3%BB%E7%BB%9Flimit%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">配置kong发现linux系统limit文件作用域问题</a></li>
         
     </ul>
 </div>

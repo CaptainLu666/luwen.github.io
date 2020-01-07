@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prometheus on 卢文的博客</title>
+    <link>http://luwen.tech/categories/Prometheus/</link>
+    <description>Recent content in Prometheus on 卢文的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 07 Jan 2020 22:34:52 +0800</lastBuildDate>
+    
+	<atom:link href="http://luwen.tech/categories/Prometheus/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Prometheus</title>
+      <link>http://luwen.tech/post/prometheus/</link>
+      <pubDate>Tue, 07 Jan 2020 22:34:52 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/prometheus/</guid>
+      <description>自定义exporter实现 Concepts Data model prometheus 原理上以Time_series 的方式存储数据。流的时间戳值属于同样的度量和同样的标记维度。 Metric names and labels metric name 指定了系统的一般特性,比如http_request_total 表示全部接收到的HTTP请求。 Label启用了Prometheus的多维数据模型，</description>
+    </item>
+    
+  </channel>
+</rss>

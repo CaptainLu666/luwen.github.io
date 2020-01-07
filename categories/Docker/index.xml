@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on 卢文的博客</title>
+    <link>http://luwen.tech/categories/Docker/</link>
+    <description>Recent content in Docker on 卢文的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 26 Nov 2019 17:48:59 +0800</lastBuildDate>
+    
+	<atom:link href="http://luwen.tech/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker构建镜像</title>
+      <link>http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/</link>
+      <pubDate>Tue, 26 Nov 2019 17:48:59 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/</guid>
+      <description>指定国内源build镜像 docker build &amp;ndash;build-arg APT_MIRROR=&amp;ldquo;http://mirrors.163.com&amp;quot; -t openapi:v1.1 .</description>
+    </item>
+    
+  </channel>
+</rss>
