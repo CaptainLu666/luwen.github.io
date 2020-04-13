@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 07 Jan 2020 22:34:52 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2020 17:54:08 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>云原生</title>
+      <link>http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/</link>
+      <pubDate>Mon, 13 Apr 2020 17:54:08 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/</guid>
+      <description>不要直接部署裸的Pod。 为工作负载选择合适的Controller。 使用Init容器确保应用程序被正确的初始化。 在应用程序工作负载启动之前先启动service。 使用Deployment history来回滚到历史版本。 使用ConfigMap和Secret来存储配置。 在Pod里增加Re</description>
+    </item>
     
     <item>
       <title>Prometheus</title>
