@@ -6,10 +6,19 @@
     <description>Recent content in Docker on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 26 Nov 2019 17:48:59 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 09 May 2020 16:12:10 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker经典命令</title>
+      <link>http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Sat, 09 May 2020 16:12:10 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/</guid>
+      <description>#docker 在宿主机上根据进程PID查找归属容器ID ###在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 ###查找容器id docker inspect -f &amp;quot;{{.Id}} {{.State.Pid}}&amp;quot; $(docker ps -q) |grep &amp;lt;PID&amp;gt; ###查找k8s pod name docker inspect -f &amp;quot;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&amp;quot; $(docker ps -q) |grep &amp;lt;PID&amp;gt; ##</description>
+    </item>
     
     <item>
       <title>Docker构建镜像</title>

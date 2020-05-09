@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/k8s-token/" title="K8s Token" >K8s Token</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月28日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                kubectl get sa admin -n kube-system -o yaml apiVersion: v1 kind: ServiceAccount metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&quot;apiVersion&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}} creationTimestamp: 2018-11-05T09:23:39Z name: admin namespace: kube-system resourceVersion: &quot;889&quot; selfLink: /api/v1/namespaces/kube-system/serviceaccounts/admin uid: 7af4f177-e0dc-11e8-8ef4-00163e009d2a secrets: - name: admin-token-5tctj 查看对应的clusterrolebinding： kubectl get clusterrolebinding admin -oyaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRoleBinding metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&quot;apiVersion&quot;:&quot;rbac.authorization.k8s.io/v1beta1&quot;,&quot;kind&quot;:&quot;ClusterRoleBinding&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;&quot;},&quot;roleRef&quot;:{&quot;apiGroup&quot;:&quot;rbac.authorization.k8s.io&quot;,&quot;kind&quot;:&quot;ClusterRole&quot;,&quot;name&quot;:&quot;cluster-admin&quot;},&quot;subjects&quot;:[{&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}]} creationTimestamp: 2018-11-05T09:23:39Z name: admin resourceVersion: &quot;886&quot; selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/admin uid: 7af6ff9d-e0dc-11e8-8ef4-00163e009d2a roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: admin namespace: kube-system 查看admin sa绑定的clusterrole和对应的权限。命令： kubectl get clusterrole cluster-admin -o yaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRole metadata:……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/k8s-token/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/" title="解决golang依赖包问题" >解决golang依赖包问题</a>
                                 </h1>
                             </header>
@@ -304,6 +327,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/" title="Docker经典命令">Docker经典命令</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/" title="云原生">云原生</a>
     </li>
     
@@ -339,10 +366,6 @@
         <a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/" title="K8s持续集成和发布">K8s持续集成和发布</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/k8s-token/" title="K8s Token">K8s Token</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -353,7 +376,7 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://luwen.tech/categories/Docker/">Docker(1)</a>
+        <a href="http://luwen.tech/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
