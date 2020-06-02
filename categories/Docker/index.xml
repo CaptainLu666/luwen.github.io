@@ -6,10 +6,28 @@
     <description>Recent content in Docker on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 09 May 2020 16:12:10 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2020 20:37:13 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker镜像操作</title>
+      <link>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Tue, 02 Jun 2020 20:37:13 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%93%8D%E4%BD%9C/</guid>
+      <description>运行容器的最佳做法 本文介绍使容器易于操作的一系列最佳做法。这些做法涉及从安全性到监控和日志记录的各种主题，其目标在于使应用更容易在 Google Kubernetes Engine 和一般容器中运行。本文介绍的许多做法都受到十二要素方法的启发，此方法是构建云原生应用的一种优秀资源。 这些最佳做法的重要性并不相同。例如，成功运行</description>
+    </item>
+    
+    <item>
+      <title>Docker镜像</title>
+      <link>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link>
+      <pubDate>Tue, 02 Jun 2020 20:36:48 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid>
+      <description>构建容器的最佳做法 本文介绍构建容器的一系列最佳做法。这些做法涵盖了广泛的目标（从缩短构建时间到创建更小、弹性更佳的映像），旨在使容器更加容易构建（例如，使用 Cloud Build），并且更加容易在 Google Kubernetes Engine (GKE) 中运行。 这些最佳做法的重要性并不相同。例如，成功运行某一生产工作负载可能无需其中某些做</description>
+    </item>
     
     <item>
       <title>Docker经典命令</title>

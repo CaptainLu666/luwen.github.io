@@ -70,6 +70,52 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/" title="Apollo总体设计" >Apollo总体设计</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月29日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Config Service提供配置的读取、推送等功能，服务对象是Apollo客户端 Admin Service提供配置的修改、发布等功能，服务对象是Apollo Portal（管理界面） Config Service和Admin Service都是多实例、无状态部署，所以需要将自己注册到Eureka中并保持心跳 在Eur……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/" title="K8s持续集成和发布" >K8s持续集成和发布</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月29日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                应用构建和发布流程说明。 用户向Gitlab提交代码，代码中必须包含Dockerfile 将代码提交到远程仓库 用户在发布应用时需要填写git仓库地址和分支、服务类型、服务名称、资源数量、实例个数，确定后触发Jenkins自动构建 Jenkins的CI流水线自动编译代码并打包成docke……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/k8s-token/" title="K8s Token" >K8s Token</a>
                                 </h1>
                             </header>
@@ -244,45 +290,6 @@
                             <p class="readmore"><a href="http://luwen.tech/archives/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%9C%8D%E5%8A%A1%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88/" title="阿里云Kubernetes服务日志收集方案" >阿里云Kubernetes服务日志收集方案</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月9日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                Kubernetes集群中的日志收集 通用做法： 方案 优点 缺点 每个app的镜像中都集成日志收集组件 部署方便，kubernetes的yaml文件无须特别配置，可以为每个app自定义日志收集配置 强耦合，不方便应用和日志收集组件升级和维护且会导致镜像过大 单独创建一个日志收集组件跟app的容……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%9C%8D%E5%8A%A1%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/about/" title="博客介绍" >博客介绍</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月9日
-                            </date>
-                            
-                            <div class="post-content">
-                                知行合一 努力，奋斗 淡泊明志，宁静致远 人若没有梦想，和闲鱼有什么区别 别人笑我忒疯癫，我笑他人看不穿 丈夫何事足萦怀，要将宇宙看稊米 竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生 好的艺术家只是照抄，而伟大的艺术家是窃取灵感 太阳底下没有新鲜事，如果你真的觉得自己创新了，百分之九十九点九的可能性是因……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/about/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -303,7 +310,15 @@
         <a href="http://luwen.tech/page/2/">2</a>
     </li>
     
+    <li >
+        <a href="http://luwen.tech/page/3/">3</a>
+    </li>
+    
 
+    
+    <li class="next">
+        <a href="http://luwen.tech/page/3/">下一页</a>
+    </li>
     
 </ol>
 
@@ -325,6 +340,14 @@
     <section class="widget">
         <h3 class="widget-title">最近文章</h3>
 <ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%93%8D%E4%BD%9C/" title="Docker镜像操作">Docker镜像操作</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/" title="Docker镜像">Docker镜像</a>
+    </li>
     
     <li>
         <a href="http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/" title="Docker经典命令">Docker经典命令</a>
@@ -358,14 +381,6 @@
         <a href="http://luwen.tech/post/%E9%85%8D%E7%BD%AEkong%E5%8F%91%E7%8E%B0linux%E7%B3%BB%E7%BB%9Flimit%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="配置kong发现linux系统limit文件作用域问题">配置kong发现linux系统limit文件作用域问题</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/" title="Apollo总体设计">Apollo总体设计</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/" title="K8s持续集成和发布">K8s持续集成和发布</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -376,7 +391,7 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://luwen.tech/categories/Docker/">Docker(2)</a>
+        <a href="http://luwen.tech/categories/Docker/">Docker(4)</a>
     </li>
     
     <li>
