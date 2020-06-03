@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Docker大小 | 卢文的博客</title>
+    <meta property="og:title" content="Docker大小 - 卢文的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-06-03T09:58:06&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-06-03T09:58:06&#43;08:00">
+        
+    <meta name="Keywords" content="golang,go语言,python,kubernetes">
+    <meta name="description" content="Docker大小">
+        
+    <meta name="author" content="SniperLu">
+    <meta property="og:url" content="http://luwen.tech/post/docker%E5%A4%A7%E5%B0%8F/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://luwen.tech">
+                        卢文的博客
+                    </a>
+                
+                <p class="description">专注于linux运维，k8s云原生架构，python，golang</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://luwen.tech">首页</a>
+                    
+                    <a  href="http://luwen.tech/books/" title="新书">新书</a>
+                    
+                    <a  href="http://luwen.tech/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://luwen.tech/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Docker大小</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020年6月3日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li><a href="#深刻理解-docker-镜像大小">深刻理解 Docker 镜像大小</a>
+<ul>
+<li><a href="#dockerfile-与镜像">Dockerfile 与镜像</a></li>
+<li><a href="#联合文件系统">联合文件系统</a></li>
+<li><a href="#镜像共享关系">镜像共享关系</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="深刻理解-docker-镜像大小">深刻理解 Docker 镜像大小</h1>
+
+<blockquote>
+<p>「Allen 谈 Docker 系列」</p>
+
+<p>DaoCloud 正在启动 Docker 技术系列文章，每周都会为大家推送一期真材实料的精选 Docker 文章。主讲人为 DaoCloud 核心开发团队成员 Allen（孙宏亮），他是 InfoQ 「Docker 源码分析」专栏作者，已出版《Docker 源码分析》一书。Allen 接触 Docker 近两年，爱钻研系统实现原理，及 Linux 操作系统。</p>
+</blockquote>
+
+<hr />
+
+<p>都说容器大法好，但是如果没有 Docker 镜像，Docker 该是多无趣啊。</p>
+
+<p>是否还记得第一个接触 Docker 的时候，你从 Docker Hub 下拉的那个镜像呢？在那个处女镜像的基础上，你运行了容器生涯的处女容器。镜像的基石作用已经很明显，在 Docker 的世界里，可以说是「No Image, No Container」。</p>
+
+<p>再进一步思考 Docker 镜像，大家可能很快就会联想到以下几类镜像：</p>
+
+<ol>
+<li>系统级镜像：如 Ubuntu 镜像、CentOS 镜像以及 Debian 容器等；</li>
+<li>工具栈镜像：如 Golang 镜像、Flask 镜像、Tomcat 镜像等；</li>
+<li>服务级镜像：如 MySQL 镜像、MongoDB 镜像、RabbitMQ 镜像等；</li>
+<li>应用级镜像：如 WordPress 镜像、Docker Registry 镜像等。</li>
+</ol>
+
+<p>镜像林林总总，想要运行 Docker 容器，必须要有 Docker 镜像；想要有 Docker 镜像，必须要先下载 Docker 镜像；既然涉及到下载 Docker 镜像，自然会存在 Docker 镜像存储。谈到 Docker 镜像存储，那我们首先来聊聊 Docker 镜像大小方面的知识。</p>
+
+<p>以下将从三个角度来分析 Docker 镜像的大小问题：「Dockerfile 与镜像」、「联合文件系统」以及「镜像共享关系」。</p>
+
+<h2 id="dockerfile-与镜像">Dockerfile 与镜像</h2>
+
+<p><code>Dockerfile</code> 由多条指令构成，随着深入研究 <code>Dockerfile</code> 与镜像的关系，很快大家就会发现，<code>Dockerfile</code> 中的每一条指令都会对应于 Docker 镜像中的一层。</p>
+
+<p>继续以如下 <code>Dockerfile</code> 为例：</p>
+
+<pre><code class="language-dockerfile">FROM ubuntu:14.04
+ADD run.sh /
+VOLUME /data
+CMD [&quot;./run.sh&quot;] 
+</code></pre>
+
+<p>通过 <code>docker build</code> 以上 <code>Dockerfile</code> 的时候，会在 <code>ubuntu:14.04</code> 镜像基础上，添加三层独立的镜像，依次对应于三条不同的命令。镜像示意图如下：</p>
+
+<p><img src="http://7xi8kv.com5.z0.glb.qiniucdn.com/Dockerfile.png" alt="镜像示意图" /></p>
+
+<p>有了 <code>Dockerfile</code> 与镜像关系的初步认识之后，我们再进一步联系到每一层镜像的大小。</p>
+
+<p>不得不说，在层级化管理的 Docker 镜像中，有不少层大小都为 0。那些镜像层大小不为 0 的情况，归根结底的原因是，构建 Docker 镜像时，对当前的文件系统造成了修改更新。而修改更新的情况主要有两种：</p>
+
+<ol>
+<li><code>ADD</code> 或 <code>COPY</code> 命令：<code>ADD</code> 或者 <code>COPY</code> 的作用是在 <code>docker build</code> 构建镜像时向容器中添加内容，只要内容添加成功，当前构建的那层镜像就是添加内容的大小，如以上命令 <code>ADD run.sh /</code> ，新构建的那层镜像大小为文件 <code>run.sh</code> 的大小。</li>
+<li><code>RUN</code> 命令：<code>RUN</code> 命令的作用是在当前空的镜像层内运行一条命令，倘若运行的命令需要更新磁盘文件，那么所有的更新内容都在存储在当前镜像层中。举例说明：<code>RUN echo DaoCloud</code> 命令不涉及文件系统内容的修改，故命令运行完之后当前镜像层的大小为 0；<code>RUN wget http://abc.com/def.tar</code> 命令会将压缩包下载至当前目录下，因此当前这一层镜像的大小为对文件系统内容的增量修改部分，即 <code>def.tar</code> 文件的大小（在成功执行的情况下）。</li>
+</ol>
+
+<h2 id="联合文件系统">联合文件系统</h2>
+
+<p><code>Dockerfile</code> 中命令与镜像层一一对应，那么是否意味着 <code>docker build</code> 完毕之后，镜像的总大小是否等于每一层镜像的大小总和呢？答案是肯定的。依然以上图为例：如果 <code>ubuntu:14.04</code> 镜像的大小为 200 MB，而 <code>run.sh</code> 的大小为 5 MB，那么以上三层镜像从上到下，每层大小依次为 0、0 以及 5 MB，那么最终构建出的镜像大小的确为 0 + 0 + 5 + 200 = 205 MB。</p>
+
+<p>虽然最终镜像的大小是每层镜像的累加，但是需要额外注意的是，Docker 镜像的大小并不等于容器中文件系统内容的大小（不包括挂载文件，<code>/proc</code>、<code>/sys</code> 等虚拟文件）。个中缘由，就和联合文件系统有很大的关系了。</p>
+
+<p>首先来看一下这个简单的 <code>Dockerfile</code> 例子（假设在 <code>Dockerfile</code> 当前目录下有一个 100 MB 的压缩文件 <code>compressed.tar</code> ）：</p>
+
+<pre><code class="language-dockerfile">FROM ubuntu:14.04
+ADD compressed.tar /
+RUN rm /compressed.tar
+ADD compressed.tar / 
+</code></pre>
+
+<ol>
+<li><code>FROM ubuntu:14.04</code> ：镜像 <code>ubuntu:14.04</code> 的大小为 200 MB；</li>
+<li><code>ADD compressed.tar /</code> ： <code>compressed.tar</code> 文件为 100 MB，因此当前镜像层的大小为 100 MB，镜像总大小为 300 MB；</li>
+<li><code>RUN rm /compressed.tar</code> ：删除文件 <code>compressed.tar</code> ，此时的删除并不会删除下一层的 <code>compressed.tar</code> 文件，只会在当前层产生一个 <code>compressed.tar</code> 的删除标记，确保通过该层将看不到 <code>compressed.tar</code> ，因此当前镜像层的大小也为 0，镜像总大小为 300 MB；</li>
+<li><code>ADD compressed.tar /</code> ：<code>compressed.tar</code> 文件为 100 MB，因此当前镜像层的大小为 300 MB + 100 MB，镜像总大小为 400 MB；</li>
+</ol>
+
+<p>分析完毕之后，我们发现镜像的总大小为 400 MB，但是如果运行该镜像的话，我们很快可以发现在容器根目录下执行 <code>du -sh</code> 之后，显示的数值并非 400 MB，而是 300 MB 左右。主要的原因还是，联合文件系统的性质保证了两个拥有 <code>compressed.tar</code> 文件的镜像层，容器仅能看到一个。同时这也说明了一个现状，当用户基于一个非常大，甚至好几个 GB 的镜像运行容器时，在容器内部查看根目录大小，发现竟然只有 500 MB 不到，甚至更小。</p>
+
+<p>分析至此，有一点大家需要非常注意：镜像大小和容器大小有着本质的区别。</p>
+
+<h2 id="镜像共享关系">镜像共享关系</h2>
+
+<p>Docker 镜像说大不大，说小不小，但是一旦镜像的总数上来之后，岂不是对本地磁盘造成很大的存储压力？平均每个镜像 500 MB，岂不是 100 个镜像就需要准备 50 GB 的存储空间？</p>
+
+<p>结果往往不是我们想象的那样，Docker 在镜像复用方面设计得非常出色，大大节省镜像占用的磁盘空间。Docker 镜像的复用主要体现在多个不同的 Docker 镜像可以共享相同的镜像层。</p>
+
+<p>假设本地镜像存储中只有一个 <code>ubuntu:14.04</code> 的镜像，我们以两个 Dockerfile 来说明镜像复用：</p>
+
+<pre><code class="language-dockerfile">FROM ubuntu:14.04
+RUN apt-get update 
+FROM ubuntu:14.04
+ADD compressed.tar / 
+</code></pre>
+
+<p>假设最终 <code>docker build</code> 构建出来的镜像名分别为 <code>image 1</code> 和 <code>image 2</code> ，由于两个 <code>Dockerfile</code> 均基于 <code>ubuntu:14.04</code> ，因此，<code>image 1</code> 和 <code>image 2</code> 这两个镜像均复用了镜像 <code>ubuntu:14.04</code> 。 假设 <code>RUN apt-get update</code> 修改的文件系统内容为 20 MB，最终本地三个镜像的大小关系应该如下：</p>
+
+<p><code>ubuntu:14.04</code> ： 200 MB</p>
+
+<p><code>image 1</code> ：200 MB（<code>ubuntu:14.04</code> 的大小）+ 20 MB = 220 MB</p>
+
+<p><code>image 2</code> ：200 MB（<code>ubuntu:14.04</code> 的大小）+ 100 MB = 300 MB</p>
+
+<p>如果仅仅是单纯的累加三个镜像的大小，那结果应该是：200 + 220 + 300 = 720 MB，但是由于镜像复用的存在，实际占用的磁盘空间大小是：200 + 20 + 100 = 320 MB，足足节省了 400 MB 的磁盘空间。在此，足以证明镜像复用的巨大好处。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>学习 Docker 的同时，往往有三部分内容是分不开的，那就是 Dockerfile、Docker 镜像与 Docker 容器，分析 Docker 镜像大小也是如此。Docker 镜像的大小，貌似平淡无奇，却是优化镜像、容器磁盘限额必须要涉及的内容。</p>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/docker%E9%95%9C%E5%83%8F%E6%93%8D%E4%BD%9C/">Docker镜像操作</a></li>
+        
+        <li><a href="/post/docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/">Docker镜像</a></li>
+        
+        <li><a href="/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/">Docker经典命令</a></li>
+        
+        <li><a href="/post/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a></li>
+        
+        <li><a href="/post/prometheus/">Prometheus</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://luwen.tech">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E5%A4%A7%E5%B0%8F/" title="Docker大小">Docker大小</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%93%8D%E4%BD%9C/" title="Docker镜像操作">Docker镜像操作</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/" title="Docker镜像">Docker镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/" title="Docker经典命令">Docker经典命令</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/" title="云原生">云原生</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/prometheus/" title="Prometheus">Prometheus</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/" title="Docker构建镜像">Docker构建镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator">Prometheus Operator</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/" title="Redis慢分析">Redis慢分析</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/k8s%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" title="K8s多集群管理">K8s多集群管理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/categories/Docker/">Docker(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Golang/">Golang(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(11)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Linux/">Linux(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/SniperLu" title="SniperLu’s github">SniperLu的github地址</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.cnblogs.com/mikeluwen/" title="SniperLu&#39;s blog">SniperLu的原博客地址</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://luwen.tech/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://luwen.tech">卢文的博客 By SniperLu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
