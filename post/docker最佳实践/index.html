@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Docker最佳实践 | 卢文的博客</title>
+    <meta property="og:title" content="Docker最佳实践 - 卢文的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-06-03T10:07:38&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-06-03T10:07:38&#43;08:00">
+        
+    <meta name="Keywords" content="golang,go语言,python,kubernetes">
+    <meta name="description" content="Docker最佳实践">
+        
+    <meta name="author" content="SniperLu">
+    <meta property="og:url" content="http://luwen.tech/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://luwen.tech">
+                        卢文的博客
+                    </a>
+                
+                <p class="description">专注于linux运维，k8s云原生架构，python，golang</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://luwen.tech">首页</a>
+                    
+                    <a  href="http://luwen.tech/books/" title="新书">新书</a>
+                    
+                    <a  href="http://luwen.tech/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://luwen.tech/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Docker最佳实践</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020年6月3日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li><a href="#如何编写最佳的dockerfile-https-blog-fundebug-com-2017-05-15-write-excellent-dockerfile"><a href="https://blog.fundebug.com/2017/05/15/write-excellent-dockerfile/">如何编写最佳的Dockerfile</a></a>
+<ul>
+<li>
+<ul>
+<li><a href="#目标">目标:</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#示例">示例</a></li>
+<li><a href="#1-编写-dockerignore-文件">1. 编写.dockerignore 文件</a></li>
+<li><a href="#2-容器只运行单个应用">2. 容器只运行单个应用</a></li>
+<li><a href="#3-将多个-run-指令合并为一个">3. 将多个 RUN 指令合并为一个</a></li>
+<li><a href="#4-基础镜像的标签不要用-latest">4. 基础镜像的标签不要用 latest</a></li>
+<li><a href="#5-每个-run-指令后删除多余文件">5. 每个 RUN 指令后删除多余文件</a></li>
+<li><a href="#6-选择合适的基础镜像-alpine-版本最好">6. 选择合适的基础镜像(alpine 版本最好)</a></li>
+<li><a href="#7-设置-workdir-和-cmd">7. 设置 WORKDIR 和 CMD</a></li>
+<li><a href="#8-使用-entrypoint-可选">8. 使用 ENTRYPOINT (可选)</a></li>
+<li><a href="#9-在-entrypoint-脚本中使用-exec">9. 在 entrypoint 脚本中使用 exec</a></li>
+<li><a href="#10-copy-与-add-优先使用前者">10. COPY 与 ADD 优先使用前者</a></li>
+<li><a href="#11-合理调整-copy-与-run-的顺序">11. 合理调整 COPY 与 RUN 的顺序</a></li>
+<li><a href="#12-设置默认的环境变量-映射端口和数据卷">12. 设置默认的环境变量，映射端口和数据卷</a></li>
+<li><a href="#13-使用-label-设置镜像元数据">13. 使用 LABEL 设置镜像元数据</a></li>
+<li><a href="#14-添加-healthcheck">14. 添加 HEALTHCHECK</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="如何编写最佳的dockerfile-https-blog-fundebug-com-2017-05-15-write-excellent-dockerfile"><a href="https://blog.fundebug.com/2017/05/15/write-excellent-dockerfile/">如何编写最佳的Dockerfile</a></h1>
+
+<p><strong>译者按:</strong> Dockerfile 的语法非常简单，然而如何加快镜像构建速度，如何减少 Docker 镜像的大小却不是那么直观，需要积累实践经验。这篇博客可以帮助你快速掌握编写 Dockerfile 的技巧。</p>
+
+<ul>
+<li>原文: <a href="https://rock-it.pl/how-to-write-excellent-dockerfiles/">How to write excellent Dockerfiles</a></li>
+<li>译者: <a href="https://www.fundebug.com/">Fundebug</a></li>
+</ul>
+
+<p><strong>本文采用意译，版权归原作者所有</strong></p>
+
+<p>我已经使用 Docker 有一段时间了，其中编写 Dockerfile 是非常重要的一部分工作。在这篇博客中，我打算分享一些建议，帮助大家编写更好的 Dockerfile。</p>
+
+<h3 id="目标">目标:</h3>
+
+<ul>
+<li>更快的构建速度</li>
+<li>更小的 Docker 镜像大小</li>
+<li>更少的 Docker 镜像层</li>
+<li>充分利用镜像缓存</li>
+<li>增加 Dockerfile 可读性</li>
+<li>让 Docker 容器使用起来更简单</li>
+</ul>
+
+<h3 id="总结">总结</h3>
+
+<ul>
+<li>编写.dockerignore 文件</li>
+<li>容器只运行单个应用</li>
+<li>将多个 RUN 指令合并为一个</li>
+<li>基础镜像的标签不要用 latest</li>
+<li>每个 RUN 指令后删除多余文件</li>
+<li>选择合适的基础镜像(alpine 版本最好)</li>
+<li>设置 WORKDIR 和 CMD</li>
+<li>使用 ENTRYPOINT (可选)</li>
+<li>在 entrypoint 脚本中使用 exec</li>
+<li>COPY 与 ADD 优先使用前者</li>
+<li>合理调整 COPY 与 RUN 的顺序</li>
+<li>设置默认的环境变量，映射端口和数据卷</li>
+<li>使用 LABEL 设置镜像元数据</li>
+<li>添加 HEALTHCHECK</li>
+</ul>
+
+<h3 id="示例">示例</h3>
+
+<p>示例 Dockerfile 犯了几乎所有的错(当然我是故意的)。接下来，我会一步步优化它。假设我们需要使用 Docker 运行一个 Node.js 应用，下面就是它的 Dockerfile(CMD 指令太复杂了，所以我简化了，它是错误的，仅供参考)。</p>
+
+<pre><code>FROM ubuntu
+
+ADD . /app
+
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y nodejs ssh mysql
+RUN cd /app &amp;&amp; npm install
+
+# this should start three processes, mysql and ssh
+# in the background and node app in foreground
+# isn't it beautifully terrible? &lt;3
+CMD mysql &amp; sshd &amp; npm start
+</code></pre>
+
+<p>构建镜像:</p>
+
+<pre><code>docker build -t wtf .
+</code></pre>
+
+<h3 id="1-编写-dockerignore-文件">1. 编写.dockerignore 文件</h3>
+
+<p>构建镜像时，Docker 需要先准备<code>context</code> ，将所有需要的文件收集到进程中。默认的<code>context</code>包含 Dockerfile 目录中的所有文件，但是实际上，<strong>我们并不需要.git 目录，node_modules 目录等内容</strong>。 <code>.dockerignore</code> 的作用和语法类似于 <code>.gitignore</code>，可以忽略一些不需要的文件，这样可以有效加快镜像构建时间，同时减少 Docker 镜像的大小。示例如下:</p>
+
+<pre><code>.git/
+node_modules/
+</code></pre>
+
+<h3 id="2-容器只运行单个应用">2. 容器只运行单个应用</h3>
+
+<p>从技术角度讲，你可以在 Docker 容器中运行多个进程。你可以将数据库，前端，后端，ssh，supervisor 都运行在同一个 Docker 容器中。但是，这会让你非常痛苦:</p>
+
+<ul>
+<li>非常长的构建时间(修改前端之后，整个后端也需要重新构建)</li>
+<li>非常大的镜像大小</li>
+<li>多个应用的日志难以处理(不能直接使用 stdout，否则多个应用的日志会混合到一起)</li>
+<li>横向扩展时非常浪费资源(不同的应用需要运行的容器数并不相同)</li>
+<li>僵尸进程问题 - 你需要选择合适的 init 进程</li>
+</ul>
+
+<p>因此，我建议大家为每个应用构建单独的 Docker 镜像，然后使用 <a href="https://docs.docker.com/compose/">Docker Compose</a> 运行多个 Docker 容器。</p>
+
+<p>现在，我从 Dockerfile 中删除一些不需要的安装包，另外，SSH 可以用<a href="https://docs.docker.com/engine/reference/commandline/exec/">docker exec</a>替代。示例如下：</p>
+
+<pre><code>FROM ubuntu
+
+ADD . /app
+
+RUN apt-get update
+RUN apt-get upgrade -y
+
+# we should remove ssh and mysql, and use
+# separate container for database
+RUN apt-get install -y nodejs  # ssh mysql
+RUN cd /app &amp;&amp; npm install
+
+CMD npm start
+</code></pre>
+
+<h3 id="3-将多个-run-指令合并为一个">3. 将多个 RUN 指令合并为一个</h3>
+
+<p>Docker 镜像是分层的，下面这些知识点非常重要:</p>
+
+<ul>
+<li>Dockerfile 中的每个指令都会创建一个新的镜像层。</li>
+<li>镜像层将被缓存和复用</li>
+<li>当 Dockerfile 的指令修改了，复制的文件变化了，或者构建镜像时指定的变量不同了，对应的镜像层缓存就会失效</li>
+<li>某一层的镜像缓存失效之后，它之后的镜像层缓存都会失效</li>
+<li>镜像层是不可变的，如果我们再某一层中添加一个文件，然后在下一层中删除它，则镜像中依然会包含该文件(只是这个文件在 Docker 容器中不可见了)。</li>
+</ul>
+
+<p>Docker 镜像类似于洋葱。它们都有很多层。为了修改内层，则需要将外面的层都删掉。记住这一点的话，其他内容就很好理解了。</p>
+
+<p>现在，我们<strong>将所有的<a href="https://docs.docker.com/engine/reference/builder/#run">RUN</a>指令合并为一个</strong>。同时把<code>apt-get upgrade</code>删除，因为它会使得镜像构建非常不确定(我们只需要依赖基础镜像的更新就好了)</p>
+
+<pre><code>FROM ubuntu
+
+ADD . /app
+
+RUN apt-get update \
+    &amp;&amp; apt-get install -y nodejs \
+    &amp;&amp; cd /app \
+    &amp;&amp; npm install
+
+CMD npm start
+</code></pre>
+
+<p>记住一点，我们只能将变化频率一样的指令合并在一起。将 node.js 安装与 npm 模块安装放在一起的话，则每次修改源代码，都需要重新安装 node.js，这显然不合适。因此，正确的写法是这样的:</p>
+
+<pre><code>FROM ubuntu
+
+RUN apt-get update &amp;&amp; apt-get install -y nodejs
+ADD . /app
+RUN cd /app &amp;&amp; npm install
+
+CMD npm start
+</code></pre>
+
+<h3 id="4-基础镜像的标签不要用-latest">4. 基础镜像的标签不要用 latest</h3>
+
+<p>当镜像没有指定标签时，将默认使用<code>latest</code> 标签。因此， <code>FROM ubuntu</code> 指令等同于<code>FROM ubuntu:latest</code>。当时，当镜像更新时，latest 标签会指向不同的镜像，这时构建镜像有可能失败。如果你的确需要使用最新版的基础镜像，可以使用 latest 标签，否则的话，最好指定确定的镜像标签。</p>
+
+<p>示例 Dockerfile 应该使用<code>16.04</code>作为标签。</p>
+
+<pre><code>FROM ubuntu:16.04  # it's that easy!
+
+RUN apt-get update &amp;&amp; apt-get install -y nodejs
+ADD . /app
+RUN cd /app &amp;&amp; npm install
+
+CMD npm start
+</code></pre>
+
+<h3 id="5-每个-run-指令后删除多余文件">5. 每个 RUN 指令后删除多余文件</h3>
+
+<p>假设我们更新了 apt-get 源，下载，解压并安装了一些软件包，它们都保存在<code>/var/lib/apt/lists/</code>目录中。但是，运行应用时 Docker 镜像中并不需要这些文件。我们最好将它们删除，因为它会使 Docker 镜像变大。</p>
+
+<p>示例 Dockerfile 中，我们可以删除<code>/var/lib/apt/lists/</code>目录中的文件(它们是由 apt-get update 生成的)。</p>
+
+<pre><code>FROM ubuntu:16.04
+
+RUN apt-get update \
+    &amp;&amp; apt-get install -y nodejs \
+    # added lines
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+ADD . /app
+RUN cd /app &amp;&amp; npm install
+
+CMD npm start
+</code></pre>
+
+<h3 id="6-选择合适的基础镜像-alpine-版本最好">6. 选择合适的基础镜像(alpine 版本最好)</h3>
+
+<p>在示例中，我们选择了<code>ubuntu</code>作为基础镜像。但是我们只需要运行 node 程序，有必要使用一个通用的基础镜像吗？<code>node</code>镜像应该是更好的选择。</p>
+
+<pre><code>FROM node
+
+ADD . /app
+# we don't need to install node
+# anymore and use apt-get
+RUN cd /app &amp;&amp; npm install
+
+CMD npm start
+</code></pre>
+
+<p>更好的选择是 alpine 版本的<code>node</code>镜像。alpine 是一个极小化的 Linux 发行版，只有 4MB，这让它非常适合作为基础镜像。</p>
+
+<pre><code>FROM node:7-alpine
+
+ADD . /app
+RUN cd /app &amp;&amp; npm install
+
+CMD npm start
+</code></pre>
+
+<p><a href="https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management">apk</a>是 Alpine 的包管理工具。它与<code>apt-get</code>有些不同，但是非常容易上手。另外，它还有一些非常有用的特性，比如<code>no-cache</code>和 <code>--virtual</code>选项，它们都可以帮助我们减少镜像的大小。</p>
+
+<h3 id="7-设置-workdir-和-cmd">7. 设置 WORKDIR 和 CMD</h3>
+
+<p><a href="https://docs.docker.com/engine/reference/builder/#workdir">WORKDIR</a>指令可以设置默认目录，也就是运行<code>RUN</code> / <code>CMD</code> / <code>ENTRYPOINT</code>指令的地方。</p>
+
+<p><a href="https://docs.docker.com/engine/reference/builder/#cmd">CMD</a>指令可以设置容器创建是执行的默认命令。另外，你应该讲命令写在一个数组中，数组中每个元素为命令的每个单词(参考<a href="https://docs.docker.com/engine/reference/builder/#cmd">官方文档</a>)。</p>
+
+<pre><code>FROM node:7-alpine
+
+WORKDIR /app
+ADD . /app
+RUN npm install
+
+CMD [&quot;npm&quot;, &quot;start&quot;]
+</code></pre>
+
+<h3 id="8-使用-entrypoint-可选">8. 使用 ENTRYPOINT (可选)</h3>
+
+<p><a href="https://docs.docker.com/engine/reference/builder/#entrypoint">ENTRYPOINT</a>指令并不是必须的，因为它会增加复杂度。<code>ENTRYPOINT</code>是一个脚本，它会默认执行，并且将指定的命令错误其参数。它通常用于构建可执行的 Docker 镜像。entrypoint.sh 如下:</p>
+
+<pre><code>#!/usr/bin/env sh
+# $0 is a script name,
+# $1, $2, $3 etc are passed arguments
+# $1 is our command
+CMD=$1
+
+case &quot;$CMD&quot; in
+  &quot;dev&quot; )
+    npm install
+    export NODE_ENV=development
+    exec npm run dev
+    ;;
+
+  &quot;start&quot; )
+    # we can modify files here, using ENV variables passed in
+    # &quot;docker create&quot; command. It can't be done during build process.
+    echo &quot;db: $DATABASE_ADDRESS&quot; &gt;&gt; /app/config.yml
+    export NODE_ENV=production
+    exec npm start
+    ;;
+
+   * )
+    # Run custom command. Thanks to this line we can still use
+    # &quot;docker run our_image /bin/bash&quot; and it will work
+    exec $CMD ${@:2}
+    ;;
+esac
+</code></pre>
+
+<p>示例 Dockerfile:</p>
+
+<pre><code>FROM node:7-alpine
+
+WORKDIR /app
+ADD . /app
+RUN npm install
+
+ENTRYPOINT [&quot;./entrypoint.sh&quot;]
+CMD [&quot;start&quot;]
+</code></pre>
+
+<p>可以使用如下命令运行该镜像:</p>
+
+<pre><code># 运行开发版本
+docker run our-app dev
+
+# 运行生产版本
+docker run our-app start
+
+# 运行bash
+docker run -it our-app /bin/bash
+</code></pre>
+
+<h3 id="9-在-entrypoint-脚本中使用-exec">9. 在 entrypoint 脚本中使用 exec</h3>
+
+<p>在前文的 entrypoint 脚本中，我使用了<code>exec</code>命令运行 node 应用。不使用<code>exec</code>的话，我们则不能顺利地关闭容器，因为 SIGTERM 信号会被 bash 脚本进程吞没。<code>exec</code>命令启动的进程可以取代脚本进程，因此所有的信号都会正常工作。</p>
+
+<h3 id="10-copy-与-add-优先使用前者">10. COPY 与 ADD 优先使用前者</h3>
+
+<p><a href="https://docs.docker.com/engine/reference/builder/#copy">COPY</a>指令非常简单，仅用于将文件拷贝到镜像中。<a href="https://docs.docker.com/engine/reference/builder/#add">ADD</a>相对来讲复杂一些，可以用于下载远程文件以及解压压缩包(参考<a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#add-or-copy">官方文档</a>)。</p>
+
+<pre><code>FROM node:7-alpine
+
+WORKDIR /app
+
+COPY . /app
+RUN npm install
+
+ENTRYPOINT [&quot;./entrypoint.sh&quot;]
+CMD [&quot;start&quot;]
+</code></pre>
+
+<h3 id="11-合理调整-copy-与-run-的顺序">11. 合理调整 COPY 与 RUN 的顺序</h3>
+
+<p>我们应该<strong>把变化最少的部分放在 Dockerfile 的前面</strong>，这样可以充分利用镜像缓存。</p>
+
+<p>示例中，源代码会经常变化，则每次构建镜像时都需要重新安装 NPM 模块，这显然不是我们希望看到的。因此我们可以先拷贝<code>package.json</code>，然后安装 NPM 模块，最后才拷贝其余的源代码。这样的话，即使源代码变化，也不需要重新安装 NPM 模块。</p>
+
+<pre><code>FROM node:7-alpine
+
+WORKDIR /app
+
+COPY package.json /app
+RUN npm install
+COPY . /app
+
+ENTRYPOINT [&quot;./entrypoint.sh&quot;]
+CMD [&quot;start&quot;]
+</code></pre>
+
+<h3 id="12-设置默认的环境变量-映射端口和数据卷">12. 设置默认的环境变量，映射端口和数据卷</h3>
+
+<p>运行 Docker 容器时很可能需要一些环境变量。在 Dockerfile 设置默认的环境变量是一种很好的方式。另外，我们应该在 Dockerfile 中设置映射端口和数据卷。示例如下:</p>
+
+<pre><code>FROM node:7-alpine
+
+ENV PROJECT_DIR=/app
+
+WORKDIR $PROJECT_DIR
+
+COPY package.json $PROJECT_DIR
+RUN npm install
+COPY . $PROJECT_DIR
+
+ENV MEDIA_DIR=/media \
+    NODE_ENV=production \
+    APP_PORT=3000
+
+VOLUME $MEDIA_DIR
+EXPOSE $APP_PORT
+
+ENTRYPOINT [&quot;./entrypoint.sh&quot;]
+CMD [&quot;start&quot;]
+</code></pre>
+
+<p><a href="https://docs.docker.com/engine/reference/builder/#env">ENV</a>指令指定的环境变量在容器中可以使用。如果你只是需要指定构建镜像时的变量，你可以使用<a href="https://docs.docker.com/engine/reference/builder/#arg">ARG</a>指令。</p>
+
+<h3 id="13-使用-label-设置镜像元数据">13. 使用 LABEL 设置镜像元数据</h3>
+
+<p>使用<a href="https://docs.docker.com/engine/reference/builder/#label">LABEL</a>指令，可以为镜像设置元数据，例如<strong>镜像创建者</strong>或者<strong>镜像说明</strong>。旧版的 Dockerfile 语法使用<a href="https://docs.docker.com/engine/reference/builder/#maintainer-deprecated">MAINTAINER</a>指令指定镜像创建者，但是它已经被弃用了。有时，一些外部程序需要用到镜像的元数据，例如<a href="https://github.com/NVIDIA/nvidia-docker">nvidia-docker</a>需要用到<code>com.nvidia.volumes.needed</code>。示例如下:</p>
+
+<pre><code>FROM node:7-alpine
+LABEL maintainer &quot;jakub.skalecki@example.com&quot;
+...
+</code></pre>
+
+<h3 id="14-添加-healthcheck">14. 添加 HEALTHCHECK</h3>
+
+<p>运行容器时，可以指定<code>--restart always</code>选项。这样的话，容器崩溃时，Docker 守护进程(docker daemon)会重启容器。对于需要长时间运行的容器，这个选项非常有用。但是，如果容器的确在运行，但是不可(陷入死循环，配置错误)用怎么办？使用<a href="https://docs.docker.com/engine/reference/builder/#healthcheck">HEALTHCHECK</a>指令可以让 Docker 周期性的检查容器的健康状况。我们只需要指定一个命令，如果一切正常的话返回 0，否则返回 1。对 HEALTHCHECK 感兴趣的话，可以参考<a href="https://blog.newrelic.com/2016/08/24/docker-health-check-instruction/">这篇博客</a>。示例如下:</p>
+
+<pre><code>FROM node:7-alpine
+LABEL maintainer &quot;jakub.skalecki@example.com&quot;
+
+ENV PROJECT_DIR=/app
+WORKDIR $PROJECT_DIR
+
+COPY package.json $PROJECT_DIR
+RUN npm install
+COPY . $PROJECT_DIR
+
+ENV MEDIA_DIR=/media \
+    NODE_ENV=production \
+    APP_PORT=3000
+
+VOLUME $MEDIA_DIR
+EXPOSE $APP_PORT
+HEALTHCHECK CMD curl --fail http://localhost:$APP_PORT || exit 1
+
+ENTRYPOINT [&quot;./entrypoint.sh&quot;]
+CMD [&quot;start&quot;]
+</code></pre>
+
+<p>当请求失败时，<code>curl --fail</code> 命令返回非 0 状态。</p>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/docker%E5%A4%A7%E5%B0%8F/">Docker大小</a></li>
+        
+        <li><a href="/post/docker%E8%BF%90%E8%A1%8C/">Docker镜像操作</a></li>
+        
+        <li><a href="/post/docker%E6%9E%84%E5%BB%BA/">Docker镜像</a></li>
+        
+        <li><a href="/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/">Docker经典命令</a></li>
+        
+        <li><a href="/post/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://luwen.tech">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker最佳实践">Docker最佳实践</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E5%A4%A7%E5%B0%8F/" title="Docker大小">Docker大小</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E8%BF%90%E8%A1%8C/" title="Docker镜像操作">Docker镜像操作</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA/" title="Docker镜像">Docker镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/" title="Docker经典命令">Docker经典命令</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/" title="云原生">云原生</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/prometheus/" title="Prometheus">Prometheus</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/" title="Docker构建镜像">Docker构建镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator">Prometheus Operator</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/" title="Redis慢分析">Redis慢分析</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/categories/Docker/">Docker(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Golang/">Golang(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(11)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Linux/">Linux(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/SniperLu" title="SniperLu’s github">SniperLu的github地址</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.cnblogs.com/mikeluwen/" title="SniperLu&#39;s blog">SniperLu的原博客地址</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://luwen.tech/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://luwen.tech">卢文的博客 By SniperLu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
