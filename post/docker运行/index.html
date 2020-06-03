@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Docker镜像操作 | 卢文的博客</title>
+    <meta property="og:title" content="Docker镜像操作 - 卢文的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-06-02T20:37:13&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-06-02T20:37:13&#43;08:00">
+        
+    <meta name="Keywords" content="golang,go语言,python,kubernetes">
+    <meta name="description" content="Docker镜像操作">
+        
+    <meta name="author" content="SniperLu">
+    <meta property="og:url" content="http://luwen.tech/post/docker%E8%BF%90%E8%A1%8C/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://luwen.tech">
+                        卢文的博客
+                    </a>
+                
+                <p class="description">专注于linux运维，k8s云原生架构，python，golang</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://luwen.tech">首页</a>
+                    
+                    <a  href="http://luwen.tech/books/" title="新书">新书</a>
+                    
+                    <a  href="http://luwen.tech/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://luwen.tech/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Docker镜像操作</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020年6月2日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li><a href="#运行容器的最佳做法">运行容器的最佳做法</a>
+<ul>
+<li><a href="#使用容器的原生日志记录机制">使用容器的原生日志记录机制</a>
+<ul>
+<li><a href="#json-日志">JSON 日志</a></li>
+<li><a href="#日志聚合器-sidecar-模式">日志聚合器 sidecar 模式</a></li>
+</ul></li>
+<li><a href="#确保容器无状态且不可变">确保容器无状态且不可变</a>
+<ul>
+<li><a href="#无状态">无状态</a></li>
+<li><a href="#不变性">不变性</a></li>
+</ul></li>
+<li><a href="#避免使用特权容器">避免使用特权容器</a></li>
+<li><a href="#使应用易于监控">使应用易于监控</a>
+<ul>
+<li><a href="#指标-http-端点">指标 HTTP 端点</a></li>
+<li><a href="#用于监控的-sidecar-模式">用于监控的 sidecar 模式</a></li>
+</ul></li>
+<li><a href="#公开应用的运行状况">公开应用的运行状况</a>
+<ul>
+<li><a href="#活动性探测">活动性探测</a></li>
+<li><a href="#就绪性探测">就绪性探测</a></li>
+</ul></li>
+<li><a href="#避免以-root-身份运行">避免以 root 身份运行</a></li>
+<li><a href="#谨慎选择映像版本">谨慎选择映像版本</a></li>
+</ul></li>
+</ul>
+</nav>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<h1 id="运行容器的最佳做法">运行容器的最佳做法</h1>
+
+<p>本文介绍使容器易于操作的一系列最佳做法。这些做法涉及从安全性到监控和日志记录的各种主题，其目标在于使应用更容易在 <a href="https://cloud.google.com/kubernetes-engine/docs?hl=zh-cn">Google Kubernetes Engine</a> 和一般容器中运行。本文介绍的许多做法都受到<a href="https://12factor.net/">十二要素方法</a>的启发，此方法是构建云原生应用的一种优秀资源。</p>
+
+<p>这些最佳做法的重要性并不相同。例如，成功运行某一生产工作负载可能无需其中某些做法，但必须使用其他做法。特别是，与安全相关的最佳做法的重要性较为主观。是否实现它们取决于您的环境和所受限制。</p>
+
+<p>若要充分理解本文中的内容，您需要了解一些关于 Docker 和 Kubernetes 的知识。此处讨论的一些最佳做法也适用于 Windows 容器，但大多数做法假定您使用的是 Linux 容器。如需获取构建容器的建议，请参阅<a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn">构建容器的最佳做法</a>。</p>
+
+<h2 id="使用容器的原生日志记录机制">使用容器的原生日志记录机制</h2>
+
+<p><strong>重要性：高</strong></p>
+
+<p>作为应用管理的主要组成部分，日志包含有关应用中发生的事件的宝贵信息。Docker 和 Kubernetes 的目的便是简化日志管理。</p>
+
+<p>在传统服务器上，您可能需要将日志写入特定文件并处理日志轮换以避免填满磁盘。如果您有高级日志记录系统，则可以将这些日志转发到远程服务器以集中管理。</p>
+
+<p>容器提供了一种简单且标准化的方式来处理日志，这是因为您可以将它们写入“stdout”和“stderr”。Docker 会捕获这些日志行，并让您使用 <code>docker logs</code> 命令访问它们。作为应用开发者，您不需要实现高级日志记录机制，使用原生日志记录机制即可。</p>
+
+<p>平台运营商必须提供一个系统来集中管理日志并使其可搜索。在 GKE 中，此服务由 <a href="https://github.com/GoogleCloudPlatform/k8s-stackdriver/tree/master/fluentd-gcp-image">fluentd</a> 和 <a href="https://cloud.google.com/logging?hl=zh-cn">Cloud Logging</a> 提供。其他常见方法包括使用 <a href="https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/fluentd-elasticsearch">EFK</a>（Elasticsearch、Fluentd、Kibana）栈。</p>
+
+<p><img src="https://cloud.google.com/solutions/images/bp-operating-containers-log-management.svg?hl=zh-cn" alt="Kubernetes 中的传统日志管理系统示意图。" /><strong>图 1.</strong>Kubernetes 中的典型日志管理系统图</p>
+
+<h3 id="json-日志">JSON 日志</h3>
+
+<p>大多数日志管理系统实际上是用于存储时间索引文档的时间序列数据库。这些文档通常以 JSON 格式提供。在 Cloud Logging 和 EFK 中，单个日志行以及一些元数据（有关 pod、容器、节点等的信息）存储为一个文档。</p>
+
+<p>您可以通过不同字段直接以 JSON 格式进行日志记录来充分利用此行为模式的优势。然后，您可以根据这些字段更有效地搜索日志。</p>
+
+<p>例如，考虑将以下日志转换为 JSON 格式：</p>
+
+<pre><code>    [2018-01-01 01:01:01] foo - WARNING - foo.bar - There is something wrong.
+    
+</code></pre>
+
+<p>转换后的日志如下：</p>
+
+<pre><code>    {
+      &quot;date&quot;: &quot;2018-01-01 01:01:01&quot;,
+      &quot;component&quot;: &quot;foo&quot;,
+      &quot;subcomponent&quot;: &quot;foo.bar&quot;,
+      &quot;level&quot;: &quot;WARNING&quot;,
+      &quot;message&quot;: &quot;There is something wrong.&quot;
+    }
+    
+</code></pre>
+
+<p>通过此转换，您可以在日志中轻松搜索所有 <code>WARNING</code> 级别的日志或子组件 <code>foo.bar</code> 的所有日志。</p>
+
+<p>如果您决定编写 JSON 格式的日志，请注意每个事件必须在单行上写入才能被正确解析。实际上，它看起来类似如下内容：</p>
+
+<pre><code class="language-json">{&quot;date&quot;:&quot;2018-01-01 01:01:01&quot;,&quot;component&quot;:&quot;foo&quot;,&quot;subcomponent&quot;:&quot;foo.bar&quot;,&quot;level&quot;: &quot;WARNING&quot;,&quot;message&quot;: &quot;There is something wrong.&quot;}
+</code></pre>
+
+<p>如您所见，结果的可读性远不如普通日志行。如果您决定使用此方法，请确保您的团队不会严重依赖手动检查日志。</p>
+
+<h3 id="日志聚合器-sidecar-模式">日志聚合器 sidecar 模式</h3>
+
+<p>某些应用（如 <a href="http://tomcat.apache.org/">Tomcat</a>）无法轻松配置为将日志写入“stdout”和“stderr”。因为这些应用写入磁盘上的不同日志文件，所以在 Kubernetes 中处理它们的最佳方法是使用 sidecar 模式进行日志记录。Sidecar 是一个小容器，与您的应用在同一个 pod 中运行。如需详细了解 sidecar，请参阅 <a href="https://kubernetes.io/docs/concepts/cluster-administration/logging/#sidecar-container-with-a-logging-agent">Kubernetes 官方文档</a>。</p>
+
+<p>在此解决方案中，您需将 sidecar 容器中的日志记录代理添加到您的应用（在同一 pod 中），并在两个容器之间共享一个 <a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir">emptyDir</a> 卷，如 <a href="https://github.com/kubernetes/contrib/blob/0.7.0/logging/fluentd-sidecar-gcp/logging-sidecar-example.yaml">GitHub 上的此 YAML 示例</a>所示。然后，配置应用以将其日志写入共享卷，并配置日志记录代理以在需要时读取和转发日志。</p>
+
+<p>在此模式中，由于您没有使用原生 Docker 和 Kubernetes 日志记录机制，因此必须处理日志轮换。如果您的日志记录代理不处理日志轮换，则同一 pod 中的另一个 sidecar 容器可以处理轮换。</p>
+
+<p><img src="https://cloud.google.com/solutions/images/bp-operating-containers-sidecar.svg?hl=zh-cn" alt="日志管理的 sidecar 模式。" /><strong>图 2.</strong>日志管理的 sidecar 模式</p>
+
+<h2 id="确保容器无状态且不可变">确保容器无状态且不可变</h2>
+
+<p><strong>重要性：高</strong></p>
+
+<p>如果您是第一次尝试使用容器，请不要将其视为传统服务器。例如，您可能想要在正在运行的容器内更新应用，或者在出现漏洞时修补正在运行的容器。</p>
+
+<p>从根本上说，容器不是以这种方式运行的。它们被设计为无状态且不可变。</p>
+
+<h3 id="无状态">无状态</h3>
+
+<p>无状态意味着任何状态（任何类型的持久性数据）均存储在容器之外。这种外部存储可以采取多种形式，具体取决于您的需求：</p>
+
+<ul>
+<li>如需存储文件，我们建议使用 <a href="https://cloud.google.com/storage/docs?hl=zh-cn">Cloud Storage</a> 等对象存储。</li>
+<li>要存储用户会话等信息，我们建议使用外部低延迟时间的键值存储，例如 <a href="https://cloud.google.com/memorystore/docs/redis?hl=zh-cn">Redis</a> 或 Memcached。</li>
+<li>如果需要块级存储（例如对于数据库），则可以使用附加到容器的外部磁盘。对于 GKE，我们建议使用<a href="https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-apps?hl=zh-cn">永久性磁盘</a>。</li>
+</ul>
+
+<p>通过使用这些选项，您可以从容器本身移除数据，这意味着可以随时彻底关闭和销毁容器，而不必担心数据丢失。如果创建了一个新容器来替换旧容器，只需将新容器连接到同一数据存储区或绑定到同一磁盘即可。</p>
+
+<h3 id="不变性">不变性</h3>
+
+<p>不可变意味着容器在其生命周期内不会被修改，即没有更新、没有补丁程序，也没有配置更改。如果必须更新应用代码或应用补丁程序，则需要构建新映像并重新部署。不变性使部署更安全、更可重复。如果需要回滚，只需重新部署旧映像即可。此方法允许您在每个环境中部署同一容器映像，使它们尽可能相同。</p>
+
+<p>如需在不同环境中使用同一容器映像，我们建议您外部化容器配置（侦听端口、运行时选项等）。容器通常配置有装载在特定路径上的环境变量或配置文件。在 Kubernetes 中，您可以使用 <a href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> 和 <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> 将容器中的配置作为环境变量或文件注入。</p>
+
+<p>如果需要更新配置，请使用更新后的配置部署一个新容器（基于同一映像）。</p>
+
+<p><img src="https://cloud.google.com/solutions/images/bp-operating-containers-configmap.svg?hl=zh-cn" alt="展示如何使用装载为 pod 中的配置文件的 ConfigMap 更新部署配置的示例。" /><strong>图 3.</strong>展示如何使用装载为 pod 中的配置文件的 ConfigMap 更新部署配置的示例。</p>
+
+<p>无状态和不变性的组合是基于容器的基础架构的卖点之一。这种组合允许您自动化部署并提高其频率和可靠性。</p>
+
+<h2 id="避免使用特权容器">避免使用特权容器</h2>
+
+<p><strong>重要性：高</strong></p>
+
+<p>在虚拟机或裸机服务器中，请避免以 root 用户身份运行应用。原因很简单，如果应用遭到破解，攻击者就可以拥有对服务器的完整访问权限。出于同样的原因，请避免使用特权容器。特权容器是一种可以访问主机的所有设备的容器，它几乎可以绕过容器的所有安全功能。</p>
+
+<p>如果您认为需要使用特权容器，请考虑以下备选方案：</p>
+
+<ul>
+<li>通过 Kubernetes 的 <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container">securityContext 选项</a>或 Docker 的 <code>--cap-add</code> 标志为容器提供特定功能。<a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">Docker 文档</a>列出了默认启用的功能和必须明确启用的功能。</li>
+<li>如果您的应用必须修改主机设置才能运行，请在 sidecar 容器或 <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">init 容器</a>中修改这些设置。与您的应用不同，这些容器不需要公开给内部或外部流量，因此隔离性更高。</li>
+<li>如果需要在 Kubernetes 中修改 sysctl，请使用<a href="https://kubernetes.io/docs/concepts/cluster-administration/sysctl-cluster/">专用注释</a>。</li>
+</ul>
+
+<p>在 Kubernetes 中，特权容器可以被特定的 <a href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/#privileged">Pod 安全政策</a>禁止。Pod 安全政策是集群管理员配置和管理的 Kubernetes 对象，它强制对 pod 施加特定要求。在 Kubernetes 集群中，您无法创建违反这些要求的 pod。</p>
+
+<h2 id="使应用易于监控">使应用易于监控</h2>
+
+<p><strong>重要性：高</strong></p>
+
+<p>与日志记录一样，监控是应用管理不可或缺的一部分。在许多方面，监控容器化应用与监控非容器化应用遵循相同的原则。但是，由于容器化基础架构往往具有高度动态性，其所含的容器会频繁创建或删除，您无法在每次发生这种情况时都重新配置监控系统。</p>
+
+<p>您可以区分两种主要的监控类型，包括“黑盒监控”和“白盒监控”。黑盒监控是指从外部检查您的应用，就像您是最终用户一样。如果您要提供的最终服务可用且有效，则黑盒监控非常有用。由于黑盒监控从基础架构外部进行监控，因此其在传统基础架构和容器化基础架构之间没有区别。</p>
+
+<p>白盒监控是指使用某种特别访问权限检查您的应用，并收集最终用户无法查看的行为指标。由于白盒监控必须检查基础架构的最深层，因此对于传统基础架构和容器化基础架构而言，其差异很大。</p>
+
+<p>在 Kubernetes 社区中，<a href="https://prometheus.io/">Prometheus</a> 是用于白盒监控的常用选项，该系统可以自动发现它必须监控的 pod。Prometheus 会根据预期的特定格式，从 pod 中查找指标。<a href="https://cloud.google.com/monitoring/kubernetes-engine?hl=zh-cn">Cloud Monitoring</a> 内置了专属版本的 Prometheus，能够监控 Kubernetes 集群及其运行的应用。了解如何<a href="https://cloud.google.com/monitoring/kubernetes-engine?hl=zh-cn">启用 Kubernetes Engine Monitoring</a>。</p>
+
+<p>如需充分利用 Prometheus 或 Kubernetes Engine Monitoring，您的应用需要公开 Prometheus 格式的指标。以下两种方法展示了如何执行此操作。</p>
+
+<h3 id="指标-http-端点">指标 HTTP 端点</h3>
+
+<p>指标 HTTP 端点的运作方式与后文<a href="https://cloud.google.com/solutions/best-practices-for-operating-containers?hl=zh-cn#expose_the_health_of_your_application">公开应用的运行状况</a>中提到的的端点类似。它通常在 <code>/metrics</code> URI 上公开应用的内部指标。响应如下：</p>
+
+<pre><code>    http_requests_total{method=&quot;post&quot;,code=&quot;200&quot;} 1027
+    http_requests_total{method=&quot;post&quot;,code=&quot;400&quot;}    3
+    http_requests_total{method=&quot;get&quot;,code=&quot;200&quot;} 10892
+    http_requests_total{method=&quot;get&quot;,code=&quot;400&quot;}    97
+    
+</code></pre>
+
+<p>在此示例中，<code>http_requests_total</code> 是指标，<code>method</code> 和 <code>code</code> 是标签，最右侧的数字是这些标签的指标值。在本例中，自启动以来，应用对 HTTP GET 请求已返回 400 错误代码 97 次。</p>
+
+<p>通过 <a href="https://prometheus.io/docs/instrumenting/clientlibs/">Prometheus 客户端库</a>（提供多种语言）可以轻松生成此 HTTP 端点。<a href="http://opencensus.io/">OpenCensus</a> 还可以使用此格式（以及许多其他功能）导出指标。但请注意，切勿将此端点公开给公共互联网。</p>
+
+<p><a href="https://prometheus.io/docs/introduction/overview/">Prometheus 官方文档</a>详细介绍了该主题。如需详细了解白盒（和黑盒）监控，请阅读《网站可靠性工程》的<a href="https://landing.google.com/sre/book/chapters/monitoring-distributed-systems.html?hl=zh-cn">第 6 章</a>。</p>
+
+<h3 id="用于监控的-sidecar-模式">用于监控的 sidecar 模式</h3>
+
+<p>并非所有应用都可以使用 <code>/metrics</code> HTTP 端点进行检测。为了保持标准化监控，我们建议使用 sidecar 模式以正确格式导出指标。</p>
+
+<p><a href="https://cloud.google.com/solutions/best-practices-for-operating-containers?hl=zh-cn#log_aggregator_sidecar_pattern">日志聚合器 sidecar 模式</a>部分介绍了如何使用 sidecar 容器来管理应用日志。您可以使用相同的模式进行监控，即 sidecar 容器托管监控代理，该代理将应用公开的指标转换为全局监控系统可以理解的格式和协议。</p>
+
+<p>以 Java 应用和 Java Management Extensions (JMX) 作为具体的例子：许多 Java 应用使用 JMX 公开指标。您可以利用 <a href="https://github.com/prometheus/jmx_exporter">jmx_exporter</a>，而无需重写应用以 Prometheus 格式公开指标。jmx_exporter 通过 JMX 从应用收集指标，并通过 Prometheus 可读取的 <code>/metrics</code> 端点公开这些指标。这种方法还具有限制 JMX 端点公开的优点，该端点可能被用来修改应用设置。</p>
+
+<p><img src="https://cloud.google.com/solutions/images/bp-operating-containers-monitoring.svg?hl=zh-cn" alt="用于监控的 sidecar 模式。" /><strong>图 4.</strong>用于监控的 sidecar 模式</p>
+
+<h2 id="公开应用的运行状况">公开应用的运行状况</h2>
+
+<p><strong>重要性：中</strong></p>
+
+<p>为了便于在生产环境中进行管理，应用必须将其状态传达给整个系统，包括应用是否正在运行？运行状况是否良好？是否已准备好接收流量？应用表现如何？</p>
+
+<p>Kubernetes 有两种类型的运行状况检查，包括活动性探测和就绪性探测。每种类型都有特定用途，本部分会详细介绍。您可以通过多种方式（包括在容器内运行命令或检查 TCP 端口）实现这两种类型的探测，但首选方法是使用此最佳做法中介绍的 HTTP 端点。如需详细了解此主题，请参阅 <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">Kubernetes 文档</a>。</p>
+
+<p><strong>注意</strong>：本部分中给出的路径只是一种惯例。这些 HTTP 端点的实际路径可能因应用而异。</p>
+
+<h3 id="活动性探测">活动性探测</h3>
+
+<p>实现<a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-a-liveness-http-request">活动性探测</a>的推荐方法是让应用公开 <code>/health</code> HTTP 端点。在此端点上收到请求后，如果认为运行状况良好，应用应发送“200 OK”响应。在 Kubernetes 中，运行状况良好意味着容器不需要终止或重启。运行状况良好的条件因应用而异，但通常意味着以下情况：</p>
+
+<ul>
+<li>该应用正在运行。</li>
+<li>其主要依赖性得到满足（例如，它可以访问其数据库）。</li>
+</ul>
+
+<h3 id="就绪性探测">就绪性探测</h3>
+
+<p>实现<a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes">就绪性探测</a>的推荐方法是让应用公开 <code>/ready</code> HTTP 端点。当应用在此端点上收到请求时，如果其已准备好接收流量，则应发送“200 OK”响应。准备好接收流量意味着以下情况：</p>
+
+<ul>
+<li>该应用运行状况良好。</li>
+<li>任何潜在的初始化步骤均已完成。</li>
+<li>发送到应用的任何有效请求都不会导致错误。</li>
+</ul>
+
+<p>Kubernetes 使用就绪性探测来编排应用的部署。如果更新 <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployment</a>，Kubernetes 将对属于该 Deployment 的 pod 进行滚动更新。默认更新政策是一次更新一个 pod，即 Kubernetes 会在更新下一个 pod 之前等待新 pod 准备就绪（由就绪性探测指明）。</p>
+
+<p><strong>注意</strong>：在许多应用中，<code>/health</code> 和 <code>/ready</code> 端点合并为一个 <code>/health</code> 端点，因为实际上它们的运行状况和就绪状态之间并没有差别。</p>
+
+<h2 id="避免以-root-身份运行">避免以 root 身份运行</h2>
+
+<p><strong>重要性：中</strong></p>
+
+<p>容器提供隔离，具体表现为使用默认设置，Docker 容器内的进程无法访问来自主机或其他并置容器的信息。但是，由于容器共享主机的内核，因此隔离不像虚拟机那样完整，如<a href="https://cloudplatform.googleblog.com/2018/05/Exploring-container-security-Isolation-at-different-layers-of-the-Kubernetes-stack.html">本博文</a>所述。攻击者可能会找到未知的漏洞（在 Docker 或 Linux 内核中），这些漏洞将允许攻击者从容器中逃脱。如果攻击者确实发现了漏洞并且您的进程在容器内以 root 身份运行，则攻击者将获得对主机的 root 访问权限。</p>
+
+<p><img src="https://cloud.google.com/solutions/images/bp-operating-containers-root.svg?hl=zh-cn" alt="左图：虚拟机使用虚拟化硬件。右图：容器中的应用使用主机内核。" /><strong>图 5.</strong>左图中的虚拟机使用虚拟化硬件。右图中容器内的应用使用主机内核。</p>
+
+<p>为避免这种可能性，最佳做法是不以 root 身份在容器内运行进程。您可以使用 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/pod-security-policies?hl=zh-cn">PodSecurityPolicy</a> 在 Kubernetes 中强制执行此行为。在 Kubernetes 中创建 pod 时，使用 <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod">runAsUser 选项</a>指定正在运行该进程的 Linux 用户。此方法会覆盖 Dockerfile 的 <code>USER</code> 指令。</p>
+
+<p>实际上，这种方法存在某些困难，因为许多常见的软件包都以 root 身份运行其主要进程。如果要避免以 root 身份运行，请将容器设计为可以使用未知的非特权用户运行该容器。这种做法通常意味着您必须调整各种文件夹的权限。如果您遵循<a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn#package_a_single_app_per_container">每个容器一个应用</a>的最佳做法，并且您以单个用户身份（<a href="https://cloud.google.com/solutions/best-practices-for-operating-containers?hl=zh-cn#avoid_running_as_root">最好不是 root 用户</a>）运行单个应用，则可以在容器中为所有用户授予对需要写入数据的文件夹和文件的写入权限，并将其他所有文件夹和文件设为仅可由 root 用户写入。</p>
+
+<p>检查容器是否符合此最佳做法的一种简单方法是以某个随机用户身份在本地运行该容器，并测试其是否正常运行。请将 <code>[YOUR_CONTAINER]</code> 替换为您的容器名称。</p>
+
+<pre><code>docker run --user $((RANDOM+1)) [YOUR_CONTAINER]
+</code></pre>
+
+<p>如果容器需要外部卷，则可以配置 <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod">fsGroup Kubernetes 选项</a>以将此卷的所有权授予特定的 Linux 组。此配置解决了外部文件所有权的问题。</p>
+
+<p>如果您的进程由非特权用户运行，它将无法绑定到 1024 以下的端口。此问题影响不大，因为您可以配置 Kubernetes 服务以将流量从一个端口路由到另一个端口。例如，您可以将 HTTP 服务器配置为绑定到端口 8080，并使用 Kubernetes 服务对端口 80 的流量进行重定向。</p>
+
+<h2 id="谨慎选择映像版本">谨慎选择映像版本</h2>
+
+<p><strong>重要性：中</strong></p>
+
+<p>当您使用 Docker 映像时，无论是作为 Dockerfile 中的基本映像还是 Kubernetes 中部署的映像，您都必须选择正在使用的映像的标记。</p>
+
+<p>大多数公共映像和私有映像都采用类似于<a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn#properly_tag_your_images">构建容器的最佳做法</a>中所述的标记系统。如果映像使用类似<a href="https://semver.org/">语义版本控制</a>的系统，则必须考虑一些标记细节。</p>
+
+<p>最重要的是，“最新”标记可能会频繁地从一个映像移至另一个映像。导致您无法依赖此标记进行可预测或可重现的构建。例如，以下面的 Dockerfile 为例：</p>
+
+<pre><code>    FROM debian:latest
+
+    RUN apt-get -y update &amp;&amp; \
+        apt-get -y install nginx
+    
+</code></pre>
+
+<p>如果您在不同的时间基于这个 Dockerfile 构建映像两次，您将会得到两个不同版本的 Debian 和 NGINX。更好的做法是考虑使用如下的修订版本：</p>
+
+<pre><code>    FROM debian:9.4
+
+    RUN apt-get -y update &amp;&amp; \
+        apt-get -y install nginx
+    
+</code></pre>
+
+<p>通过使用更精确的标记，您可以确保生成的映像始终基于 Debian 的特定次要版本。由于特定 Debian 版本还附带了特定 NGINX 版本，因此您可以更好地控制正在构建的映像。</p>
+
+<p>这个结果不仅适用于构建时，也适用于运行时。如果您在 Kubernetes 清单中引用“最新”标记，则无法保证 Kubernetes 将使用的版本。集群的不同节点可能会在不同时刻拉取相同的“最新”标记。如果在拉取期间，该标记在某个时间点进行更新，则最终可能导致不同的节点运行不同的映像（这些映像在某个时间点均标记为“最新”）。</p>
+
+<p>理想情况下，您应始终在 FROM 行中使用不可变标记。此标记可让您具有可重现的构建，但在安全性方面需要做出权衡，即对要使用的版本执行 pin 操作的次数越多，安全补丁程序在映像中的自动化程度就越低。如果您所用的映像使用正确的语义版本控制，则补丁程序版本（即“X.Y.Z”中的“Z”）应该不会具有向后兼容的更改，即您可以使用“X.Y”标记并自动修复 bug。</p>
+
+<p><strong>注意</strong>：标记在 Docker 中无法保证完全不可变。如果映像的所有者决定更改标记，则可以进行更改。但是，“X.Y.Z”标记实际上几乎总是不可变的。</p>
+
+<p>比如有一款名为“SuperSoft”的软件，假设 SuperSoft 的安全进程通过新的补丁程序版本来修复漏洞，那么您要自定义 SuperSoft，就要编写以下 Dockerfile：</p>
+
+<pre><code>    FROM supersoft:1.2.3
+
+    RUN a-command
+    
+</code></pre>
+
+<p>一段时间后，供应商发现了一个漏洞，并发布了 SuperSoft 的 1.2.4 版本来解决此问题。在这种情况下，您需要随时关注 SuperSoft 的补丁程序并相应地更新您的 Dockerfile。如果您不这样做，而是在 Dockerfile 中使用 <code>FROM supersoft:1.2</code>，则软件会自动拉取新版本。</p>
+
+<p>最后，您必须仔细审视正在使用的每个外部映像的标记系统，确定您对构建这些映像的人员的信任程度，并确定要使用的标记。</p>
+
+<p>参考链接：<a href="https://cloud.google.com/solutions/best-practices-for-operating-containers?hl=zh-cn">https://cloud.google.com/solutions/best-practices-for-operating-containers?hl=zh-cn</a></p>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/docker%E6%9E%84%E5%BB%BA/">Docker镜像</a></li>
+        
+        <li><a href="/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/">Docker经典命令</a></li>
+        
+        <li><a href="/post/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a></li>
+        
+        <li><a href="/post/prometheus/">Prometheus</a></li>
+        
+        <li><a href="/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/">Docker构建镜像</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://luwen.tech">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E5%A4%A7%E5%B0%8F/" title="Docker大小">Docker大小</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E8%BF%90%E8%A1%8C/" title="Docker镜像操作">Docker镜像操作</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA/" title="Docker镜像">Docker镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/" title="Docker经典命令">Docker经典命令</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/" title="云原生">云原生</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/prometheus/" title="Prometheus">Prometheus</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/" title="Docker构建镜像">Docker构建镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator">Prometheus Operator</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/" title="Redis慢分析">Redis慢分析</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/k8s%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" title="K8s多集群管理">K8s多集群管理</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/categories/Docker/">Docker(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Golang/">Golang(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(11)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Linux/">Linux(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/SniperLu" title="SniperLu’s github">SniperLu的github地址</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.cnblogs.com/mikeluwen/" title="SniperLu&#39;s blog">SniperLu的原博客地址</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://luwen.tech/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://luwen.tech">卢文的博客 By SniperLu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
