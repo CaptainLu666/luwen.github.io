@@ -80,6 +80,52 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/">K8s污点和容忍</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年6月11日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Kubernetes Pod调度进阶：Taints(污点)和Tolerations(容忍) 污点(Taint)和容忍(Toleration)是从Kubernetes 1.6开始提供的高级调度功能。 在Kubernetes的文档中Taints and Tolerations的介绍已经十分详细。 本文将从简单理解的角度……
+                                <p class="readmore"><a href="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/">K8s进程排查</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年4月14日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 #查找容器ID docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Name}} &quot; $(docker ps -q) |grep #查找k8s pod name docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&quot; $(docker ps -q) |grep #如果PID是容器内运行子进程那docker inspect就……
+                                <p class="readmore"><a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a>
                                 </h1>
                             </header>
@@ -261,52 +307,6 @@
                             </div>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Kubernetes探针最佳实践</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月20日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                1. 存活和就绪的结果处理程序需要是互相独立的程序 如前所述，对于在Kubernetes上下文中部署的每个产品，应该实现2个分别处理HTTP请求“存活”和“就绪”的处理程序。这些探测器的处理程序需要独立实现自己的功能。 这适用于作业处理应用程序。对于Kubernetes，了解应用程序是否……
-                                <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/">Kubernets资源限制</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月15日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                ###普通应用资源限制 resources: limits: cpu: 100m memory: 1024Mi requests: cpu: 50m memory: 512Mi java jdk 8部分版本和更新版本的应用资源限制： env: - name: JAVA_OPTS value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&quot; resources: limits: cpu: 100m memory: 1024Mi requests: cpu: 50m memory: 512Mi……
-                                <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
 
                     
 
@@ -352,6 +352,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/" title="K8s污点和容忍">K8s污点和容忍</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker最佳实践">Docker最佳实践</a>
     </li>
     
@@ -372,6 +376,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/" title="K8s进程排查">K8s进程排查</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/" title="云原生">云原生</a>
     </li>
     
@@ -381,14 +389,6 @@
     
     <li>
         <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/" title="Docker构建镜像">Docker构建镜像</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator">Prometheus Operator</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/" title="Redis慢分析">Redis慢分析</a>
     </li>
     
 </ul>
@@ -409,7 +409,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(11)</a>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(13)</a>
     </li>
     
     <li>

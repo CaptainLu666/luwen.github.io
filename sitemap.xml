@@ -4,7 +4,30 @@
   
   <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2020-06-03T10:07:38+08:00</lastmod>
+    <lastmod>2020-06-11T16:05:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/</loc>
+    <lastmod>2020-06-11T16:05:51+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/Kubernetes/</loc>
+    <lastmod>2020-06-11T16:05:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2020-06-11T16:05:51+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2020-06-11T16:05:51+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -17,18 +40,6 @@
   <url>
     <loc>http://luwen.tech/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
     <lastmod>2020-06-03T10:07:38+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2020-06-03T10:07:38+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/</loc>
-    <lastmod>2020-06-03T10:07:38+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -52,9 +63,8 @@
   </url>
   
   <url>
-    <loc>http://luwen.tech/categories/Kubernetes/</loc>
-    <lastmod>2020-04-13T17:54:08+08:00</lastmod>
-    <priority>0</priority>
+    <loc>http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/</loc>
+    <lastmod>2020-04-14T01:45:18+08:00</lastmod>
   </url>
   
   <url>

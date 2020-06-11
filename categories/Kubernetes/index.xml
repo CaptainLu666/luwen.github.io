@@ -6,10 +6,28 @@
     <description>Recent content in Kubernetes on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 13 Apr 2020 17:54:08 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jun 2020 16:05:51 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/Kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8s污点和容忍</title>
+      <link>http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/</link>
+      <pubDate>Thu, 11 Jun 2020 16:05:51 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/</guid>
+      <description>Kubernetes Pod调度进阶：Taints(污点)和Tolerations(容忍) 污点(Taint)和容忍(Toleration)是从Kubernetes 1.6开始提供的高级调度功能。 在Kubernetes的文档中Taints and Tolerations的介绍已经十分详细。 本文将从简单理解的角度</description>
+    </item>
+    
+    <item>
+      <title>K8s进程排查</title>
+      <link>http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/</link>
+      <pubDate>Tue, 14 Apr 2020 01:45:18 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/</guid>
+      <description>在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 #查找容器ID docker inspect -f &amp;quot;{{.Id}} {{.State.Pid}} {{.Name}} &amp;quot; $(docker ps -q) |grep #查找k8s pod name docker inspect -f &amp;quot;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&amp;quot; $(docker ps -q) |grep #如果PID是容器内运行子进程那docker inspect就</description>
+    </item>
     
     <item>
       <title>云原生</title>

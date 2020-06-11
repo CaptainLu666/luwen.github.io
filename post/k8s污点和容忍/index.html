@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Apollo总体设计 | 卢文的博客</title>
-    <meta property="og:title" content="Apollo总体设计 - 卢文的博客">
+    <title>K8s污点和容忍 | 卢文的博客</title>
+    <meta property="og:title" content="K8s污点和容忍 - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-10-29T14:53:26&#43;08:00">
+    <meta property="article:published_time" content="2020-06-11T16:05:51&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-10-29T14:53:26&#43;08:00">
+    <meta property="article:modified_time" content="2020-06-11T16:05:51&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Apollo总体设计">
+    <meta name="description" content="K8s污点和容忍">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">
+    <meta property="og:url" content="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,10 +74,10 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Apollo总体设计</h1>
+                            <h1 class="post-title">K8s污点和容忍</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年10月29日
+                            2020年6月11日
                         </date>
                         
                         <div class="post-meta">
@@ -96,24 +96,138 @@
                         <div class="clear">
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
-                                
+                                <nav id="TableOfContents">
+<ul>
+<li><a href="#kubernetes-pod调度进阶-taints-污点-和tolerations-容忍">Kubernetes Pod调度进阶：Taints(污点)和Tolerations(容忍)</a>
+<ul>
+<li><a href="#污点-taint">污点(Taint)</a>
+<ul>
+<li><a href="#污点-taint-的组成">污点(Taint)的组成</a></li>
+<li><a href="#污点的设置和去除">污点的设置和去除</a></li>
+</ul></li>
+<li><a href="#容忍-tolerations">容忍(Tolerations)</a></li>
+<li><a href="#实践-kubernetes-master节点不运行工作负载">实践：Kubernetes master节点不运行工作负载</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            <p><img src="https://github.com/ctripcorp/apollo/raw/master/doc/images/overall-architecture.png" alt="overall-architecture" /></p>
+                            
+
+<h1 id="kubernetes-pod调度进阶-taints-污点-和tolerations-容忍">Kubernetes Pod调度进阶：Taints(污点)和Tolerations(容忍)</h1>
+
+<p>污点(Taint)和容忍(Toleration)是从Kubernetes 1.6开始提供的高级调度功能。 在Kubernetes的文档中<a href="https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/">Taints and Tolerations</a>的介绍已经十分详细。 本文将从简单理解的角度看一下Taint和Toleration。</p>
+
+<h2 id="污点-taint">污点(Taint)</h2>
+
+<h3 id="污点-taint-的组成">污点(Taint)的组成</h3>
+
+<p>使用<code>kubectl taint</code>命令可以给某个Node节点设置污点，Node被设置上污点之后就和Pod之间存在了一种相斥的关系，可以让Node拒绝Pod的调度执行，甚至将Node已经存在的Pod驱逐出去。</p>
+
+<p>每个污点的组成如下：</p>
+
+<pre><code class="language-yaml">key=value:effect                     
+</code></pre>
+
+<p>每个污点有一个key和value作为污点的标签，其中value可以为空，effect描述污点的作用。当前taint effect支持如下三个选项：</p>
 
 <ul>
-<li>Config Service提供配置的读取、推送等功能，服务对象是Apollo客户端</li>
-<li>Admin Service提供配置的修改、发布等功能，服务对象是Apollo Portal（管理界面）</li>
-<li>Config Service和Admin Service都是多实例、无状态部署，所以需要将自己注册到Eureka中并保持心跳</li>
-<li>在Eureka之上我们架了一层Meta Server用于封装Eureka的服务发现接口</li>
-<li>Client通过域名访问Meta Server获取Config Service服务列表（IP+Port），而后直接通过IP+Port访问服务，同时在Client侧会做load balance、错误重试</li>
-<li>Portal通过域名访问Meta Server获取Admin Service服务列表（IP+Port），而后直接通过IP+Port访问服务，同时在Portal侧会做load balance、错误重试</li>
-<li>为了简化部署，我们实际上会把Config Service、Eureka和Meta Server三个逻辑角色部署在同一个JVM进程中</li>
+<li><code>NoSchedule</code>：表示k8s将不会将Pod调度到具有该污点的Node上</li>
+<li><code>PreferNoSchedule</code>：表示k8s将尽量避免将Pod调度到具有该污点的Node上</li>
+<li><code>NoExecute</code>：表示k8s将不会将Pod调度到具有该污点的Node上，同时会将Node上已经存在的Pod驱逐出去</li>
 </ul>
 
-<p>###可以在跨集群或者跨网段部署多套apollo环境，比如 dev,fat,uat,pro环境在不同集群，用一个portal-server，每套环境需要部署独立的admin-server和configserver，要保证configserver能和portal-server通信。</p>
+<h3 id="污点的设置和去除">污点的设置和去除</h3>
+
+<p>使用kubectl设置和去除污点的命令示例如下：</p>
+
+<pre><code class="language-yaml"># 设置污点 kubectl taint nodes node1 key1=value1:NoSchedule 
+# 去除污点 kubectl taint nodes node1 key1:NoSchedule- 
+</code></pre>
+
+<p>接下来看一个具体的例子，使用kubeadm部署和初始化的Kubernetes集群，master节点被设置了一个<code>node-role.kubernetes.io/master:NoSchedule</code>的污点，可以使用<code>kubectl describe node &lt;node-name&gt;</code>命令查看。这个污点表示默认情况下master节点将不会调度运行Pod，即不运行工作负载。对于使用二进制手动部署的集群设置和移除这个污点的命令如下：</p>
+
+<pre><code class="language-yaml">kubectl taint nodes &lt;node-name&gt; node-role.kubernetes.io/master=:NoSchedule 
+kubectl taint nodes &lt;node-name&gt; node-role.kubernetes.io/master:NoSchedule- 
+</code></pre>
+
+<blockquote>
+<p>注意：kubeadm初始化的Kubernetes集群，master节点也被打上了一个<code>node-role.kubernetes.io/master=</code>的label，标识这个节点的角色为master。给Node设置Label和设置污点是两个不同的操作。设置Label和移除Label的操作命令如下</p>
+</blockquote>
+
+<pre><code class="language-yaml"># 设置Label kubectl label node node1 node-role.kubernetes.io/master= 
+# 移除Label kubectl label node node1 node-role.kubernetes.io/master- 
+kubectl get node
+NAME      STATUS    ROLES     AGE       VERSION 
+node1    Ready     master    10d       v1.9.8 
+node2    Ready     master    10d       v1.9.8 
+node3    Ready     master    10d       v1.9.8 
+node4    Ready     &lt;none&gt;    10d       v1.9.8 
+node5    Ready     &lt;none&gt;    10d       v1.9.8 
+</code></pre>
+
+<h2 id="容忍-tolerations">容忍(Tolerations)</h2>
+
+<p>设置了污点的Node将根据taint的effect：NoSchedule、PreferNoSchedule、NoExecute和Pod之间产生互斥的关系，Pod将在一定程度上不会被调度到Node上。 但我们可以在Pod上设置容忍(Toleration)，意思是设置了容忍的Pod将可以容忍污点的存在，可以被调度到存在污点的Node上。</p>
+
+<p>通过在Pod的spec中设置tolerations字段，给Pod设置上容忍点Toleration：</p>
+
+<pre><code class="language-yaml">tolerations: 
+- key: &quot;key1&quot;  
+  operator: &quot;Equal&quot;  
+  value: &quot;value1&quot;  
+  effect: &quot;NoSchedule&quot;  
+  tolerationSeconds: 3600 
+- key: &quot;key1&quot;  
+  operator: &quot;Equal&quot;  
+  value: &quot;value1&quot;  
+  effect: &quot;NoExecute&quot; 
+- key: &quot;key2&quot;  
+  operator: &quot;Exists&quot;  
+  effect: &quot;NoSchedule&quot; `
+</code></pre>
+
+<ul>
+<li>其中key, vaule, effect要与Node上设置的taint保持一致</li>
+<li>operator的值为Exists将会忽略value值</li>
+<li>tolerationSeconds用于描述当Pod需要被驱逐时可以在Pod上继续保留运行的时间</li>
+</ul>
+
+<p>下面看一下在Pod上设置容忍的两个特例：</p>
+
+<p>示例1: 当不指定key值时，表示容忍所有的污点key：</p>
+
+<pre><code class="language-yaml">tolerations: - operator: &quot;Exists&quot; 
+</code></pre>
+
+<p>示例2：当不指定effect值时，表示容忍所有的污点作用：</p>
+
+<pre><code class="language-yaml">tolerations: 
+- key: &quot;key&quot;  
+  operator: &quot;Exists&quot; 
+</code></pre>
+
+<h2 id="实践-kubernetes-master节点不运行工作负载">实践：Kubernetes master节点不运行工作负载</h2>
+
+<p>Kubernetes集群的Master节点是十分重要的，一个高可用的Kubernetes集群一般会存在3个以上的master节点，为了保证master节点的稳定性，一般不推荐将业务的Pod调度到master节点上。 下面将介绍一下我们使用Kubernetes调度的Taints和和Tolerations特性确保Kubernetes的Master节点不执行工作负载的实践。</p>
+
+<p>我们的Kubernetes集群中总共有3个master节点，节点的名称分别为<code>k8s-01</code>、<code>k8s-02</code>、<code>k8s-03</code>。 为了保证集群的稳定性，同时提高master节点的利用率，我们将其中一个节点设置为<code>node-role.kubernetes.io/master:NoSchedule</code>，另外两个节点设置为<code>node-role.kubernetes.io/master:PreferNoSchedule</code>，这样保证3个节点中的1个无论在任何情况下都将不运行业务Pod，而另外2个载集群资源充足的情况下尽量不运行业务Pod。</p>
+
+<pre><code class="language-yaml">kubectl taint nodes k8s-01 node-role.kubernetes.io/master=:NoSchedule 
+kubectl taint nodes k8s-02 node-role.kubernetes.io/master=:PreferNoSchedule 
+kubectl taint nodes k8s-03 node-role.kubernetes.io/master=:PreferNoSchedule
+</code></pre>
+
+<p>另外对于我们部署在集群中的一些非业务组件，例如<code>Kubernetes Dashboard</code>、<code>jaeger-collector</code>、<code>jaeger-query</code>、<code>Prometheus</code>、<code>kube-state-metrics</code>等组件，通过设置Tolerations和Pod Affinity(亲和性)将这些组件运行在master节点上，而其他的业务Pod运行在普通的Node节点上。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/">Taints and Tolerations</a></li>
+</ul>
 
                         </div>
 
@@ -126,15 +240,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">K8s持续集成和发布</a></li>
+        <li><a href="/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Docker最佳实践</a></li>
         
-        <li><a href="/post/k8s-token/">K8s Token</a></li>
+        <li><a href="/post/docker%E5%A4%A7%E5%B0%8F/">Docker大小</a></li>
         
-        <li><a href="/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/">解决golang依赖包问题</a></li>
+        <li><a href="/post/docker%E8%BF%90%E8%A1%8C/">Docker镜像操作</a></li>
         
-        <li><a href="/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">Kubernetes弹性伸缩</a></li>
+        <li><a href="/post/docker%E6%9E%84%E5%BB%BA/">Docker镜像</a></li>
         
-        <li><a href="/post/rds%E4%BC%98%E5%8C%96/">Rds优化</a></li>
+        <li><a href="/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/">Docker经典命令</a></li>
         
     </ul>
 </div>
