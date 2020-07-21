@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>K8s多集群管理 | 卢文的博客</title>
-    <meta property="og:title" content="K8s多集群管理 - 卢文的博客">
+    <title>Golang学习站点汇总 | 卢文的博客</title>
+    <meta property="og:title" content="Golang学习站点汇总 - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-11-14T14:32:30&#43;08:00">
+    <meta property="article:published_time" content="2020-07-09T19:51:59&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-11-14T14:32:30&#43;08:00">
+    <meta property="article:modified_time" content="2020-07-09T19:51:59&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="K8s多集群管理">
+    <meta name="description" content="Golang学习站点汇总">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/k8s%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/">
+    <meta property="og:url" content="http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,16 +74,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">K8s多集群管理</h1>
+                            <h1 class="post-title">Golang学习站点汇总</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年11月14日
+                            2020年7月9日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Golang">Golang</a></span>
                             
                         </div>
                         
@@ -101,27 +101,30 @@
                         </div>
                         
                         <div class="post-content">
-                            <p>当前您可以在容器服务控制台集群详情页面，获取到当前登录用户对指定集群的 kubeconfig 访问凭证，或者通过调用 <a href="https://help.aliyun.com/document_detail/86798.html#reference-np5-jsl-xdb">openapi</a></p>
+                            <p><a href="https://colobu.com/2015/09/07/gotchas-and-common-mistakes-in-go-golang/">https://colobu.com/2015/09/07/gotchas-and-common-mistakes-in-go-golang/</a></p>
 
-<pre><code>KUBECONFIG=file1:file2:file3 kubectl config view --merge --flatten &gt; ~/.kube/all-config
-export KUBECONFIG=~/.kube/all-config
-</code></pre>
+<p>golang的单引号和双引号：</p>
+
+<p>在Go中，双引号是用来表示字符串string，其实质是一个byte类型的数组，单引号表示rune类型。</p>
+
+<p>go语言中的函数和方法：</p>
+
+<p>在Go语言中，函数和方法不太一样，有明确的概念区分。其他语言中，比如Java，一般来说，函数就是方法，方法就是函数，但是在Go语言中，函数是指不属于任何结构体、类型的方法，也就是说，函数是没有接收者的；而方法是有接收者的，我们说的方法要么是属于一个结构体的，要么属于一个新定义的类型的。</p>
+
+<p>fmt包中提供了3类读取输入的函数：</p>
 
 <ul>
-<li><p>执行如下命令，查看所有的可使用的 context 上下文。</p>
+<li>Scan家族：从标准输入os.Stdin中读取数据，包括Scan()、Scanf()、Scanln()</li>
+<li>SScan家族：从字符串中读取数据，包括Sscan()、Sscanf()、Sscanln()</li>
+<li>Fscan家族：从io.Reader中读取数据，包括Fscan()、Fscanf()、Fscanln()</li>
+</ul>
 
-<pre><code>kubectl config get-contexts
-</code></pre></li>
+<p>其中：</p>
 
-<li><p>执行如下命令，查看 config 配置的帮助信息。</p>
-
-<pre><code>kubectl config --help
-</code></pre></li>
-
-<li><p>执行如下命令，切换 context 上下文配置。</p>
-
-<pre><code>kubectl config use-context {your-contexts}
-</code></pre></li>
+<ul>
+<li>Scanln、Sscanln、Fscanln在遇到换行符的时候停止</li>
+<li>Scan、Sscan、Fscan将换行符当作空格处理</li>
+<li>Scanf、Sscanf、Fscanf根据给定的format格式读取，就像Printf一样</li>
 </ul>
 
                         </div>
@@ -135,15 +138,15 @@ export KUBECONFIG=~/.kube/all-config
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/%E9%85%8D%E7%BD%AEkong%E5%8F%91%E7%8E%B0linux%E7%B3%BB%E7%BB%9Flimit%E6%96%87%E4%BB%B6%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">配置kong发现linux系统limit文件作用域问题</a></li>
+        <li><a href="/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/">K8s污点和容忍</a></li>
         
-        <li><a href="/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">Apollo总体设计</a></li>
+        <li><a href="/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Docker最佳实践</a></li>
         
-        <li><a href="/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">K8s持续集成和发布</a></li>
+        <li><a href="/post/docker%E5%A4%A7%E5%B0%8F/">Docker大小</a></li>
         
-        <li><a href="/post/k8s-token/">K8s Token</a></li>
+        <li><a href="/post/docker%E8%BF%90%E8%A1%8C/">Docker镜像操作</a></li>
         
-        <li><a href="/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/">解决golang依赖包问题</a></li>
+        <li><a href="/post/docker%E6%9E%84%E5%BB%BA/">Docker镜像</a></li>
         
     </ul>
 </div>

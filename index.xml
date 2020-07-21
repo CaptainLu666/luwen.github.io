@@ -6,10 +6,28 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 11 Jun 2020 16:05:51 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2020 23:00:24 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux命令</title>
+      <link>http://luwen.tech/post/linux%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Tue, 21 Jul 2020 23:00:24 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/linux%E5%91%BD%E4%BB%A4/</guid>
+      <description>#https检测 ###curl -vosa &amp;ndash;resolve group-image.sdongpo.com:443:58.20.197.102 https://group-image.sdongpo.com/group_5.1.0/upload_pic/com_thumb_2020022918342000e3f9255e5a3e2c25ac3.jpg</description>
+    </item>
+    
+    <item>
+      <title>Golang学习站点汇总</title>
+      <link>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/</link>
+      <pubDate>Thu, 09 Jul 2020 19:51:59 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/</guid>
+      <description>https://colobu.com/2015/09/07/gotchas-and-common-mistakes-in-go-golang/ golang的单引号和双引号： 在Go中，双引号是用来表示字符串string，其实质是一个byte类型的数组，单引号表示rune类型。 go语言中的函数和方法： 在Go语言中，函数和方法不太一样，有明确的概念区分。其他语言中，比如Java，一般来说，函数就是方法，方法就是函数，但是在</description>
+    </item>
     
     <item>
       <title>K8s污点和容忍</title>

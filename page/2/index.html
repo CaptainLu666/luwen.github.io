@@ -70,6 +70,52 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/prometheus/" title="Prometheus" >Prometheus</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年1月7日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Prometheus">Prometheus</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                自定义exporter实现 Concepts Data model prometheus 原理上以Time_series 的方式存储数据。流的时间戳值属于同样的度量和同样的标记维度。 Metric names and labels metric name 指定了系统的一般特性,比如http_request_total 表示全部接收到的HTTP请求。 Label启用了Prometheus的多维数据模型，……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/prometheus/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/" title="Docker构建镜像" >Docker构建镜像</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年11月26日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                指定国内源build镜像 docker build &ndash;build-arg APT_MIRROR=&ldquo;http://mirrors.163.com&quot; -t openapi:v1.1 .……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator" >Prometheus Operator</a>
                                 </h1>
                             </header>
@@ -251,52 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/" title="Kubernetes弹性伸缩" >Kubernetes弹性伸缩</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月14日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                自动弹性伸缩(AutoScaling)，是Kubernetes的一大功能和亮点。在OpenStack IaaS云计算中也有类似的服务，即Senlin。即基于资源使用情况自动弹性缩容和扩容工作负载。Kubernetes的自动弹性伸缩有两个维度： Cluster Autoscaler：处理K8s集群N……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/" title="Rds优化" >Rds优化</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月12日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                事务长事务的防范手段。参数loose_max_statement_time可以控制大查询的最大执行时间，超过这个时间后，会把查询kill掉。参数loose_rds_strict_trx_idle_timeout可以控制空闲事务的最长存活时间，当一个事务空闲状态超过这个值时候，会主……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -349,6 +349,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/linux%E5%91%BD%E4%BB%A4/" title="Linux命令">Linux命令</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/" title="Golang学习站点汇总">Golang学习站点汇总</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/" title="K8s污点和容忍">K8s污点和容忍</a>
     </li>
     
@@ -380,14 +388,6 @@
         <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/" title="云原生">云原生</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/prometheus/" title="Prometheus">Prometheus</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/" title="Docker构建镜像">Docker构建镜像</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -402,7 +402,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Golang/">Golang(1)</a>
+        <a href="http://luwen.tech/categories/Golang/">Golang(2)</a>
     </li>
     
     <li>
@@ -410,7 +410,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Linux/">Linux(1)</a>
+        <a href="http://luwen.tech/categories/Linux/">Linux(2)</a>
     </li>
     
     <li>
