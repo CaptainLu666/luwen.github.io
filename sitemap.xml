@@ -4,7 +4,30 @@
   
   <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2020-07-21T23:00:24+08:00</lastmod>
+    <lastmod>2020-08-12T09:42:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/mysql%E6%8C%89%E6%97%A5%E6%9C%9F%E5%88%86%E8%A1%A8/</loc>
+    <lastmod>2020-08-12T09:42:44+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2020-08-12T09:42:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2020-08-12T09:42:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2020-08-12T09:42:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -17,18 +40,6 @@
   <url>
     <loc>http://luwen.tech/post/linux%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2020-07-21T23:00:24+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2020-07-21T23:00:24+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/</loc>
-    <lastmod>2020-07-21T23:00:24+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -118,12 +129,6 @@
   <url>
     <loc>http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/</loc>
     <lastmod>2019-11-14T18:11:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2019-11-14T18:11:41+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
