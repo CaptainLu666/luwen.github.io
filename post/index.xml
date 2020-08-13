@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 12 Aug 2020 09:42:44 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2020 14:48:13 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker镜像精简</title>
+      <link>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/</link>
+      <pubDate>Thu, 13 Aug 2020 14:48:13 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/</guid>
+      <description>##构建更小体积镜像 使用更小的基础镜像 Alpine 操作系统是一个面向安全的轻型 Linux 发行版。它不同于通常 Linux 发行版，Alpine 采用了 musl libc 和 busybox 以减小系统的体积和运行时资源消耗，但功能上比 busybox 又完善的多，因此得到开源社区越来越多的青睐。在保持瘦身的同时，Alpine 还提供了自己的包管理工具 apk，可</description>
+    </item>
     
     <item>
       <title>Mysql按日期分表</title>

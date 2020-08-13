@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Docker镜像精简 | 卢文的博客</title>
+    <meta property="og:title" content="Docker镜像精简 - 卢文的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-08-13T14:48:13&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-08-13T14:48:13&#43;08:00">
+        
+    <meta name="Keywords" content="golang,go语言,python,kubernetes">
+    <meta name="description" content="Docker镜像精简">
+        
+    <meta name="author" content="SniperLu">
+    <meta property="og:url" content="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://luwen.tech">
+                        卢文的博客
+                    </a>
+                
+                <p class="description">专注于linux运维，k8s云原生架构，python，golang</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://luwen.tech">首页</a>
+                    
+                    <a  href="http://luwen.tech/books/" title="新书">新书</a>
+                    
+                    <a  href="http://luwen.tech/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://luwen.tech/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Docker镜像精简</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020年8月13日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#使用更小的基础镜像">使用更小的基础镜像</a></li>
+<li><a href="#合并run命令">合并RUN命令</a></li>
+<li><a href="#去除掉不用的软件包">去除掉不用的软件包</a></li>
+<li><a href="#只安装必要的依赖包">只安装必要的依赖包</a></li>
+<li><a href="#关闭用户初始化lastlog和faillog数据库">关闭用户初始化lastlog和faillog数据库</a></li>
+<li><a href="#使用multi-stage构建">使用multi stage构建</a></li>
+</ul></li>
+<li><a href="#缩小镜像体积">缩小镜像体积</a>
+<ul>
+<li><a href="#合并镜像的多个层">合并镜像的多个层</a></li>
+<li><a href="#镜像安全">镜像安全</a></li>
+<li><a href="#drop-root">drop root</a></li>
+<li><a href="#镜像tag管理">镜像tag管理</a></li>
+<li><a href="#其它镜像构建方式">其它镜像构建方式</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<p>##构建更小体积镜像</p>
+
+<h3 id="使用更小的基础镜像">使用更小的基础镜像</h3>
+
+<blockquote>
+<p><code>Alpine</code> 操作系统是一个面向安全的轻型 <code>Linux</code> 发行版。它不同于通常 <code>Linux</code> 发行版，<code>Alpine</code> 采用了 <code>musl libc</code> 和 <code>busybox</code> 以减小系统的体积和运行时资源消耗，但功能上比 <code>busybox</code> 又完善的多，因此得到开源社区越来越多的青睐。在保持瘦身的同时，<code>Alpine</code> 还提供了自己的包管理工具 <code>apk</code>，可以通过 <code>https://pkgs.alpinelinux.org/packages</code> 网站上查询包信息，也可以直接通过 <code>apk</code> 命令直接查询和安装各种软件。</p>
+
+<p><code>Alpine</code> 由非商业组织维护的，支持广泛场景的 <code>Linux</code>发行版，它特别为资深/重度<code>Linux</code>用户而优化，关注安全，性能和资源效能。<code>Alpine</code> 镜像可以适用于更多常用场景，并且是一个优秀的可以适用于生产的基础系统/环境。</p>
+
+<p><code>Alpine</code> Docker 镜像也继承了 <code>Alpine Linux</code> 发行版的这些优势。相比于其他 <code>Docker</code> 镜像，它的容量非常小，仅仅只有 <strong>5 MB</strong> 左右（对比 <code>Ubuntu</code> 系列镜像接近 <code>200 MB</code>），且拥有非常友好的包管理机制。官方镜像来自 <code>docker-alpine</code> 项目。</p>
+
+<p>目前 Docker 官方已开始推荐使用 <code>Alpine</code> 替代之前的 <code>Ubuntu</code> 做为基础镜像环境。这样会带来多个好处。包括镜像下载速度加快，镜像安全性提高，主机之间的切换更方便，占用更少磁盘空间等。</p>
+
+<p>如果你的应用可以独立运行，如 Go 编译出来的 Binary 文件，还可以直接使用 scratch 这个空白镜像。</p>
+</blockquote>
+
+<h3 id="合并run命令">合并RUN命令</h3>
+
+<blockquote>
+<p>不同的 RUN 命令如果先后做了文件的增加和删除，因为镜像分层文件系统的原因，还是会增加镜像体积的。如果两个 RUN 命令合并后，才会达到所想的效果。</p>
+</blockquote>
+
+<pre><code>RUN curl http://xyz.abc -o abc.tar.gz \
+    ...
+    rm -rf abc.tar.gz
+</code></pre>
+
+<h3 id="去除掉不用的软件包">去除掉不用的软件包</h3>
+
+<blockquote>
+<p>在安装包的过程中，尽量只安装需要用到的包。尤其是在编译过程中，难免会安装一些运行过程中不需要的软件包，如 glibc-devel 等。那在最后，最好把这些包去掉，来节省镜像空间。又因为镜像分层系统的原因，这些安装和卸载的语法还应该处理同一个 RUN 命令下</p>
+</blockquote>
+
+<pre><code>RUN BUILD_DEP_PKGS=&quot;
+       gcc \
+       libc-devel&quot;
+    &amp;&amp; yum -y install $BUILD_DEP_PKGS \
+    ...
+    &amp;&amp; yum -y remove $BUILD_DEP_PKGS
+</code></pre>
+
+<h3 id="只安装必要的依赖包">只安装必要的依赖包</h3>
+
+<blockquote>
+<p><code>apt</code> 和 <code>yum/dnf</code> 在安装包的过程中，默认会自动安装一些弱依赖包。一般情况下是使用不到的。可以显示的关闭弱依赖。</p>
+</blockquote>
+
+<pre><code>apt-get -y install --no-install-recommends {{ package }} 
+
+# yum from RHEL family
+yum -y --setopt=install_weak_deps=false \
+    --setopt=tsflags=nodocs \
+    --setopt=override_install_langs=en_US.utf8 \
+    install vim
+    
+--no-install-recommends : 不安装推荐依赖
+--setopt=install_weak_deps=false: 不安装弱依赖包
+--setopt=tsflags=nodocs: 不安装文档包
+--setopt=override_install_langs=en_US.utf8: 设置默认语言为 en_US.utf8
+</code></pre>
+
+<h3 id="关闭用户初始化lastlog和faillog数据库">关闭用户初始化lastlog和faillog数据库</h3>
+
+<blockquote>
+<p>如果你要在镜像中创建新的用户，可以不初始化用户相关的 lastlog 和 faillog 数据库。可以使用 <code>useradd -l</code> 或把 <code>/var/log/faillog</code> 和 <code>/var/log/lastlog</code> 文件删除掉，彻底关掉该功能。每个用户大概用占用掉 4k 左右的空间。</p>
+</blockquote>
+
+<h3 id="使用multi-stage构建">使用multi stage构建</h3>
+
+<blockquote>
+<p>对于很多需要编译运行的程序，如 Java, C, Golang 等，其编译环境和运行环境是不一样的，为了减小最终镜像的大小，我们可以使用上面提到的合并 <code>RUN</code> 命令的方式，但是看着会比较乱，比较难以维护。docker daemon &gt;= 17.05 <a href="https://xcodest.me/best-practices-for-building-docker-images.html#fn-3">3</a>版本的时候支持 multi stage 构建，解决了此类问题，他使用两个镜像来构建，通过 <code>COPY --from</code> 语法，在两个镜像之间传递构建好的文件。使用方法如下：</p>
+</blockquote>
+
+<pre><code>FROM golang:1.7.3 as builder
+WORKDIR /go/src/github.com/alexellis/href-counter/
+RUN go get -d -v golang.org/x/net/html  
+COPY app.go .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+
+FROM alpine:latest  
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=builder /go/src/github.com/alexellis/href-counter/app .
+CMD [&quot;./app&quot;]  
+</code></pre>
+
+<h2 id="缩小镜像体积">缩小镜像体积</h2>
+
+<p>###使用dive分析镜像的空间占用</p>
+
+<blockquote>
+<p><a href="https://github.com/wagoodman/dive">dive</a> 是一个命令行工具，可以分析镜像里面每层的空间占用大小，有助于发现问题，以减少镜像大小。</p>
+</blockquote>
+
+<h3 id="合并镜像的多个层">合并镜像的多个层</h3>
+
+<blockquote>
+<p>docker 自从 1.13 版本增加了一个 squash 的 <code>experimental</code>特性 <a href="https://xcodest.me/best-practices-for-building-docker-images.html#fn-2">2</a>。他可以把把当前 Dockerfile 文件里面的多个层在构建的时候自动合并成一个。但是不支持合并其父镜像。使用前，需要打开 docker daemon 的 experiment 特性。使用方法如下</p>
+
+<pre><code>$ docker build --squash .
+</code></pre>
+
+<p>除了这个方法，还有一个工具叫 <a href="https://github.com/goldmann/docker-squash">docker squash</a> ， 他支持合并镜像的任意层。使用方法如下:</p>
+
+<pre><code>$ pip install docker-squash
+$ docker-squash -t kolla/centos-source-base:new \
+      kolla/centos-source-base:master
+Old image has 40 layers
+Attempting to squash last 40 layers...
+...
+Original image size: 388.51 MB
+Squashed image size: 281.43 MB
+Image size decreased by 27.56 %
+Image registered in Docker daemon as kolla/centos-source-base:new
+</code></pre>
+</blockquote>
+
+<h3 id="镜像安全">镜像安全</h3>
+
+<blockquote>
+<p>重启容器的时候，经常会很慢，而且docker daemon 日志中经常会抛出以下错误:</p>
+
+<pre><code>dockerd[559]: msg=&quot;Container 5054f failed to exit within 10 seconds of signal 15 - using the force&quot;
+</code></pre>
+
+<p>默认的的 signal 15 根本就没有使其退出，最后还是 10 秒超时后强制退出(kill)的。而且有时还会出现大量僵尸进程。</p>
+
+<p>容器化后，由于单容器单进程，已经没有传统意义上的 init 进程。应用进程直接占用了 pid 1 的进程号，应用默认是不会处理<code>SIGTERM</code> 信号的，所以会导致 signal 15 不能使进程正常退出，只能使用 <code>SIGKILL</code> 直接杀死进程。而这可能导致某些资源不能正常回收。另外 pid 1 进程还需要负责其子进程的回收工作，但是一般应用也不会对此进行处理。所以会导致僵尸进程的出现。更多解释，请参看我写的另外一篇文章：<a href="https://xcodest.me/docker-init-process">Docker init 进程</a></p>
+
+<p>解决方案是使用 <a href="https://github.com/krallin/tini">tini</a> , 或 <a href="ttps://github.com/Yelp/dumb-init">dumb-init</a> 等轻量级 init 进程。所以在制作镜像的时候最好安装上其中一个</p>
+
+<pre><code># install dumb-init
+RUN wget -O /usr/local/bin/dumb-init \
+    https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64
+RUN chmod +x /usr/local/bin/dumb-init
+
+# Runs &quot;/usr/bin/dumb-init -- /my/script --with --args&quot;
+ENTRYPOINT [&quot;/usr/bin/dumb-init&quot;, &quot;--&quot;]
+CMD [&quot;/my/script&quot;, &quot;--with&quot;, &quot;--args&quot;]
+</code></pre>
+
+<p>如果是使用 docker 的情况下，docker 自 1.13 之后已经自带一个 init 进程，其实就是 tini, 使用方法如下:</p>
+
+<pre><code>$ docker run --init centos:7 ps auxf
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   1000     4 ?        Ss   03:45   0:00 /dev/init -- ps auxf
+root         6  0.0  0.0  51748  3444 ?        R    03:45   0:00 ps auxf
+</code></pre>
+</blockquote>
+
+<h3 id="drop-root">drop root</h3>
+
+<blockquote>
+<p>虽然 container 在运行的时候 ，是与系统隔离开的，但是如果你使用 root 运行容器的话，他在系统层面上看，也是 root 账号，权限是比较大的，<a href="https://security.stackexchange.com/questions/176206/docker-runs-container-processes-as-root-should-i-be-worried">会有一定的风险</a>。更安全的做法是使用非root 账号运行。这点在 openshift 上面体现的比较明显，他默认是使用一个很大的 uid 来运行，来限制容器内的进程权限。</p>
+
+<p>在使用非 root 账号运行，尤其是在 kubernetes/openshift 这种环境中，uid 是不能事先确认的，需要对读写目录标记上<code>0777</code> 的权限。包括某些可能通过 volume 挂载的目录。</p>
+
+<blockquote>
+<p>注意，对于 volume 挂载的目录，在 kubernetes/openshift 环境中，并不是必要的，volume 目录的 uid / gid 会由 kubelet 自动配置好。</p>
+
+<pre><code>RUN ... \
+    &amp;&amp; rm -rf /etc/nginx/*.default \
+    &amp;&amp; chmod -R a+rwx ${NGINX_HOME_TMP} \
+    &amp;&amp; chmod -R a+rwx /etc/nginx \
+    &amp;&amp; chmod -R a+rwx /var/log/nginx \
+    &amp;&amp; chmod -R a+rwx /var/run/nginx
+</code></pre>
+
+<p>把需要 nginx 读写的地方配置上 <code>rwx</code> 权限，这样不管 nginx 进程的 <code>uid</code> 是多少，都可以正常运行。</p>
+</blockquote>
+</blockquote>
+
+<h3 id="镜像tag管理">镜像tag管理</h3>
+
+<blockquote>
+<p>理论上讲，docker 的镜像内容是不可变的，其 tag 应该是和 git 的 tag 是一样的，应该是一个只读值不应该变化。但是平时大家在使用的时候，习惯的使用 <code>:latest</code> ， 这样在生产环境中是比较危险的，很容易搞错镜像。我建议使用如下风格的 tag 命令方式来管理 image.</p>
+
+<pre><code>X.Y.Z-N
+X.Y.Z 跟随镜像里面关联代码的版本号
+N 使用构建次数，或使用时间戳。来标记 Dockerfile 的变化及构建时间
+</code></pre>
+</blockquote>
+
+<h3 id="其它镜像构建方式">其它镜像构建方式</h3>
+
+<blockquote>
+<p>现在，除了 <code>Dockerfile</code> 这种构建方式，还有很多其它的镜像构建工具，有兴趣可以深入研究下</p>
+
+<p><a href="https://github.com/openshift/source-to-image">source to image</a>: openshift 里面带的一个方便由源代码直接生成镜像的方案，可以单独使用。</p>
+
+<p><a href="https://github.com/uber/makisu">makisu</a>: 方便在 kubernetes 环境中使用的镜像构建方案，可以 unprivileged 的容器中使用</p>
+
+<p><a href="https://github.com/containers/buildah">buildash</a>: 构建 OCI 兼容格式镜像工具。</p>
+
+<pre><code>
+EXPOSE 8080
+EXPOSE 8443
+
+ARG http_proxy
+ARG https_proxy
+
+ARG NGINX_MODULE_VTS_VERSION=v0.1.18
+ARG NGINX_VERSION=1.13.3
+ARG TINI_VERSION=v0.18.0
+
+ENV NGINX_GROUP nginx
+ENV NGINX_HOME_TMP /var/spool/nginx/tmp
+ENV NGINX_HOME /var/lib/nginx
+ENV NGINX_USER nginx
+
+ENV NGINX_DOWNLOAD_URL http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
+
+RUN BUILD_DEP_PKGS=&quot;\
+       cpp \
+       expat-devel \
+       fontconfig-devel \
+       freetype-devel \
+       gcc \
+       gd-devel \
+       git \
+       glibc-devel \
+       glibc-headers \
+       kernel-headers \
+       keyutils-libs-devel \
+       krb5-devel \
+       libcom_err-devel \
+       libjpeg-turbo-devel \
+       libpng-devel \
+       libselinux-devel \
+       libsepol-devel \
+       libverto-devel \
+       libX11-devel \
+       libXau-devel \
+       libxcb-devel \
+       libxcb-devel \
+       libXpm-devel \
+       make \
+       openssl-devel \
+       pcre-devel \
+       xorg-x11-proto-devel \
+       zlib-devel \
+       &quot; \
+   &amp;&amp; rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 \
+   &amp;&amp; yum -y --setopt=install_weak_deps=false --setopt=tsflags=nodocs --setopt=override_install_langs=en_US.utf8 \
+       install \
+       ${BUILD_DEP_PKGS} \
+       rsync \
+       wget \
+   &amp;&amp; curl -L https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini -o /tini \
+   &amp;&amp; chmod +x /tini \
+   &amp;&amp; wget ${NGINX_DOWNLOAD_URL} -O /tmp/nginx.tar.gz \
+   &amp;&amp; tar xf /tmp/nginx.tar.gz -C /tmp \
+   &amp;&amp; git clone --branch ${NGINX_MODULE_VTS_VERSION} https://github.com/vozlt/nginx-module-vts.git /tmp/nginx-module-vts \
+   &amp;&amp; ( \
+       cd /tmp/nginx-${NGINX_VERSION} \
+       &amp;&amp; ./configure \
+               --add-module=/tmp/nginx-module-vts \
+               --conf-path=/etc/nginx/nginx.conf \
+               --error-log-path=/var/log/nginx/error.log \
+               --group=${NGINX_GROUP} \
+               --http-client-body-temp-path=${NGINX_HOME_TMP}/client_body \
+               --http-fastcgi-temp-path=${NGINX_HOME_TMP}/fastcgi \
+               --http-log-path=/var/log/nginx/access.log \
+               --http-proxy-temp-path=${NGINX_HOME_TMP}/proxy \
+               --http-uwsgi-temp-path=${NGINX_HOME_TMP}/uwsgi \
+               --lock-path=/var/local/subsys/nginx \
+               --modules-path=/usr/lib64/nginx/modules \
+               --pid-path=/var/run/nginx/nginx.pid \
+               --prefix=/etc/nginx \
+               --sbin-path=/usr/bin/nginx \
+               --user=${NGINX_USER} \
+               --with-http_gzip_static_module \
+               --with-http_image_filter_module \
+               --with-http_realip_module \
+               --with-http_secure_link_module \
+               --with-http_ssl_module \
+               --with-http_stub_status_module \
+               --with-http_sub_module \
+               --with-http_v2_module \
+               --without-http_scgi_module \
+               --without-mail_imap_module \
+               --without-mail_pop3_module \
+               --without-mail_smtp_module \
+               --without-poll_module \
+               --without-select_module \
+               --with-threads \
+       &amp;&amp; make -j4 \
+       &amp;&amp; make install \
+       &amp;&amp; cp -r conf/* /etc/nginx/ \
+       ) \
+   &amp;&amp; rm -rf /tmp/nginx.tar.gz \
+       /tmp/nginx-module-vts \
+       /tmp/nginx-${NGINX_VERSION} \
+   &amp;&amp; yum -y remove ${BUILD_DEP_PKGS} \
+   &amp;&amp; yum clean all \
+   &amp;&amp; mkdir -p ${NGINX_HOME_TMP}/{client_body,proxy,fastcgi,uwsgi} \
+   &amp;&amp; mkdir -p /usr/share/nginx \
+   &amp;&amp; mkdir -p /var/run/nginx \
+   &amp;&amp; mkdir -p /var/www \
+   &amp;&amp; mv /etc/nginx/html /usr/share/nginx/ \
+   &amp;&amp; rm -rf /etc/nginx/*.default \
+   &amp;&amp; chmod -R a+rwx ${NGINX_HOME_TMP} \
+   &amp;&amp; chmod -R a+rwx /etc/nginx \
+   &amp;&amp; chmod -R a+rwx /var/log/nginx \
+   &amp;&amp; chmod -R a+rwx /var/run/nginx \
+   &amp;&amp; sed -i '/listen/s,listen\s*80;,listen 8080;,g' /etc/nginx/nginx.conf \
+   &amp;&amp; sed -i '/^#user/s,#\(user.*\),\1,g' /etc/nginx/nginx.conf \
+   &amp;&amp; ln -sf /var/log/nginx /etc/nginx/logs \
+   &amp;&amp; ln -sf /var/www /etc/nginx/www
+</code></pre>
+</blockquote>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/mysql%E6%8C%89%E6%97%A5%E6%9C%9F%E5%88%86%E8%A1%A8/">Mysql按日期分表</a></li>
+        
+        <li><a href="/post/linux%E5%91%BD%E4%BB%A4/">Linux命令</a></li>
+        
+        <li><a href="/post/golang%E5%AD%A6%E4%B9%A0%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/">Golang学习站点汇总</a></li>
+        
+        <li><a href="/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/">K8s污点和容忍</a></li>
+        
+        <li><a href="/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Docker最佳实践</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://luwen.tech">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/" title="Docker镜像精简">Docker镜像精简</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/mysql%E6%8C%89%E6%97%A5%E6%9C%9F%E5%88%86%E8%A1%A8/" title="Mysql按日期分表">Mysql按日期分表</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/linux%E5%91%BD%E4%BB%A4/" title="Linux命令">Linux命令</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/" title="Golang学习站点汇总">Golang学习站点汇总</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/" title="K8s污点和容忍">K8s污点和容忍</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker最佳实践">Docker最佳实践</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E5%A4%A7%E5%B0%8F/" title="Docker大小">Docker大小</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E8%BF%90%E8%A1%8C/" title="Docker镜像操作">Docker镜像操作</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA/" title="Docker镜像">Docker镜像</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/" title="Docker经典命令">Docker经典命令</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/categories/Docker/">Docker(7)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Golang/">Golang(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(13)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Linux/">Linux(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(3)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/SniperLu" title="SniperLu’s github">SniperLu的github地址</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.cnblogs.com/mikeluwen/" title="SniperLu&#39;s blog">SniperLu的原博客地址</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://luwen.tech/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://luwen.tech">卢文的博客 By SniperLu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
