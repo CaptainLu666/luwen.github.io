@@ -138,13 +138,13 @@
 
 <h3 id="重命名原表-改新表改名">重命名原表、改新表改名</h3>
 
-<pre><code>rename table `order` to order_20200813;
+<pre><code>rename table `order` to order_20200814;
 rename table order_new to `order`;
 </code></pre>
 
 <h3 id="按业务需求导入数据">按业务需求导入数据</h3>
 
-<pre><code class="language-sql">INSERT INTO `order`() SELECT * FROM order_20200813 WHERE CREATE_DATE &gt; '2020-08-13';
+<pre><code class="language-sql">INSERT INTO `order`() SELECT * FROM order_20200814 WHERE CREATE_DATE &gt; '2020-07-14 00:00:00';
 </code></pre>
 
 <p><strong><em>注意点：rename表的时候业务会中断0.0x毫秒，尽量在业务量很低的时间段进行。</em></strong></p>
