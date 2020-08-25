@@ -6,10 +6,19 @@
     <description>Recent content in Prometheus on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 07 Jan 2020 22:34:52 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2020 11:02:10 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/Prometheus/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SpringBoot使用Micrometer集成Prometheus监控Jvm</title>
+      <link>http://luwen.tech/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/</link>
+      <pubDate>Tue, 25 Aug 2020 11:02:10 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/</guid>
+      <description>k8s使用kube-prometheus监控,已经创建好serviceMonitor crd,下面步骤实现在k8s集群中的prometheus监控集群中的springboot jvm。 1.创建jvm serviceMonitor apiVersion: monitoring.coreos.com/v1 kind: ServiceMonitor metadata: name: jvm-monitor namespace: monitoring spec: endpoints: - port: http #获取监控metric port，这里用的80，可以定义多</description>
+    </item>
     
     <item>
       <title>Prometheus</title>
