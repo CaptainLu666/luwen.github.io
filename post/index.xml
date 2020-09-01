@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 25 Aug 2020 11:02:10 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 01 Sep 2020 17:50:45 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Robots文件语法</title>
+      <link>http://luwen.tech/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Tue, 01 Sep 2020 17:50:45 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/</guid>
+      <description>前言 搜索引擎通过网络蜘蛛抓取网页的内容，并展示在相关的搜索结果中。但是有些网页内容我们可能并不想被搜索引擎收录和索引，如管理员后台等。 我们就可以通过 robots.txt 文件来声明允许/禁止搜索引擎的蜘蛛抓取某些目录或网页，从而限制搜索引擎的收录范围。 本文就介绍下网站的 robots.txt 文件的配置和使用方法，以及如</description>
+    </item>
     
     <item>
       <title>SpringBoot使用Micrometer集成Prometheus监控Jvm</title>

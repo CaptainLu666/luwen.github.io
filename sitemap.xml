@@ -4,13 +4,30 @@
   
   <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2020-08-25T11:02:10+08:00</lastmod>
+    <lastmod>2020-09-01T17:50:45+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://luwen.tech/post/</loc>
-    <lastmod>2020-08-25T11:02:10+08:00</lastmod>
+    <lastmod>2020-09-01T17:50:45+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/</loc>
+    <lastmod>2020-09-01T17:50:45+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/%E5%8D%8F%E8%AE%AE/</loc>
+    <lastmod>2020-09-01T17:50:45+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2020-09-01T17:50:45+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -23,12 +40,6 @@
   <url>
     <loc>http://luwen.tech/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/</loc>
     <lastmod>2020-08-25T11:02:10+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/</loc>
-    <lastmod>2020-08-25T11:02:10+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

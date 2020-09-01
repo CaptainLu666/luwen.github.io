@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/" title="Apollo总体设计" >Apollo总体设计</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月29日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Config Service提供配置的读取、推送等功能，服务对象是Apollo客户端 Admin Service提供配置的修改、发布等功能，服务对象是Apollo Portal（管理界面） Config Service和Admin Service都是多实例、无状态部署，所以需要将自己注册到Eureka中并保持心跳 在Eur……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/apollo%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/" title="K8s持续集成和发布" >K8s持续集成和发布</a>
                                 </h1>
                             </header>
@@ -267,29 +290,6 @@
                             <p class="readmore"><a href="http://luwen.tech/archives/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%9C%8D%E5%8A%A1%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88/" title="阿里云Kubernetes服务日志收集方案" >阿里云Kubernetes服务日志收集方案</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月9日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                Kubernetes集群中的日志收集 通用做法： 方案 优点 缺点 每个app的镜像中都集成日志收集组件 部署方便，kubernetes的yaml文件无须特别配置，可以为每个app自定义日志收集配置 强耦合，不方便应用和日志收集组件升级和维护且会导致镜像过大 单独创建一个日志收集组件跟app的容……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%9C%8D%E5%8A%A1%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E6%A1%88/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -346,6 +346,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/" title="Robots文件语法">Robots文件语法</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/" title="SpringBoot使用Micrometer集成Prometheus监控Jvm">SpringBoot使用Micrometer集成Prometheus监控Jvm</a>
     </li>
     
@@ -381,10 +385,6 @@
         <a href="http://luwen.tech/post/docker%E8%BF%90%E8%A1%8C/" title="Docker镜像操作">Docker镜像操作</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA/" title="Docker镜像">Docker镜像</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -412,6 +412,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E5%8D%8F%E8%AE%AE/">协议(1)</a>
     </li>
     
     <li>
