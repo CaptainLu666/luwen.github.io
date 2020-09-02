@@ -98,7 +98,7 @@
       <pubDate>Sun, 29 Sep 2019 13:49:25 +0800</pubDate>
       
       <guid>http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
-      <description>1.查看资源占用： kubectl describe node &amp;ldquo;cn-beijing.172.16.89.154&amp;rdquo; | sed &amp;lsquo;1,/Non-terminated Pods/d&amp;rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 4.kubectl get nodes &amp;ndash;show-labels 5.kubectl get nodes 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 nodeAffinity：功能更丰富的 Node 选择器，比如支持集合操作 pod</description>
+      <description>1.查看资源占用： kubectl describe node &amp;ldquo;cn-beijing.172.16.89.154&amp;rdquo; | sed &amp;lsquo;1,/Non-terminated Pods/d&amp;rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 4.kubectl get nodes &amp;ndash;show-labels 5.kubectl get nodes 4.删除evicted状态pod kubectl get pods | grep Evicted | awk &amp;lsquo;{print $1}&amp;rsquo; | xargs kubectl delete pod 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 node</description>
     </item>
     
     <item>

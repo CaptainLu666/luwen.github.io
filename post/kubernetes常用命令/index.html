@@ -126,6 +126,10 @@
 
 <p>5.kubectl get nodes</p>
 
+<p>4.删除evicted状态pod</p>
+
+<p>kubectl get pods | grep Evicted | awk &lsquo;{print $1}&rsquo; | xargs kubectl delete pod</p>
+
 <h2 id="指定-node-节点调度">指定 Node 节点调度</h2>
 
 <p>有三种方式指定 Pod 只运行在指定的 Node 节点上</p>
