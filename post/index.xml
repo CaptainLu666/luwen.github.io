@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 01 Sep 2020 17:50:45 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2020 11:45:55 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>常见web安全攻防</title>
+      <link>http://luwen.tech/post/%E5%B8%B8%E8%A7%81web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/</link>
+      <pubDate>Fri, 04 Sep 2020 11:45:55 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E5%B8%B8%E8%A7%81web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/</guid>
+      <description>在互联网时代，数据安全与个人隐私受到了前所未有的挑战，各种新奇的攻击技术层出不穷。如何才能更好地保护我们的数据？本文主要侧重于分析几种常见的攻击的类型以及防御的方法。 一、XSS XSS (Cross-Site Scripting)，跨站脚本攻击，因为缩写和 CSS重叠，所以只能叫 XSS。跨站脚本攻击是指通过存在</description>
+    </item>
     
     <item>
       <title>Robots文件语法</title>
