@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 04 Sep 2020 11:45:55 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2020 22:27:31 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Nginx Conf</title>
+      <link>http://luwen.tech/post/nginx-conf/</link>
+      <pubDate>Tue, 08 Sep 2020 22:27:31 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/nginx-conf/</guid>
+      <description>#强制跳转到https server { listen 80; server_name www.luwen.tech; rewrite ^(.*)$ https://www.luwen.tech$1 permanent; } #luwen.tech跳转为www.luwen.tech #https配置 server { listen 80; listen 443 ssl; charset utf-8; ssl on; ssl_certificate cert/all.luwen.tech.pem; ssl_certificate_key cert/all.luwen.tech.key; ssl_session_timeout 5m; ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_prefer_server_ciphers on; server_name luwen.tech; rewrite ^/shengxian/ https://www.luwen.tech/xy/c-$arg_p.html? permanent; rewrite ^/shengxian(\d+)\.html$ https://www.luwen.tech/xy/c-$1.html permanent; rewrite ^(.*)$ https://www.luwen.tech$1 permanent; } server { listen 443 ssl; server_name www.luwen.tech; charset utf-8; ssl on; ssl_certificate cert/all.luwen.tech.pem; ssl_certificate_key cert/all.luwen.tech.key; ssl_session_timeout 5m; ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_prefer_server_ciphers on; deny 120.239.22.36; root /data/vip/luwen/code/web; index index.php index.html; #阿里云获取真实客户</description>
+    </item>
     
     <item>
       <title>常见web安全攻防</title>
