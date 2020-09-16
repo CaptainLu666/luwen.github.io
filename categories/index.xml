@@ -6,10 +6,19 @@
     <description>Recent content in Categories on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 08 Sep 2020 22:27:31 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2020 16:03:07 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>linux</title>
+      <link>http://luwen.tech/categories/linux/</link>
+      <pubDate>Wed, 16 Sep 2020 16:03:07 +0800</pubDate>
+      
+      <guid>http://luwen.tech/categories/linux/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>nginx</title>

@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/" title="Redis慢分析" >Redis慢分析</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年11月14日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Redis 是一种内存数据库，将数据保存在内存中，读写效率要比传统的将数据保存在磁盘上的数据库要快很多。但是 Redis 也会发生延迟时，这是就需要我们对其产生原因有深刻的了解，以便于快速排查问题，解决 Redis的延迟问题 一条命令执行过程 在本文场景下，延迟 (latency) 是指从客户端发送命令到客户端接收到命令返回值……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/k8s%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86/" title="K8s多集群管理" >K8s多集群管理</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes探针最佳实践" >Kubernetes探针最佳实践</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年8月20日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                1. 存活和就绪的结果处理程序需要是互相独立的程序 如前所述，对于在Kubernetes上下文中部署的每个产品，应该实现2个分别处理HTTP请求“存活”和“就绪”的处理程序。这些探测器的处理程序需要独立实现自己的功能。 这适用于作业处理应用程序。对于Kubernetes，了解应用程序是否……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -353,6 +353,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" title="网站性能指标">网站性能指标</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/nginx-conf/" title="Nginx Conf">Nginx Conf</a>
     </li>
     
@@ -388,10 +392,6 @@
         <a href="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/" title="K8s污点和容忍">K8s污点和容忍</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker最佳实践">Docker最佳实践</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -419,6 +419,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/linux/">linux(1)</a>
     </li>
     
     <li>
