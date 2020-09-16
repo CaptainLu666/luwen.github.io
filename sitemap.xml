@@ -3,9 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2020-09-16T23:50:53+08:00</lastmod>
+    <loc>http://luwen.tech/categories/Aliyun/</loc>
+    <lastmod>2020-09-17T00:00:19+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/</loc>
+    <lastmod>2020-09-17T00:00:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2020-09-17T00:00:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2020-09-17T00:00:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/</loc>
+    <lastmod>2020-09-17T00:00:19+08:00</lastmod>
   </url>
   
   <url>
@@ -17,18 +40,6 @@
   <url>
     <loc>http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2020-09-16T23:50:53+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2020-09-16T23:50:53+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/</loc>
-    <lastmod>2020-09-16T23:50:53+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

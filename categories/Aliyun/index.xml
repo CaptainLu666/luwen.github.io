@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Aliyun on 卢文的博客</title>
+    <link>http://luwen.tech/categories/Aliyun/</link>
+    <description>Recent content in Aliyun on 卢文的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 17 Sep 2020 00:00:19 +0800</lastBuildDate>
+    
+	<atom:link href="http://luwen.tech/categories/Aliyun/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>阿里云自定义权限文档</title>
+      <link>http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Thu, 17 Sep 2020 00:00:19 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/</guid>
+      <description>https://help.aliyun.com/document_detail/93739.html</description>
+    </item>
+    
+  </channel>
+</rss>
