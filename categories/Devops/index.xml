@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devops on 卢文的博客</title>
+    <link>http://luwen.tech/categories/Devops/</link>
+    <description>Recent content in Devops on 卢文的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 16 Sep 2020 23:50:53 +0800</lastBuildDate>
+    
+	<atom:link href="http://luwen.tech/categories/Devops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Jenkins Slave节点乱码问题</title>
+      <link>http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 16 Sep 2020 23:50:53 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <description>jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&amp;gt;节点管理-&amp;gt;slave节点-&amp;gt;系统信息 file.encoding=ANSI_X3.4-1968 sun.jnu.encoding=ANSI_X3.4-1968 #</description>
+    </item>
+    
+  </channel>
+</rss>
