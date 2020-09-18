@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 17 Sep 2020 00:00:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2020 16:53:10 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>优秀的golang学习网址</title>
+      <link>http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/</link>
+      <pubDate>Fri, 18 Sep 2020 16:53:10 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/</guid>
+      <description>[Golang新开发者要注意的陷阱和常见错误]https://colobu.com/2015/09/07/gotchas-and-common-mistakes-in-go-golang/ [Tony Bai]https://tonybai.com/ [曹春晖]https://www.xargin.com/ [鸟窝]https://colo</description>
+    </item>
     
     <item>
       <title>阿里云自定义权限文档</title>
@@ -102,12 +111,12 @@
     </item>
     
     <item>
-      <title>Golang学习站点汇总</title>
-      <link>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/</link>
+      <title>Golang语法要点</title>
+      <link>http://luwen.tech/post/golang%E8%AF%AD%E6%B3%95%E8%A6%81%E7%82%B9/</link>
       <pubDate>Thu, 09 Jul 2020 19:51:59 +0800</pubDate>
       
-      <guid>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/</guid>
-      <description>https://colobu.com/2015/09/07/gotchas-and-common-mistakes-in-go-golang/ golang的单引号和双引号： 在Go中，双引号是用来表示字符串string，其实质是一个byte类型的数组，单引号表示rune类型。 go语言中的函数和方法： 在Go语言中，函数和方法不太一样，有明确的概念区分。其他语言中，比如Java，一般来说，函数就是方法，方法就是函数，但是在</description>
+      <guid>http://luwen.tech/post/golang%E8%AF%AD%E6%B3%95%E8%A6%81%E7%82%B9/</guid>
+      <description>golang的单引号和双引号： 在Go中，双引号是用来表示字符串string，其实质是一个byte类型的数组，单引号表示rune类型。 go语言中的函数和方法： 在Go语言中，函数和方法不太一样，有明确的概念区分。其他语言中，比如Java，一般来说，函数就是方法，方法就是函数，但是在G</description>
     </item>
     
     <item>
