@@ -80,6 +80,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">Jenkins增加k8s云配置</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年9月22日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/Devops">Devops</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ###1.根据k8s kubeconfig文件生成cert.pfx #certificate-authority-data echo testtestsetstststsetetetttttttttttttttttttttttttt |base64 -d &gt; ca.crt #client-certificate-data echo wengehenshuaiwewenwenrnwenrnwnrwnenrwenrnwenrnwenrwnenrer |base64 -d &gt; client.crt #client-key-data echo wengetehaobangdabangzigansinisfjldjflsjlafdjldjfljdlfkjlsjdfdfs |base64 -d &gt; client.key openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile ca.crt ###2.将cert.pfx文件导入jenkins生成凭据 tips:密码是上面生成cert.pfx设置的密码 3.增加k8s云 tips:k8s服务证书填上……
+                                <p class="readmore"><a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/">Jenkins Slave节点乱码问题</a>
                                 </h1>
                             </header>
@@ -125,6 +148,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
     </li>
     
@@ -160,10 +187,6 @@
         <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/" title="Docker镜像精简">Docker镜像精简</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/mysql%E6%8C%89%E6%97%A5%E6%9C%9F%E5%88%86%E8%A1%A8/" title="Mysql按日期分表">Mysql按日期分表</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -178,7 +201,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Devops/">Devops(1)</a>
+        <a href="http://luwen.tech/categories/Devops/">Devops(2)</a>
     </li>
     
     <li>

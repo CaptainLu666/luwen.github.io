@@ -4,7 +4,30 @@
   
   <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2020-09-18T16:53:10+08:00</lastmod>
+    <lastmod>2020-09-22T23:33:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/Devops/</loc>
+    <lastmod>2020-09-22T23:33:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2020-09-22T23:33:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2020-09-22T23:33:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2020-09-22T23:33:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -15,20 +38,8 @@
   </url>
   
   <url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2020-09-18T16:53:10+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/</loc>
     <lastmod>2020-09-18T16:53:10+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/</loc>
-    <lastmod>2020-09-18T16:53:10+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -40,12 +51,6 @@
   <url>
     <loc>http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/</loc>
     <lastmod>2020-09-17T00:00:19+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/categories/Devops/</loc>
-    <lastmod>2020-09-16T23:50:53+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

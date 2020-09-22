@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Robots文件语法 | 卢文的博客</title>
-    <meta property="og:title" content="Robots文件语法 - 卢文的博客">
+    <title>Jenkins增加k8s云配置 | 卢文的博客</title>
+    <meta property="og:title" content="Jenkins增加k8s云配置 - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2020-09-01T17:50:45&#43;08:00">
+    <meta property="article:published_time" content="2020-09-22T23:33:52&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2020-09-01T17:50:45&#43;08:00">
+    <meta property="article:modified_time" content="2020-09-22T23:33:52&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Robots文件语法">
+    <meta name="description" content="Jenkins增加k8s云配置">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/">
+    <meta property="og:url" content="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,16 +74,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Robots文件语法</h1>
+                            <h1 class="post-title">Jenkins增加k8s云配置</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2020年9月1日
+                            2020年9月22日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://luwen.tech/categories/%E5%8D%8F%E8%AE%AE">协议</a></span>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Devops">Devops</a></span>
                             
                         </div>
                         
@@ -100,21 +100,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#什么是-robots-txt">什么是 robots.txt</a></li>
-<li><a href="#robots-txt-文件设置规则">robots.txt 文件设置规则</a>
+<li>
 <ul>
-<li><a href="#格式和位置"><strong># 格式和位置</strong></a></li>
-<li><a href="#指令语法说明"><strong># 指令语法说明</strong></a></li>
+<li><a href="#3-增加k8s云">3.增加k8s云</a></li>
 </ul></li>
-<li><a href="#实用-robots-txt-写法示例与说明">实用 robots.txt 写法示例与说明</a></li>
-<li><a href="#tips">Tips</a>
-<ul>
-<li><a href="#常用搜索引擎蜘蛛-机器人-名称"><strong># 常用搜索引擎蜘蛛（机器人）名称</strong></a></li>
-<li><a href="#robots-txt-生成工具"><strong># robots.txt 生成工具</strong></a></li>
-<li><a href="#相关资料"><strong># 相关资料</strong></a></li>
-</ul></li>
-<li><a href="#结语">结语</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -124,115 +113,31 @@
                         <div class="post-content">
                             
 
-<h2 id="前言">前言</h2>
+<p>###1.根据k8s kubeconfig文件生成cert.pfx</p>
 
-<p>搜索引擎通过网络蜘蛛抓取网页的内容，并展示在相关的搜索结果中。但是有些网页内容我们可能并不想被搜索引擎收录和索引，如管理员后台等。</p>
+<pre><code class="language-shell">#certificate-authority-data
+echo testtestsetstststsetetetttttttttttttttttttttttttt |base64 -d &gt; ca.crt
 
-<p>我们就可以通过 robots.txt 文件来声明允许/禁止搜索引擎的蜘蛛抓取某些目录或网页，从而限制搜索引擎的收录范围。</p>
+#client-certificate-data
+echo wengehenshuaiwewenwenrnwenrnwnrwnenrwenrnwenrnwenrwnenrer |base64 -d &gt; client.crt
 
-<p>本文就介绍下网站的 robots.txt 文件的配置和使用方法，以及如何编写 robots.txt 文件。</p>
+#client-key-data
+echo wengetehaobangdabangzigansinisfjldjflsjlafdjldjfljdlfkjlsjdfdfs |base64 -d &gt; client.key
 
-<h2 id="什么是-robots-txt">什么是 robots.txt</h2>
-
-<p>robots.txt 是存放在网站根目录下的一个纯文本文件，用来告诉网络蜘蛛本站中的哪些内容允许爬取，哪些内容是不允许爬取的。</p>
-
-<p>搜索引擎的蜘蛛在访问网站时，也会首先检查该网站的 robots.txt 文件，获取允许在网站上的抓取范围。</p>
-
-<p>需要注意的是，<strong>robots.txt 只是一种大家约定俗成的规则，并不是强制的</strong>，有些搜索引擎并不支持，因此它不能保证网页内容一定会/不会被抓取。</p>
-
-<h2 id="robots-txt-文件设置规则">robots.txt 文件设置规则</h2>
-
-<h3 id="格式和位置"><strong># 格式和位置</strong></h3>
-
-<ul>
-<li>文件名必须为 <code>robots.txt</code>（全部小写）；</li>
-<li>文件格式为 UTF-8 编码的纯文本文件；</li>
-<li>必须放在网站根目录下，可通过 <a href="http://www.example.com/robots.txt">http://www.example.com/robots.txt</a> 访问到；</li>
-<li>每个网站有且只能有一个 robots.txt 文件；</li>
-<li>对子域名和端口同样有效，如 <a href="http://blog.example.com；">http://blog.example.com；</a></li>
-<li><code>#</code> 开头的后面为备注内容；</li>
-<li>注意要使用英文字符。</li>
-</ul>
-
-<p><img src="https://pic3.zhimg.com/80/v2-f3a95f51ea88f0cd59affe40692ae729_720w.jpg" alt="img" /></p>
-
-<h3 id="指令语法说明"><strong># 指令语法说明</strong></h3>
-
-<p>每条记录均由 <code>字段: 值</code> 组成，如 Sitemap: <a href="https://example.com/sitemap.xml。">https://example.com/sitemap.xml。</a></p>
-
-<ul>
-<li><code>User-agent</code>：用于指定指令所作用于的目标抓取工具（网络蜘蛛），后接抓取工具名称；</li>
-<li><code>Disallow</code>：指定不允许抓取的目录或网页，后面为空则表示允许抓取一切页面；</li>
-<li><code>Allow</code>：指定允许抓取的目录或网页；</li>
-<li><code>Sitemap</code>：站点地图的位置，必须是绝对路径；</li>
-<li><code>*</code>：表示通配符；</li>
-<li><code>$</code>：表示网址结束；</li>
-<li><code>/</code>：匹配根目录以及任何下级网址。</li>
-</ul>
-
-<p><strong>一组记录示例：</strong></p>
-
-<pre><code class="language-text"># 禁止谷歌抓取网站 news 标签下的所有内容
-user-agent: googlebot
-disallow: /tag/news
+openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile ca.crt
 </code></pre>
 
-<p><img src="https://picb.zhimg.com/80/v2-37bdeeace38dfc63cd7706ce15291770_720w.jpg" alt="img" /></p>
+<p>###2.将cert.pfx文件导入jenkins生成凭据</p>
 
-<h2 id="实用-robots-txt-写法示例与说明">实用 robots.txt 写法示例与说明</h2>
+<p><a href="tips:密码是上面生成cert.pfx设置的密码">tips:密码是上面生成cert.pfx设置的密码</a></p>
 
-<p>如果网站没有 robots.txt 文件，可以手动创建并上传到网站根目录下；即使没有需要禁止搜索引擎收录的网页，也建议添加一个空的 robots.txt 文件。</p>
+<p><img src="/Users/luwen/Library/Application Support/typora-user-images/image-20200922235928690.png" alt="image-20200922235928690" /></p>
 
-<p>请注意文中的“仅”“允许”“禁止”的区别！</p>
+<h3 id="3-增加k8s云">3.增加k8s云</h3>
 
-<p><img src="https://pic1.zhimg.com/80/v2-5568bbb6c094416c47f1f40fd2912d77_720w.jpg" alt="img" /></p>
+<p><a href="tips:k8s服务证书填上面的ca.crt">tips:k8s服务证书填上面的ca.crt</a></p>
 
-<p><strong>路径匹配示例：</strong>（↓截图自 <a href="https://link.zhihu.com/?target=https%3A//developers.google.com/search/reference/robots_txt%3Fhl%3Dzh-cn">Google Developers</a>）</p>
-
-<p><img src="https://pic1.zhimg.com/80/v2-5c8e805bbd123fe1f65e0adef3c4b334_720w.jpg" alt="img" /></p>
-
-<h2 id="tips">Tips</h2>
-
-<h3 id="常用搜索引擎蜘蛛-机器人-名称"><strong># 常用搜索引擎蜘蛛（机器人）名称</strong></h3>
-
-<ul>
-<li>谷歌蜘蛛：Googlebot、Googlebot-Mobile、Googlebot-Image；</li>
-<li>百度蜘蛛：Baiduspider、Baiduspider-mobile、Baiduspider-image；</li>
-<li>搜狗蜘蛛：Sogou web spider、Sogou inst spider、Sogou spider2、Sogou blog、Sogou News Spider、Sogou Orion spider；</li>
-<li>必应蜘蛛：bingbot；</li>
-<li>360蜘蛛：360Spider；</li>
-<li>有道蜘蛛：YoudaoBot；</li>
-<li>雅虎蜘蛛：slurp；</li>
-<li>Yandex蜘蛛：yandex。</li>
-</ul>
-
-<p>如果不知道蜘蛛的名称可以查看一些大站的写法参考，如 <a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/robots.txt">https://www.baidu.com/robots.txt</a>。</p>
-
-<h3 id="robots-txt-生成工具"><strong># robots.txt 生成工具</strong></h3>
-
-<ul>
-<li><a href="https://link.zhihu.com/?target=http%3A//tool.chinaz.com/robots/">robots文件生成 - 站长工具</a></li>
-<li><a href="https://link.zhihu.com/?target=https%3A//www.w3cschool.cn/tools/index%3Fname%3Dcreaterobots">在线robots.txt文件生成工具 - 站长辅助工具 - W3Cschool</a></li>
-<li><a href="https://link.zhihu.com/?target=http%3A//www.jsons.cn/robots/">在线robots文件生成-在线网站robots.txt文件生成器</a></li>
-</ul>
-
-<p><img src="https://pic1.zhimg.com/80/v2-4da7524b33dc3ba696f79d657c5f4745_720w.jpg" alt="img" /></p>
-
-<h3 id="相关资料"><strong># 相关资料</strong></h3>
-
-<ul>
-<li><a href="https://link.zhihu.com/?target=https%3A//developers.google.com/search/reference/robots_txt%3Fhl%3Dzh-cn">Robots.txt 规范 | 搜索 | Google Developers</a></li>
-<li><a href="https://link.zhihu.com/?target=https%3A//support.google.com/webmasters/answer/6062596%3Fhl%3Dzh-Hans">创建 robots.txt 文件 - Search Console帮助</a></li>
-<li><a href="https://link.zhihu.com/?target=https%3A//ziyuan.baidu.com/college/articleinfo%3Fid%3D37">禁止搜索引擎收录的方法_搜索学院_百度搜索资源平台</a></li>
-</ul>
-
-<h2 id="结语">结语</h2>
-
-<p>网站的 robots.txt 文件就相当于一份网站声明，用来告知来访蜘蛛 “网站中想/不想被搜索引擎收录的指定网页和内容路径”。</p>
-
-<p>对于大多数搜索引擎都有效果，但是也有些不支持的搜索引擎，可以使用 <code>meta</code> 标签来强制禁止（见<a href="https://link.zhihu.com/?target=https%3A//developers.google.com/search/reference/robots_meta_tag">漫游器元标记和 X-Robots-Tag HTTP 标头规范</a>）。</p>
-
-<p><a href="https://zhuanlan.zhihu.com/p/74899526">此文转载记录</a></p>
+<p><img src="/Users/luwen/Library/Application Support/typora-user-images/image-20200923000304387.png" alt="image-20200923000304387" /></p>
 
                         </div>
 
@@ -245,15 +150,15 @@ disallow: /tag/news
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/">SpringBoot使用Micrometer集成Prometheus监控Jvm</a></li>
+        <li><a href="/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/">优秀的golang学习网址</a></li>
         
-        <li><a href="/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/">Docker镜像精简</a></li>
+        <li><a href="/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阿里云自定义权限文档</a></li>
         
-        <li><a href="/post/mysql%E6%8C%89%E6%97%A5%E6%9C%9F%E5%88%86%E8%A1%A8/">Mysql按日期分表</a></li>
+        <li><a href="/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/">Jenkins Slave节点乱码问题</a></li>
         
-        <li><a href="/post/linux%E5%91%BD%E4%BB%A4/">Linux命令</a></li>
+        <li><a href="/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">网站性能指标</a></li>
         
-        <li><a href="/post/golang%E8%AF%AD%E6%B3%95%E8%A6%81%E7%82%B9/">Golang语法要点</a></li>
+        <li><a href="/post/nginx-conf/">Nginx Conf</a></li>
         
     </ul>
 </div>

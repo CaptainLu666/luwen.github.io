@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 18 Sep 2020 16:53:10 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2020 23:33:52 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Jenkins增加k8s云配置</title>
+      <link>http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 22 Sep 2020 23:33:52 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/</guid>
+      <description>###1.根据k8s kubeconfig文件生成cert.pfx #certificate-authority-data echo testtestsetstststsetetetttttttttttttttttttttttttt |base64 -d &amp;gt; ca.crt #client-certificate-data echo wengehenshuaiwewenwenrnwenrnwnrwnenrwenrnwenrnwenrwnenrer |base64 -d &amp;gt; client.crt #client-key-data echo wengetehaobangdabangzigansinisfjldjflsjlafdjldjfljdlfkjlsjdfdfs |base64 -d &amp;gt; client.key openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile ca.crt ###2.将cert.pfx文件导入jenkins生成凭据 tips:密码是上面生成cert.pfx设置的密码 3.增加k8s云 tips:k8s服务证书填上</description>
+    </item>
     
     <item>
       <title>优秀的golang学习网址</title>
