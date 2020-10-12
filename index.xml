@@ -6,10 +6,19 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 22 Sep 2020 23:33:52 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 12 Oct 2020 14:24:21 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>小程序防盗链</title>
+      <link>http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/</link>
+      <pubDate>Mon, 12 Oct 2020 14:24:21 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/</guid>
+      <description>开启防盗链后，小程序访问就不显示图片了。如何解决？ 在白名单中添加servicewechat.com就行了 就是添加servicewechat.com域名到许可域名中，就好了。 我们在进行小程序开发的时候，接口中的图片如果实现了防盗链，那么可能图片无法显示。 如果不防盗链的话，万一被人抓</description>
+    </item>
     
     <item>
       <title>Jenkins增加k8s云配置</title>

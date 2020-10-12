@@ -4,8 +4,31 @@
   
   <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2020-09-22T23:33:52+08:00</lastmod>
+    <lastmod>2020-10-12T14:24:21+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2020-10-12T14:24:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/linux/</loc>
+    <lastmod>2020-10-12T14:24:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2020-10-12T14:24:21+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/</loc>
+    <lastmod>2020-10-12T14:24:21+08:00</lastmod>
   </url>
   
   <url>
@@ -17,18 +40,6 @@
   <url>
     <loc>http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2020-09-22T23:33:52+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2020-09-22T23:33:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/</loc>
-    <lastmod>2020-09-22T23:33:52+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -56,12 +67,6 @@
   <url>
     <loc>http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2020-09-16T23:50:53+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/categories/linux/</loc>
-    <lastmod>2020-09-16T16:03:07+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

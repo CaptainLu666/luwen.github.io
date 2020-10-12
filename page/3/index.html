@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/" title="K8s进程排查" >K8s进程排查</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年4月14日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 #查找容器ID docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Name}} &quot; $(docker ps -q) |grep #查找k8s pod name docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&quot; $(docker ps -q) |grep #如果PID是容器内运行子进程那docker inspect就……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/" title="云原生" >云原生</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/k8s-token/" title="K8s Token" >K8s Token</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月28日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                kubectl get sa admin -n kube-system -o yaml apiVersion: v1 kind: ServiceAccount metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&quot;apiVersion&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}} creationTimestamp: 2018-11-05T09:23:39Z name: admin namespace: kube-system resourceVersion: &quot;889&quot; selfLink: /api/v1/namespaces/kube-system/serviceaccounts/admin uid: 7af4f177-e0dc-11e8-8ef4-00163e009d2a secrets: - name: admin-token-5tctj 查看对应的clusterrolebinding： kubectl get clusterrolebinding admin -oyaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRoleBinding metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&quot;apiVersion&quot;:&quot;rbac.authorization.k8s.io/v1beta1&quot;,&quot;kind&quot;:&quot;ClusterRoleBinding&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;&quot;},&quot;roleRef&quot;:{&quot;apiGroup&quot;:&quot;rbac.authorization.k8s.io&quot;,&quot;kind&quot;:&quot;ClusterRole&quot;,&quot;name&quot;:&quot;cluster-admin&quot;},&quot;subjects&quot;:[{&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}]} creationTimestamp: 2018-11-05T09:23:39Z name: admin resourceVersion: &quot;886&quot; selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/admin uid: 7af6ff9d-e0dc-11e8-8ef4-00163e009d2a roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: admin namespace: kube-system 查看admin sa绑定的clusterrole和对应的权限。命令： kubectl get clusterrole cluster-admin -o yaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRole metadata:……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/k8s-token/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -353,6 +353,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/" title="小程序防盗链">小程序防盗链</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
     </li>
     
@@ -386,10 +390,6 @@
     
     <li>
         <a href="http://luwen.tech/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/" title="SpringBoot使用Micrometer集成Prometheus监控Jvm">SpringBoot使用Micrometer集成Prometheus监控Jvm</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/" title="Docker镜像精简">Docker镜像精简</a>
     </li>
     
 </ul>
@@ -430,7 +430,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/linux/">linux(1)</a>
+        <a href="http://luwen.tech/categories/linux/">linux(2)</a>
     </li>
     
     <li>
