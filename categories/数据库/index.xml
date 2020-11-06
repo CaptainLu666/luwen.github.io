@@ -6,10 +6,19 @@
     <description>Recent content in 数据库 on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 12 Aug 2020 09:42:44 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2020 16:54:58 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sql学习</title>
+      <link>http://luwen.tech/post/sql%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Fri, 06 Nov 2020 16:54:58 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/sql%E5%AD%A6%E4%B9%A0/</guid>
+      <description>廖雪峰的sql</description>
+    </item>
     
     <item>
       <title>Mysql按日期分表</title>
