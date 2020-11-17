@@ -6,10 +6,19 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 06 Nov 2020 16:54:58 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2020 09:14:35 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Centos7配置ftp</title>
+      <link>http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/</link>
+      <pubDate>Tue, 17 Nov 2020 09:14:35 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/</guid>
+      <description>1.安装 yum -y install vsftpd 修改配置文件/etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=NO chroot_list_enable=YES chroot_list_file=/etc/vsftpd/chroot_list allow_writeable_chroot=YES listen=YES ftpd_banner=”welcome test Ftp Server.” pam_service_name=vsftpd #设置PAM使用的名称,该名称就是/etc/pam.d/目录下vsfptd文件的文件名 userlist_enable=YES tcp_wrappers=YES local_root=/home/www/test/upload/ virtual_use_local_privs=YES guest_enable=YES #表示是否开启vsft</description>
+    </item>
     
     <item>
       <title>Sql学习</title>

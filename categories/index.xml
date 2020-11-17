@@ -6,10 +6,19 @@
     <description>Recent content in Categories on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 06 Nov 2020 16:54:58 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2020 09:14:35 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>linux</title>
+      <link>http://luwen.tech/categories/linux/</link>
+      <pubDate>Tue, 17 Nov 2020 09:14:35 +0800</pubDate>
+      
+      <guid>http://luwen.tech/categories/linux/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>数据库</title>
@@ -17,15 +26,6 @@
       <pubDate>Fri, 06 Nov 2020 16:54:58 +0800</pubDate>
       
       <guid>http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>http://luwen.tech/categories/linux/</link>
-      <pubDate>Mon, 12 Oct 2020 14:24:21 +0800</pubDate>
-      
-      <guid>http://luwen.tech/categories/linux/</guid>
       <description></description>
     </item>
     
