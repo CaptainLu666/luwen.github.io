@@ -4,31 +4,36 @@
   
   <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2020-11-17T09:14:35+08:00</lastmod>
+    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/</loc>
+    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/linux/</loc>
+    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/</loc>
     <lastmod>2020-11-17T09:14:35+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2020-11-17T09:14:35+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/categories/linux/</loc>
-    <lastmod>2020-11-17T09:14:35+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/</loc>
-    <lastmod>2020-11-17T09:14:35+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

@@ -6,10 +6,19 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 17 Nov 2020 09:14:35 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2020 11:22:03 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lua安装luasql Mysql</title>
+      <link>http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/</link>
+      <pubDate>Tue, 24 Nov 2020 11:22:03 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/</guid>
+      <description>yum install mariadb-devel -y ln -s /usr/lib64/mysql/libmysqlclient.so /usr/lib64/libmysqlclient.so luarocks install luasql-mysql MYSQL_INCDIR=/usr/include/mysql</description>
+    </item>
     
     <item>
       <title>Centos7配置ftp</title>
