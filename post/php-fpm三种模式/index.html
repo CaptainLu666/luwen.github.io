@@ -7,22 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Aliyun | 卢文的博客</title>
-    <meta property="og:title" content="Aliyun - 卢文的博客">
+    <title>Php Fpm三种模式 | 卢文的博客</title>
+    <meta property="og:title" content="Php Fpm三种模式 - 卢文的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2021-01-16T00:56:40&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-01-16T00:56:40&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Aliyun">
+    <meta name="description" content="Php Fpm三种模式">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/categories/Aliyun/">
+    <meta property="og:url" content="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
+        <link rel="stylesheet" href="/css/prism.css">
+    
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/categories/Aliyun/index.xml" title="卢文的博客" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -31,7 +36,6 @@
     
     
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -47,7 +51,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://luwen.tech">首页</a>
+                    <a class="current" href="http://luwen.tech">首页</a>
                     
                     <a  href="http://luwen.tech/books/" title="新书">新书</a>
                     
@@ -68,48 +72,122 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">Aliyun</span>
-                        中的文章
-                    </h3>
-                    
-
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阿里云自定义权限文档</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月17日
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Php Fpm三种模式</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021年1月16日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
                             
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/Aliyun">Aliyun</a>
-                                
-                            </div>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/lnmp">lnmp</a></span>
                             
-                            <div class="post-content">
-                                https://help.aliyun.com/document_detail/93739.html……
-                                <p class="readmore"><a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阅读全文</a></p>
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-定时任务重启">1.定时任务重启</a></li>
+<li><a href="#pm三种进程管理模式">pm三种进程管理模式</a></li>
+<li><a href="#最大请求数max-requests-即当一个-php-cgi-进程处理的请求数累积到-max-requests-个后-自动重启该进程-这样达到了释放内存的目的了">最大请求数max_requests，即当一个 PHP-CGI 进程处理的请求数累积到 max_requests 个后，自动重启该进程，这样达到了释放内存的目的了</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
                             </div>
-                        </article>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<p>##Php 内存释放策略：</p>
+
+<h3 id="1-定时任务重启">1.定时任务重启</h3>
+
+<pre><code>0 0 * * *   systemctl reload php-fpm
+</code></pre>
+
+<p>###2. 配置参数</p>
+
+<h3 id="pm三种进程管理模式">pm三种进程管理模式</h3>
+
+<pre><code>pm = static，始终保持一个固定数量的子进程，这个数由pm.max_children定义，这种方式很不灵活，也通常不是默认的。
+
+pm = dynamic，启动时会产生固定数量的子进程（由pm.start_servers控制）可以理解成最小子进程数，而最大子进程数则由pm.max_children去控制，子进程数会在最大和最小数范围中变化。闲置的子进程数还可以由另2个配置控制，分别是pm.min_spare_servers和pm.max_spare_servers。如果闲置的子进程超出了pm.max_spare_servers，则会被杀掉。小于pm.min_spare_servers则会启动进程（注意，pm.max_spare_servers应小于pm.max_children）。
+
+pm = ondemand，这种模式和pm = dynamic相反，把内存放在第一位，每个闲置进程在持续闲置了pm.process_idle_timeout秒后就会被杀掉，如果服务器长时间没有请求，就只会有一个php-fpm主进程。弊端是遇到高峰期或者如果pm.process_idle_timeout的值太短的话，容易出现504 Gateway Time-out错误，因此pm = dynamic和pm = ondemand谁更适合视实际情况而定。
+</code></pre>
+
+<h3 id="最大请求数max-requests-即当一个-php-cgi-进程处理的请求数累积到-max-requests-个后-自动重启该进程-这样达到了释放内存的目的了">最大请求数max_requests，即当一个 PHP-CGI 进程处理的请求数累积到 max_requests 个后，自动重启该进程，这样达到了释放内存的目的了</h3>
+
+<pre><code>pm.max_requests = 2048
+</code></pre>
+
+<p>线上高并发的情况下建议使用pm = static的模式，搭配配置max_requests，防止内存泄露。</p>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/">Docker镜像清理</a></li>
+        
+        <li><a href="/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/">Php Fpm平滑重启</a></li>
+        
+        <li><a href="/post/lua%E5%AE%89%E8%A3%85luasql-mysql/">Lua安装luasql Mysql</a></li>
+        
+        <li><a href="/post/centos7%E9%85%8D%E7%BD%AEftp/">Centos7配置ftp</a></li>
+        
+        <li><a href="/post/sql%E5%AD%A6%E4%B9%A0/">Sql学习</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
                     
+    
 
-                    
-
-
-
-
-
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -272,13 +350,28 @@
 </footer>
 
 
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
 
 
 

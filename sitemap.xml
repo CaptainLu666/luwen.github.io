@@ -4,8 +4,47 @@
   
   <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
+    <lastmod>2021-01-16T00:56:40+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2021-01-16T00:56:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2021-01-16T00:56:40+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/lnmp/</loc>
+    <lastmod>2021-01-16T00:56:40+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2021-01-16T00:56:40+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/categories/Docker/</loc>
+    <lastmod>2021-01-15T23:57:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/</loc>
+    <lastmod>2021-01-15T23:57:37+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://luwen.tech/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/</loc>
+    <lastmod>2021-01-15T23:40:40+08:00</lastmod>
   </url>
   
   <url>
@@ -14,19 +53,7 @@
   </url>
   
   <url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://luwen.tech/categories/linux/</loc>
-    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/</loc>
     <lastmod>2020-11-24T11:22:03+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -137,12 +164,6 @@
   <url>
     <loc>http://luwen.tech/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/</loc>
     <lastmod>2020-08-25T11:02:10+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://luwen.tech/categories/Docker/</loc>
-    <lastmod>2020-08-13T14:48:13+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

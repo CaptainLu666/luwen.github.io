@@ -7,22 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Aliyun | 卢文的博客</title>
-    <meta property="og:title" content="Aliyun - 卢文的博客">
+    <title>Docker镜像清理 | 卢文的博客</title>
+    <meta property="og:title" content="Docker镜像清理 - 卢文的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2021-01-15T23:57:37&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-01-15T23:57:37&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Aliyun">
+    <meta name="description" content="Docker镜像清理">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/categories/Aliyun/">
+    <meta property="og:url" content="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
+        <link rel="stylesheet" href="/css/prism.css">
+    
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/categories/Aliyun/index.xml" title="卢文的博客" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -31,7 +36,6 @@
     
     
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -47,7 +51,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://luwen.tech">首页</a>
+                    <a class="current" href="http://luwen.tech">首页</a>
                     
                     <a  href="http://luwen.tech/books/" title="新书">新书</a>
                     
@@ -68,48 +72,148 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">Aliyun</span>
-                        中的文章
-                    </h3>
-                    
-
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阿里云自定义权限文档</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月17日
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Docker镜像清理</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021年1月15日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
                             
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/Aliyun">Aliyun</a>
-                                
-                            </div>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
                             
-                            <div class="post-content">
-                                https://help.aliyun.com/document_detail/93739.html……
-                                <p class="readmore"><a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阅读全文</a></p>
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#5-清理退出的容器">5.清理退出的容器</a></li>
+<li><a href="#6-格式化清理镜像">6.格式化清理镜像</a></li>
+<li><a href="#8-删除关闭的容器">8.删除关闭的容器</a></li>
+<li><a href="#9-删除所有dangling镜像-即无tag的镜像">9.<strong>删除所有dangling镜像（即无tag的镜像）</strong>：</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
                             </div>
-                        </article>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<p>###1.dangling是一种特殊的，不会再被使用到的镜像，docker有专门清理dangling镜像的命令</p>
+
+<pre><code>docker image prune -f
+</code></pre>
+
+<p>###2.历史版本镜像直接使用docker删除镜像的命令即可</p>
+
+<pre><code>docker rmi [image]
+</code></pre>
+
+<p>###3.可以批量清除无用的镜像，且不会影响使用中的镜像和基础镜像</p>
+
+<pre><code>docker images | awk 'NR!=1{print $1&quot;:&quot;$2}' | xargs docker rmi 
+</code></pre>
+
+<p>###4.查看Docker耗费磁盘</p>
+
+<pre><code>docker system prune -f
+</code></pre>
+
+<h3 id="5-清理退出的容器">5.清理退出的容器</h3>
+
+<pre><code>docker rm $(docker ps -q -f status=exited)
+</code></pre>
+
+<h3 id="6-格式化清理镜像">6.格式化清理镜像</h3>
+
+<pre><code>1.查找镜像
+docker images --filter &quot;dangling=true&quot;
+2.清理镜像
+docker rmi $(docker images -f &quot;dangling=true&quot; -q)
+</code></pre>
+
+<p>###7.docker system命令,<strong>docker system prune</strong>命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像（即无tag的镜像）。<strong>docker system prune -a</strong>命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉。注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉了……所以使用之前一定要想清楚</p>
+
+<pre><code>docker system prun -a
+</code></pre>
+
+<h3 id="8-删除关闭的容器">8.删除关闭的容器</h3>
+
+<pre><code>docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm
+</code></pre>
+
+<h3 id="9-删除所有dangling镜像-即无tag的镜像">9.<strong>删除所有dangling镜像（即无tag的镜像）</strong>：</h3>
+
+<pre><code>docker volume rm $(docker volume ls -qf dangling=true)
+</code></pre>
+
+<p>参考;<a href="https://docs.docker.com/engine/reference/commandline/images/#filtering">https://docs.docker.com/engine/reference/commandline/images/#filtering</a></p>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/">Php Fpm平滑重启</a></li>
+        
+        <li><a href="/post/lua%E5%AE%89%E8%A3%85luasql-mysql/">Lua安装luasql Mysql</a></li>
+        
+        <li><a href="/post/centos7%E9%85%8D%E7%BD%AEftp/">Centos7配置ftp</a></li>
+        
+        <li><a href="/post/sql%E5%AD%A6%E4%B9%A0/">Sql学习</a></li>
+        
+        <li><a href="/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/">小程序防盗链</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
                     
+    
 
-                    
-
-
-
-
-
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -272,13 +376,28 @@
 </footer>
 
 
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
 
 
 

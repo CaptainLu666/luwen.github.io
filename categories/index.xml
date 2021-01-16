@@ -6,10 +6,28 @@
     <description>Recent content in Categories on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 24 Nov 2020 11:22:03 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jan 2021 00:56:40 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>lnmp</title>
+      <link>http://luwen.tech/categories/lnmp/</link>
+      <pubDate>Sat, 16 Jan 2021 00:56:40 +0800</pubDate>
+      
+      <guid>http://luwen.tech/categories/lnmp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>http://luwen.tech/categories/Docker/</link>
+      <pubDate>Fri, 15 Jan 2021 23:57:37 +0800</pubDate>
+      
+      <guid>http://luwen.tech/categories/Docker/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>linux</title>
@@ -89,15 +107,6 @@
       <pubDate>Tue, 25 Aug 2020 11:02:10 +0800</pubDate>
       
       <guid>http://luwen.tech/categories/Prometheus/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Docker</title>
-      <link>http://luwen.tech/categories/Docker/</link>
-      <pubDate>Thu, 13 Aug 2020 14:48:13 +0800</pubDate>
-      
-      <guid>http://luwen.tech/categories/Docker/</guid>
       <description></description>
     </item>
     

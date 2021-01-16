@@ -7,22 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Aliyun | 卢文的博客</title>
-    <meta property="og:title" content="Aliyun - 卢文的博客">
+    <title>Php Fpm平滑重启 | 卢文的博客</title>
+    <meta property="og:title" content="Php Fpm平滑重启 - 卢文的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2021-01-15T23:40:40&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-01-15T23:40:40&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Aliyun">
+    <meta name="description" content="Php Fpm平滑重启">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/categories/Aliyun/">
+    <meta property="og:url" content="http://luwen.tech/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
+        <link rel="stylesheet" href="/css/prism.css">
+    
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/categories/Aliyun/index.xml" title="卢文的博客" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -31,7 +36,6 @@
     
     
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -47,7 +51,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://luwen.tech">首页</a>
+                    <a class="current" href="http://luwen.tech">首页</a>
                     
                     <a  href="http://luwen.tech/books/" title="新书">新书</a>
                     
@@ -68,48 +72,192 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">Aliyun</span>
-                        中的文章
-                    </h3>
-                    
-
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阿里云自定义权限文档</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月17日
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Php Fpm平滑重启</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021年1月15日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
                             
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/Aliyun">Aliyun</a>
-                                
-                            </div>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/lnmp">lnmp</a></span>
                             
-                            <div class="post-content">
-                                https://help.aliyun.com/document_detail/93739.html……
-                                <p class="readmore"><a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阅读全文</a></p>
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#nginx平滑重启">nginx平滑重启</a></li>
+<li><a href="#原理">原理</a></li>
+<li><a href="#php-fpm重启">php-fpm重启</a></li>
+<li><a href="#原理-1">原理</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
                             </div>
-                        </article>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<h3 id="nginx平滑重启">nginx平滑重启</h3>
+
+<pre><code>systemctl reload nginx
+</code></pre>
+
+<h3 id="原理">原理</h3>
+
+<pre><code>/bin/kill -s HUP 主id
+</code></pre>
+
+<h3 id="php-fpm重启">php-fpm重启</h3>
+
+<pre><code>systemctl reload php-fpm
+</code></pre>
+
+<h3 id="原理-1">原理</h3>
+
+<pre><code>/bin/kill -USR2 主进程id
+</code></pre>
+
+<p>但是php-fpm在实际使用中用kill -USR2重启会出现短时间的502,解决办法：</p>
+
+<pre><code>[2013-02-13 15:57 UTC] phpbugs at oops dot mooo dot com
+Try setting process_control_timeout to something higher than 0.
+
+描述：process_control_timeout是留给子进程处理来自master进程信号的时间限制
+分析：master根据接收到的信号以及当前的大fpm运行状态决定发送给worker进程的是SIGQUIT还是SIGTERM，同时注册时间为process_control_timeout的定时时间，如果在process_control_timeout时间内子进程没退出，master就会升级信号，SIHQUIT-&gt;SIGTERM，SIGTERM-&gt;SIGKILL，当信号为SIGTERM时还会注册1s的定时事件，留多1秒给worker进程结束，1秒后还未结束，信号升级为SIGKILL，直接终止worker进程
+</code></pre>
+
+<p>8c16g 建议php-fpm配置：</p>
+
+<pre><code>[global]
+pid = run/php7-fpm.pid
+error_log = /data/logs/php/php7-fpm.err
+log_level = notice
+process_control_timeout = 10
+
+[www]
+listen = /tmp/php7-cgi.sock
+listen.backlog = 8192
+listen.allowed_clients = 127.0.0.1
+listen.owner = www
+listen.group = www
+listen.mode = 0666
+user = www
+group = www
+pm = static
+pm.max_children = 240
+pm.start_servers = 20
+pm.min_spare_servers = 10
+pm.max_spare_servers = 40
+request_terminate_timeout = 300
+request_slowlog_timeout = 10
+slowlog = /data/logs/php/php7slow.log
+
+[www2]
+listen = /tmp/php7-cgi2.sock
+listen.backlog = 8192
+listen.allowed_clients = 127.0.0.1
+listen.owner = www
+listen.group = www
+listen.mode = 0666
+user = www
+group = www
+pm = static
+pm.max_children = 240
+pm.start_servers = 20
+pm.min_spare_servers = 10
+pm.max_spare_servers = 40
+request_terminate_timeout = 300
+request_slowlog_timeout = 10
+slowlog = /data/logs/php/php7slow2.log
+
+[www3]
+listen = /tmp/php7-cgi3.sock
+listen.backlog = 8192
+listen.allowed_clients = 127.0.0.1
+listen.owner = www
+listen.group = www
+listen.mode = 0666
+user = www
+group = www
+pm = static
+pm.max_children = 240
+pm.start_servers = 20
+pm.min_spare_servers = 10
+pm.max_spare_servers = 40
+request_terminate_timeout = 300
+request_slowlog_timeout = 10
+slowlog = /data/logs/php/php7slow3.log
+</code></pre>
+
+<p>###</p>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/lua%E5%AE%89%E8%A3%85luasql-mysql/">Lua安装luasql Mysql</a></li>
+        
+        <li><a href="/post/centos7%E9%85%8D%E7%BD%AEftp/">Centos7配置ftp</a></li>
+        
+        <li><a href="/post/sql%E5%AD%A6%E4%B9%A0/">Sql学习</a></li>
+        
+        <li><a href="/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/">小程序防盗链</a></li>
+        
+        <li><a href="/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">Jenkins增加k8s云配置</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
                     
+    
 
-                    
-
-
-
-
-
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -272,13 +420,28 @@
 </footer>
 
 
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
 
 
 

@@ -6,10 +6,19 @@
     <description>Recent content in Docker on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2020 14:48:13 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 15 Jan 2021 23:57:37 +0800</lastBuildDate>
     
 	<atom:link href="http://luwen.tech/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker镜像清理</title>
+      <link>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/</link>
+      <pubDate>Fri, 15 Jan 2021 23:57:37 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/</guid>
+      <description>###1.dangling是一种特殊的，不会再被使用到的镜像，docker有专门清理dangling镜像的命令 docker image prune -f ###2.历史版本镜像直接使用docker删除镜像的命令即可 docker rmi [image] ###3.可以批量清除无用的镜像，且不会影响使用中的镜像和基础镜像 docker images | awk &#39;NR!=1{print $1&amp;quot;:&amp;quot;$2}&#39; | xargs docker rmi ###4.</description>
+    </item>
     
     <item>
       <title>Docker镜像精简</title>
