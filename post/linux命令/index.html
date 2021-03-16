@@ -96,14 +96,38 @@
                         <div class="clear">
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
-                                
+                                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#linux进程按启动时间排序">linux进程按启动时间排序</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            <p>#https检测</p>
+                            
 
-<p>###curl -vosa &ndash;resolve <a href="http://group-image.sdongpo.com:443:58.20.197.102">group-image.sdongpo.com:443:58.20.197.102</a> <a href="https://group-image.sdongpo.com/group_5.1.0/upload_pic/com_thumb_2020022918342000e3f9255e5a3e2c25ac3.jpg">https://group-image.sdongpo.com/group_5.1.0/upload_pic/com_thumb_2020022918342000e3f9255e5a3e2c25ac3.jpg</a></p>
+<p>###https检测</p>
+
+<pre><code>curl -vosa --resolve [group-image.sdongpo.com:443:58.20.197.102](http://group-image.sdongpo.com:443:58.20.197.102) https://group-image.sdongpo.com/group_5.1.0/upload_pic/com_thumb_2020022918342000e3f9255e5a3e2c25ac3.jpg
+</code></pre>
+
+<h3 id="linux进程按启动时间排序">linux进程按启动时间排序</h3>
+
+<pre><code>ps aux --sort=lstart
+</code></pre>
+
+<pre><code>ps aux --sort=start_time
+</code></pre>
+
+<pre><code>cd /proc; ls -td --full-time --time-style=+%s [0123456789]*;
+</code></pre>
 
                         </div>
 
