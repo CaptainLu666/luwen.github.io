@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,105 +97,76 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#自定义exporter实现">自定义exporter实现</a>
-<ul>
-<li><a href="#concepts-https-prometheus-io-docs-concepts-data-model"><a href="https://prometheus.io/docs/concepts/data_model/#">Concepts</a></a>
-<ul>
-<li><a href="#data-model-https-prometheus-io-docs-concepts-data-model"><a href="https://prometheus.io/docs/concepts/data_model/">Data model</a></a></li>
-<li><a href="#metric-types-https-prometheus-io-docs-concepts-metric-types"><a href="https://prometheus.io/docs/concepts/metric_types/">Metric types</a></a></li>
-</ul></li>
-<li><a href="#sample">Sample</a></li>
-<li><a href="#writing-exporters-https-prometheus-io-docs-instrumenting-writing-exporters"><a href="https://prometheus.io/docs/instrumenting/writing_exporters/">Writing exporters</a></a>
-<ul>
-<li><a href="#官方建议">官方建议:</a></li>
-</ul></li>
-<li><a href="#参考资料">参考资料</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#自定义exporter实现">自定义exporter实现</a>
+      <ul>
+        <li><a href="#conceptshttpsprometheusiodocsconceptsdata_model"><a href="https://prometheus.io/docs/concepts/data_model/#">Concepts</a></a></li>
+        <li><a href="#sample">Sample</a></li>
+        <li><a href="#writing-exportershttpsprometheusiodocsinstrumentingwriting_exporters"><a href="https://prometheus.io/docs/instrumenting/writing_exporters/">Writing exporters</a></a></li>
+        <li><a href="#参考资料">参考资料</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<h2 id="自定义exporter实现">自定义exporter实现</h2>
-
-<h3 id="concepts-https-prometheus-io-docs-concepts-data-model"><a href="https://prometheus.io/docs/concepts/data_model/#">Concepts</a></h3>
-
-<h4 id="data-model-https-prometheus-io-docs-concepts-data-model"><a href="https://prometheus.io/docs/concepts/data_model/">Data model</a></h4>
-
+                            <h2 id="自定义exporter实现">自定义exporter实现</h2>
+<h3 id="conceptshttpsprometheusiodocsconceptsdata_model"><a href="https://prometheus.io/docs/concepts/data_model/#">Concepts</a></h3>
+<h4 id="data-modelhttpsprometheusiodocsconceptsdata_model"><a href="https://prometheus.io/docs/concepts/data_model/">Data model</a></h4>
 <p><strong>prometheus</strong> 原理上以<a href="https://en.wikipedia.org/wiki/Time_series">Time_series</a> 的方式存储数据。流的时间戳值属于同样的度量和同样的标记维度。</p>
-
 <ul>
-<li><p>Metric names and labels</p>
-
+<li>
+<p>Metric names and labels</p>
 <ul>
 <li><strong>metric name</strong> 指定了系统的一般特性,比如http_request_total 表示全部接收到的HTTP请求。</li>
 <li>Label启用了Prometheus的多维数据模型，对于相同的<strong>metric name</strong>任何给定的标签组合指示这个度量的一个特定维度的实例化。</li>
-</ul></li>
-
-<li><p>Notation</p>
-
+</ul>
+</li>
+<li>
+<p>Notation</p>
 <ul>
-<li><p>给定一个<strong>metric name</strong>和一组<strong>Label</strong>，时间序列经常使用这个符号来标识</p>
-
+<li>
+<p>给定一个<strong>metric name</strong>和一组<strong>Label</strong>，时间序列经常使用这个符号来标识</p>
 <pre><code>&lt;metric name&gt;{&lt;label name&gt;=&lt;label value&gt;, ...}
 </code></pre></li>
-
-<li><p>举个例子，比如一个时间序列,<strong>metric name</strong>为api_http_requests_total, label名字为method=“POST”,同时handler=&ldquo;/messages&rdquo;,可以写成下面的格式。</p>
-
+<li>
+<p>举个例子，比如一个时间序列,<strong>metric name</strong>为api_http_requests_total, label名字为method=“POST”,同时handler=&quot;/messages&quot;,可以写成下面的格式。</p>
+</li>
+</ul>
 <pre><code>api_http_requests_total{method=&quot;POST&quot;, handler=&quot;/messages&quot;}
 </code></pre></li>
-</ul></li>
 </ul>
-
-<h4 id="metric-types-https-prometheus-io-docs-concepts-metric-types"><a href="https://prometheus.io/docs/concepts/metric_types/">Metric types</a></h4>
-
+<h4 id="metric-typeshttpsprometheusiodocsconceptsmetric_types"><a href="https://prometheus.io/docs/concepts/metric_types/">Metric types</a></h4>
 <ul>
-<li><strong>Counter</strong></li>
-</ul>
-
+<li>
+<p><strong>Counter</strong></p>
 <p>Counter 表示收集的数据是按照某个趋势（增加／减少）一直变化的，我们往往用它记录服务请求总量、错误总数等。</p>
-
-<ul>
-<li><strong>Gauge</strong></li>
-</ul>
-
+</li>
+<li>
+<p><strong>Gauge</strong></p>
 <p>Gauge 表示搜集的数据是一个瞬时的值，与时间没有关系，可以任意变高变低，往往可以用来记录内存使用率、磁盘使用率等。</p>
-
-<ul>
-<li><strong>Histogram</strong></li>
-</ul>
-
+</li>
+<li>
+<p><strong>Histogram</strong></p>
 <p>Histogram 由 <code>&lt;basename&gt;_bucket{le=&quot;&lt;upper inclusive bound&gt;&quot;}</code>，<code>&lt;basename&gt;_bucket{le=&quot;+Inf&quot;}</code>, <code>&lt;basename&gt;_sum</code>，<code>&lt;basename&gt;_count</code> 组成，主要用于表示一段时间范围内对数据进行采样（通常是请求持续时间或响应大小），并能够对其指定区间以及总数进行统计，通常它采集的数据展示为直方图。</p>
-
-<ul>
-<li><strong>Summary</strong></li>
-</ul>
-
+</li>
+<li>
+<p><strong>Summary</strong></p>
 <p>Summary 和 Histogram 类似，由 <code>&lt;basename&gt;{quantile=&quot;&lt;φ&gt;&quot;}</code>，<code>&lt;basename&gt;_sum</code>，<code>&lt;basename&gt;_count</code>组成，主要用于表示一段时间内数据采样结果（通常是请求持续时间或响应大小），它直接存储了 quantile 数据，而不是根据统计区间计算出来的。</p>
-
+</li>
+</ul>
 <h3 id="sample">Sample</h3>
-
 <p><a href="https://github.com/prometheus/client_golang/tree/master/examples/random">examples/random</a> 观察数据采集的效果。</p>
-
-<h3 id="writing-exporters-https-prometheus-io-docs-instrumenting-writing-exporters"><a href="https://prometheus.io/docs/instrumenting/writing_exporters/">Writing exporters</a></h3>
-
+<h3 id="writing-exportershttpsprometheusiodocsinstrumentingwriting_exporters"><a href="https://prometheus.io/docs/instrumenting/writing_exporters/">Writing exporters</a></h3>
 <h4 id="官方建议">官方建议:</h4>
-
 <ul>
 <li>如果系统的度量指标很少变化，可以参考<a href="https://github.com/prometheus/haproxy_exporter">haproxy_exporter</a> 。</li>
 <li>如果系统的度量指标在新的版本中经常变化，可以参考<a href="https://github.com/prometheus/mysqld_exporter">mysqld_exporter</a>。</li>
 <li><a href="https://github.com/prometheus/node_exporter">node_exporter</a>是这些组件的混合，其复杂性随模块的不同而变化。</li>
 </ul>
-
 <h3 id="参考资料">参考资料</h3>
-
 <ul>
 <li><a href="https://weibo.com/p/23041882419ac10102x1ah?sudaref=www.baidu.com&amp;display=0&amp;retcode=6102&amp;sudaref=passport.weibo.com">《Prometheus监控系统小结》</a></li>
 <li><a href="https://prometheus.io/docs/instrumenting/exporters/">官方提供的exporters </a></li>
@@ -265,6 +236,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -294,14 +273,6 @@
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -338,6 +309,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -347,6 +322,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

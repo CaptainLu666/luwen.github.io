@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -96,15 +96,13 @@
                         <div class="clear">
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
-                                
+                                <nav id="TableOfContents"></nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
                             <p>问题描述</p>
-
 <p>当我们使用 go get、go install、go mod 等命令时，会自动下载相应的包或依赖包。但由于众所周知的原因，类似于 golang.org/x/&hellip; 的包会出现下载失败的情况。如下所示：</p>
-
 <table>
 <thead>
 <tr>
@@ -112,7 +110,6 @@
 <th>$ go get -u golang.org/x/sysgo get golang.org/x/sys: unrecognized import path &ldquo;golang.org/x/sys&rdquo; (https fetch: Get <a href="https://golang.org/x/sys?go-get=1:">https://golang.org/x/sys?go-get=1:</a> dial tcp 216.239.37.1:443: i/o timeout)</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td></td>
@@ -120,23 +117,17 @@
 </tr>
 </tbody>
 </table>
-
 <p>解决方式</p>
-
 <p>那我们该如何解决问题呢？毕竟还要制造 bug 的嘛~</p>
-
 <p>手动下载</p>
-
 <p>我们常见的 golang.org/x/&hellip; 包，一般在 GitHub 上都有官方的镜像仓库对应。比如 golang.org/x/text对应 github.com/golang/text。所以，我们可以手动下载或 clone 对应的 GitHub 仓库到指定的目录下。</p>
-
 <table>
 <thead>
 <tr>
 <th>1234</th>
-<th>mkdir $GOPATH/src/golang.org/xcd $GOPATH/src/golang.org/xgit clone git@github.com:golang/text.gitrm -rf text/.git</th>
+<th>mkdir $GOPATH/src/golang.org/xcd $GOPATH/src/golang.org/xgit clone <a href="mailto:git@github.com">git@github.com</a>:golang/text.gitrm -rf text/.git</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td></td>
@@ -144,21 +135,16 @@
 </tr>
 </tbody>
 </table>
-
 <p>当如果需要指定版本的时候，该方法就无解了，因为 GitHub 上的镜像仓库多数都没有 tag。并且，手动嘛，程序员怎么能干呢，尤其是依赖的依赖，太多了。</p>
-
 <p>设置代理</p>
-
 <p>如果你<strong>有代理</strong>，那么可以设置对应的环境变量：</p>
-
 <table>
 <thead>
 <tr>
 <th>12</th>
-<th>export http_proxy=<a href="http://proxyAddress:portexport">http://proxyAddress:portexport</a> https_proxy=<a href="http://proxyAddress:port">http://proxyAddress:port</a></th>
+<th>export http_proxy=http://proxyAddress:portexport https_proxy=http://proxyAddress:port</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td></td>
@@ -166,17 +152,14 @@
 </tr>
 </tbody>
 </table>
-
 <p>或者，直接用 all_proxy：</p>
-
 <table>
 <thead>
 <tr>
 <th>1</th>
-<th>export all_proxy=<a href="http://proxyAddress:port">http://proxyAddress:port</a></th>
+<th>export all_proxy=http://proxyAddress:port</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td></td>
@@ -184,15 +167,10 @@
 </tr>
 </tbody>
 </table>
-
 <p>go mod replace</p>
-
 <p>从 Go 1.11 版本开始，新增支持了 go modules 用于解决包依赖管理问题。该工具提供了 replace，就是为了解决包的别名问题，也能替我们解决 golang.org/x 无法下载的的问题。</p>
-
 <p>go module 被集成到原生的 go mod 命令中，但是如果你的代码库在 $GOPATH 中，module 功能是默认不会开启的，想要开启也非常简单，通过一个环境变量即可开启 export GO111MODULE=on。</p>
-
 <p>以下为参考示例：</p>
-
 <table>
 <thead>
 <tr>
@@ -200,7 +178,6 @@
 <th>module example.com/hellorequire (    golang.org/x/text v0.3.0)replace (    golang.org/x/text =&gt; github.com/golang/text v0.3.0)</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td></td>
@@ -208,27 +185,19 @@
 </tr>
 </tbody>
 </table>
-
 <p>类似的还有 <a href="https://github.com/Masterminds/glide">glide</a>、<a href="https://github.com/gpmgo/gopm">gopm</a> 等这类第三方包管理工具，都不同方式的解决方案提供给我们。</p>
-
 <p>GOPROXY 环境变量</p>
-
 <p>终于到了本文的终极大杀器 —— <strong>GOPROXY</strong>。</p>
-
 <p>我们知道从 Go 1.11 版本开始，官方支持了 go module 包依赖管理工具。</p>
-
 <p>其实还新增了 GOPROXY 环境变量。如果设置了该变量，下载源代码时将会通过这个环境变量设置的代理地址，而不再是以前的直接从代码库下载。这无疑对我等无法科学上网的开发良民来说是最大的福音。</p>
-
-<p>更可喜的是，<a href="https://github.com/goproxyio/goproxy">goproxy.io</a> 这个开源项目帮我们实现好了我们想要的。该项目允许开发者一键构建自己的 GOPROXY 代理服务。同时，也提供了公用的代理服务 <a href="https://goproxy.io，我们只需设置该环境变量即可正常下载被墙的源码包了：">https://goproxy.io，我们只需设置该环境变量即可正常下载被墙的源码包了：</a></p>
-
+<p>更可喜的是，<a href="https://github.com/goproxyio/goproxy">goproxy.io</a> 这个开源项目帮我们实现好了我们想要的。该项目允许开发者一键构建自己的 GOPROXY 代理服务。同时，也提供了公用的代理服务 <a href="https://goproxy.io">https://goproxy.io</a>，我们只需设置该环境变量即可正常下载被墙的源码包了：</p>
 <table>
 <thead>
 <tr>
 <th>1</th>
-<th>export GOPROXY=<a href="https://goproxy.io">https://goproxy.io</a></th>
+<th>export GOPROXY=https://goproxy.io</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td></td>
@@ -236,23 +205,17 @@
 </tr>
 </tbody>
 </table>
-
 <p>不过，<strong>需要依赖于</strong> <strong>go module</strong> <strong>功能</strong>。可通过 export GO111MODULE=on 开启 MODULE。</p>
-
 <p>如果项目不在 GOPATH 中，则无法使用 go get &hellip;，但可以使用 go mod &hellip; 相关命令。</p>
-
 <p>也可以通过置空这个环境变量来关闭，export GOPROXY=。</p>
-
 <p>对于 Windows 用户，可以在 PowerShell 中设置：</p>
-
 <table>
 <thead>
 <tr>
 <th>1</th>
-<th>$env:GOPROXY = &ldquo;<a href="https://goproxy.io&quot;">https://goproxy.io&quot;</a></th>
+<th>$env:GOPROXY = &ldquo;<a href="https://goproxy.io">https://goproxy.io</a>&rdquo;</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td></td>
@@ -260,7 +223,6 @@
 </tr>
 </tbody>
 </table>
-
 <p>最后，我们当然推荐使用 GOPROXY 这个环境变量的解决方式，前提是 <strong>Go version &gt;= 1.11</strong>。</p>
 
                         </div>
@@ -326,6 +288,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -355,14 +325,6 @@
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -399,6 +361,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -408,6 +374,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

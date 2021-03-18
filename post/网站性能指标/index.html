@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -96,47 +96,34 @@
                         <div class="clear">
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
-                                
+                                <nav id="TableOfContents"></nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
                             <p>并发数、吞吐量的概念最初用来衡量网络设备的性能，后来推广到服务器及业务上评估系统的整体性能。</p>
-
 <p><strong>一、网络设备的并发数、吞吐量</strong>
-<strong>并发数（Concurrency）</strong><strong>：</strong>
-   也叫并发连接数，指网络设备所能处理的最大会话数量。这里的会话数是指请求-&gt;响应一次会话。</p>
-
-<p><strong>吞吐量</strong><strong>（Throughput）：</strong>
-   用户请求是由一个个数据包组成，网络设备（防火墙/路由器/交换机）对每个数据包的处理要耗费资源。吞吐量是指在不丢包的情况下单位时间内通过网络设备的数据包数量。</p>
-
+<strong>并发数（Concurrency）****：</strong>
+也叫并发连接数，指网络设备所能处理的最大会话数量。这里的会话数是指请求-&gt;响应一次会话。</p>
+<p><strong>吞吐量</strong>**（Throughput）：**
+用户请求是由一个个数据包组成，网络设备（防火墙/路由器/交换机）对每个数据包的处理要耗费资源。吞吐量是指在不丢包的情况下单位时间内通过网络设备的数据包数量。</p>
 <p><strong>网络层面并发数和吞吐量的关系：</strong>
-   并发数x包长度=吞吐量
+并发数x包长度=吞吐量
 参考：<a href="https://link.zhihu.com/?target=http%3A//wenku.baidu.com/view/b3631a1cc281e53a5802ff31.html">吞吐与并发关系</a></p>
-
 <p>可以看出，在网络层面考察吞吐量，除了并发数，还要考虑请求包的大小（长度）。用于度量网络设备时候，可以用byte/秒。</p>
-
 <p><strong>二、服务器及业务上的并发数、吞吐量</strong>
 用于指网站性能/服务器性能时候：
 并发数：系统同时处理的请求数（分为查询类请求数、事务类请求数）。
 吞吐量：系统在单位时间内处理请求的数量。只不过是一个很宽泛的术语，大家经常指的吞吐量的单位可能是：TPS/QPS、页面数/秒、人数/天、处理业务数/小时等等。</p>
-
 <p>几个相关的概念：TPS、QPS、RPS
 TPS：Transactions Per Second（每秒事务处理数），指服务器每秒处理的事务次数。一般用于评估数据库、交易系统的基准性能。</p>
-
 <p>QPS：Queries Per Second（查询量/秒），是服务器每秒能够处理的查询次数，例如域名服务器、Mysql查询性能。</p>
-
 <p>RPS：Request Per Second（请求数/秒）
 RPS（Request Per Second）和QPS可以认为是一回事。</p>
-
 <p>RT：Response Time（响应时间）：客户端发一个请求开始计时，到客户端接收到从服务器端返回的响应结果结束所经历的时间，响应时间由请求发送时间、网络传输时间和服务器处理时间三部分组成。也叫Think Time。</p>
-
 <p>并发数与TPS/QPS的关系：</p>
-
 <p>QPS（TPS）= 并发数/平均响应时间</p>
-
 <p>这里的并发数如果为事务处理请求数，则为TPS，如果为查询请求数，则为QPS。</p>
-
 <p>参考：<a href="https://link.zhihu.com/?target=http%3A//www.ha97.com/5095.html">http://www.ha97.com/5095.html</a></p>
 
                         </div>
@@ -202,6 +189,14 @@ RPS（Request Per Second）和QPS可以认为是一回事。</p>
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -231,14 +226,6 @@ RPS（Request Per Second）和QPS可以认为是一回事。</p>
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -275,6 +262,10 @@ RPS（Request Per Second）和QPS可以认为是一回事。</p>
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -284,6 +275,10 @@ RPS（Request Per Second）和QPS可以认为是一回事。</p>
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

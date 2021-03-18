@@ -1,15 +1,47 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Linux on 卢文的博客</title>
-    <link>http://luwen.tech/categories/Linux/</link>
-    <description>Recent content in Linux on 卢文的博客</description>
+    <title>linux on 卢文的博客</title>
+    <link>http://luwen.tech/categories/linux/</link>
+    <description>Recent content in linux on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 21 Jul 2020 23:00:24 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2020 11:22:03 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lua安装luasql Mysql</title>
+      <link>http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/</link>
+      <pubDate>Tue, 24 Nov 2020 11:22:03 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/</guid>
+      <description>yum install mariadb-devel -y ln -s /usr/lib64/mysql/libmysqlclient.so /usr/lib64/libmysqlclient.so luarocks install luasql-mysql MYSQL_INCDIR=/usr/include/mysql</description>
+    </item>
     
-	<atom:link href="http://luwen.tech/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Centos7配置ftp</title>
+      <link>http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/</link>
+      <pubDate>Tue, 17 Nov 2020 09:14:35 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/</guid>
+      <description>1.安装 yum -y install vsftpd 修改配置文件/etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=NO chroot_list_enable=YES chroot_list_file=/etc/vsftpd/chroot_list allow_writeable_chroot=YES listen=YES ftpd_banner=”welcome test Ftp Server.” pam_service_name=vsftpd #设置PAM使用的名称,该名称就是/etc/pam.d/目录下vsfptd文件的文件名 userlist_enable=YES tcp_wrappers=YES local_root=/home/www/test/upload/ virtual_use_local_privs=YES guest_enable=YES #表示是否开启vsft</description>
+    </item>
     
+    <item>
+      <title>小程序防盗链</title>
+      <link>http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/</link>
+      <pubDate>Mon, 12 Oct 2020 14:24:21 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/</guid>
+      <description>开启防盗链后，小程序访问就不显示图片了。如何解决？ 在白名单中添加servicewechat.com就行了 就是添加servicewechat.com域名到许可域名中，就好了。 我们在进行小程序开发的时候，接口中的图片如果实现了防盗链，那么可能图片无法显示。 如果不防盗链的话，万一被人抓</description>
+    </item>
+    
+    <item>
+      <title>网站性能指标</title>
+      <link>http://luwen.tech/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/</link>
+      <pubDate>Wed, 16 Sep 2020 16:03:07 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/</guid>
+      <description>并发数、吞吐量的概念最初用来衡量网络设备的性能，后来推广到服务器及业务上评估系统的整体性能。 一、网络设备的并发数、吞吐量 并发数（Concurrency）****： 也叫并发连接数，指网络设备所能处理的最大会话数量。这里的会话数是指请求-&amp;gt;响应一次会话。 吞吐量**（Throug</description>
+    </item>
     
     <item>
       <title>Linux命令</title>

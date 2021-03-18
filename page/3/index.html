@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -66,6 +66,52 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/linux%E5%91%BD%E4%BB%A4/" title="Linux命令" >Linux命令</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年7月21日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Linux">Linux</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ###https检测 curl -vosa --resolve [group-image.sdongpo.com:443:58.20.197.102](http://group-image.sdongpo.com:443:58.20.197.102) https://group-image.sdongpo.com/group_5.1.0/upload_pic/com_thumb_2020022918342000e3f9255e5a3e2c25ac3.jpg linux进程按启动时间排序 ps aux --sort=lstart ps aux --sort=start_time cd /proc; ls -td --full-time --time-style=+%s [0123456789]*;……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/linux%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/golang%E8%AF%AD%E6%B3%95%E8%A6%81%E7%82%B9/" title="Golang语法要点" >Golang语法要点</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年7月9日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Golang">Golang</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                golang的单引号和双引号： 在Go中，双引号是用来表示字符串string，其实质是一个byte类型的数组，单引号表示rune类型。 go语言中的函数和方法： 在Go语言中，函数和方法不太一样，有明确的概念区分。其他语言中，比如Java，一般来说，函数就是方法，方法就是函数，但是在G……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/golang%E8%AF%AD%E6%B3%95%E8%A6%81%E7%82%B9/">阅读全文</a></p>
+                        </article>
                     
                         <article class="post">
                             <header>
@@ -200,7 +246,7 @@
                             </div>
                             
                             <div class="post-content">
-                                #docker 在宿主机上根据进程PID查找归属容器ID ###在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 ###查找容器id docker inspect -f &quot;{{.Id}} {{.State.Pid}}&quot; $(docker ps -q) |grep &lt;PID&gt; ###查找k8s pod name docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&quot; $(docker ps -q) |grep &lt;PID&gt; ##……
+                                #docker 在宿主机上根据进程PID查找归属容器ID ###在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 ###查找容器id docker inspect -f &#34;{{.Id}} {{.State.Pid}}&#34; $(docker ps -q) |grep &lt;PID&gt; ###查找k8s pod name docker inspect -f &#34;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&#34; $(docker ps -q) |grep &lt;PID&gt; ##……
                             </div>
                             <p class="readmore"><a href="http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
                         </article>
@@ -249,52 +295,6 @@
                                 不要直接部署裸的Pod。 为工作负载选择合适的Controller。 使用Init容器确保应用程序被正确的初始化。 在应用程序工作负载启动之前先启动service。 使用Deployment history来回滚到历史版本。 使用ConfigMap和Secret来存储配置。 在Pod里增加Re……
                             </div>
                             <p class="readmore"><a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/prometheus/" title="Prometheus" >Prometheus</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年1月7日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Prometheus">Prometheus</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                自定义exporter实现 Concepts Data model prometheus 原理上以Time_series 的方式存储数据。流的时间戳值属于同样的度量和同样的标记维度。 Metric names and labels metric name 指定了系统的一般特性,比如http_request_total 表示全部接收到的HTTP请求。 Label启用了Prometheus的多维数据模型，……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/prometheus/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/" title="Docker构建镜像" >Docker构建镜像</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年11月26日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                指定国内源build镜像 docker build &ndash;build-arg APT_MIRROR=&ldquo;http://mirrors.163.com&quot; -t openapi:v1.1 .……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
                         </article>
                     
                     
@@ -357,6 +357,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -386,14 +394,6 @@
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -430,6 +430,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -439,6 +443,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

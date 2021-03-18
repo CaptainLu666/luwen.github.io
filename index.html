@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -66,6 +66,52 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁" >悲观锁和乐观锁</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年3月18日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/mysql">mysql</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                乐观锁和悲观锁概念 一、并发控制 当程序中可能出现并发的情况时，就需要保证在并发情况下数据的准确性，以此确保当前用户和其他用户一起操作时，所得到的结果和他单独操作时的结果是一样的。这种手段就叫做并发控制。并发控制的目的是保证一个用户的工作不会对另一个用户的工作产生不合理的影响。 没有做……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用" >Brew使用</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年3月16日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Mac">Mac</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Mac 下brew 安装更新报错 git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow fatal: unable to access 'https://github.com/Homebrew/homebrew-core/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443 fatal: unable to access 'https://github.com/Homebrew/homebrew-cask/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443 解决办法 git config --global --unset http.proxy git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow 查看git 配置 git config --global --list……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/">阅读全文</a></p>
+                        </article>
                     
                         <article class="post">
                             <header>
@@ -246,55 +292,9 @@
                             </div>
                             
                             <div class="post-content">
-                                ###1.根据k8s kubeconfig文件生成cert.pfx #certificate-authority-data echo testtestsetstststsetetetttttttttttttttttttttttttt |base64 -d &gt; ca.crt #client-certificate-data echo wengehenshuaiwewenwenrnwenrnwnrwnenrwenrnwenrnwenrwnenrer |base64 -d &gt; client.crt #client-key-data echo wengetehaobangdabangzigansinisfjldjflsjlafdjldjfljdlfkjlsjdfdfs |base64 -d &gt; client.key openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile ca.crt ###2.将cert.pfx文件导入jenkins生成凭据 tips:密码是上面生成cert.pfx设置的密码 3.增加k8s云 tips:k8s服务证书填上……
+                                ###1.根据k8s kubeconfig文件生成cert.pfx #certificate-authority-data echo testtestsetstststsetetetttttttttttttttttttttttttt |base64 -d &gt; ca.crt #client-certificate-data echo wengehenshuaiwewenwenrnwenrnwnrwnenrwenrnwenrnwenrwnenrer |base64 -d &gt; client.crt #client-key-data echo wengetehaobangdabangzigansinisfjldjflsjlafdjldjfljdlfkjlsjdfdfs |base64 -d &gt; client.key openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile ca.crt ###2.将cert.pfx文件导入jenkins生成凭据 tips:密码是上面生成cert.pfx设置的密码 ![image-20200922235928690](/Users/luwen/Library/Application Support/typora-user-images/image-20200922235928690.png) 3.增加k8s云 tips:k8s服务证书……
                             </div>
                             <p class="readmore"><a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址" >优秀的golang学习网址</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月18日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Golang">Golang</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                golang学习之路 golang学习电子书籍 飞雪无情 李文周的博客 李文周的视频课程 Golang新开发者要注意的陷阱和常见错误 Tony Bai 曹春晖 鸟窝 draveness 码农桃花源 go语言原本 go夜读 常用文件操作……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档" >阿里云自定义权限文档</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月17日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Aliyun">Aliyun</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                https://help.aliyun.com/document_detail/93739.html……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阅读全文</a></p>
                         </article>
                     
                     
@@ -353,6 +353,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -382,14 +390,6 @@
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -426,6 +426,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -435,6 +439,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

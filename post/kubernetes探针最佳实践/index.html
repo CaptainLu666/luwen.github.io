@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,93 +97,64 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#1-存活和就绪的结果处理程序需要是互相独立的程序">1. 存活和就绪的结果处理程序需要是互相独立的程序</a></li>
-<li><a href="#3-不要在-存活-处理程序里实现任何逻辑-如果主线程正在运行-它需要返回状态200-如果不是-则返回5xx">3. 不要在“存活”处理程序里实现任何逻辑。如果主线程正在运行，它需要返回状态200，如果不是，则返回5xx</a></li>
-<li><a href="#4-在-就绪-探针的处理程序中实现逻辑-以便提供有关应用程序准备情况的详情">4. 在“就绪”探针的处理程序中实现逻辑，以便提供有关应用程序准备情况的详情</a></li>
-<li><a href="#5-不要尝试在就绪处理程序上重新建立应用程序的就绪状态-这个探针只是为了检查应用程序是否准备就绪-而不是让应用程序就绪">5. 不要尝试在就绪处理程序上重新建立应用程序的就绪状态。这个探针只是为了检查应用程序是否准备就绪，而不是让应用程序就绪。</a></li>
-</ul></li>
-<li><a href="#1-存活探针检查什么">1.存活探针检查什么？</a></li>
-<li><a href="#2-保持探针轻量">2.保持探针轻量</a></li>
-<li><a href="#3-无须在探针中实现重试循环">3.无须在探针中实现重试循环</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#1存活探针检查什么">1.存活探针检查什么？</a></li>
+        <li><a href="#2保持探针轻量">2.保持探针轻量</a></li>
+        <li><a href="#3无须在探针中实现重试循环">3.无须在探针中实现重试循环</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<h4 id="1-存活和就绪的结果处理程序需要是互相独立的程序">1. 存活和就绪的结果处理程序需要是互相独立的程序</h4>
-
+                            <h4 id="1-存活和就绪的结果处理程序需要是互相独立的程序">1. 存活和就绪的结果处理程序需要是互相独立的程序</h4>
 <p>如前所述，对于在Kubernetes上下文中部署的每个产品，应该实现2个分别处理HTTP请求“存活”和“就绪”的处理程序。这些探测器的处理程序需要独立实现自己的功能。
 这适用于作业处理应用程序。对于Kubernetes，了解应用程序是否正在运行非常重要。如果存活/就绪逻辑被解耦了在新进程中运行，则结果不准确。</p>
-
-<h4 id="3-不要在-存活-处理程序里实现任何逻辑-如果主线程正在运行-它需要返回状态200-如果不是-则返回5xx">3. 不要在“存活”处理程序里实现任何逻辑。如果主线程正在运行，它需要返回状态200，如果不是，则返回5xx</h4>
-
-<p>这个探针让Kubernetes知道应用程序是正在运行还是停止运行。通过检查<strong>/.well-known/live</strong></p>
-
+<h4 id="3-不要在存活处理程序里实现任何逻辑如果主线程正在运行它需要返回状态200如果不是则返回5xx">3. 不要在“存活”处理程序里实现任何逻辑。如果主线程正在运行，它需要返回状态200，如果不是，则返回5xx</h4>
+<p>这个探针让Kubernetes知道应用程序是正在运行还是停止运行。通过检查**/.well-known/live**</p>
 <blockquote>
 <p>在这个上下文中，“逻辑”意味着对互相连接的服务实施某种检查</p>
 </blockquote>
-
-<h4 id="4-在-就绪-探针的处理程序中实现逻辑-以便提供有关应用程序准备情况的详情">4. 在“就绪”探针的处理程序中实现逻辑，以便提供有关应用程序准备情况的详情</h4>
-
+<h4 id="4-在就绪探针的处理程序中实现逻辑以便提供有关应用程序准备情况的详情">4. 在“就绪”探针的处理程序中实现逻辑，以便提供有关应用程序准备情况的详情</h4>
 <p>就绪探针让Kubernetes知道Pod是否已准备好接收HTTP请求。作为开发人员，在此处实现一些逻辑来检查应用程序的所有后端依赖的可用性非常重要。当实现就绪处理程序时，需要清楚的知道您的应用程序依赖于哪些功能。换句话说，在就绪处理程序里，需要运行所有步骤以保证应用程序已准备好接收和处理https请求，这非常重要。例如，如果应用程序需要建立与数据库的连接以准备处理HTTP请求，那么在“就绪”的处理程序中就必须检查是否已建立与数据库连接并能正常使用。
 我并不建议实现任何让程序重新就绪的逻辑。这些逻辑可能会为系统中的某些组件带来危险。</p>
-
-<h4 id="5-不要尝试在就绪处理程序上重新建立应用程序的就绪状态-这个探针只是为了检查应用程序是否准备就绪-而不是让应用程序就绪">5. 不要尝试在就绪处理程序上重新建立应用程序的就绪状态。这个探针只是为了检查应用程序是否准备就绪，而不是让应用程序就绪。</h4>
-
+<h4 id="5-不要尝试在就绪处理程序上重新建立应用程序的就绪状态这个探针只是为了检查应用程序是否准备就绪而不是让应用程序就绪">5. 不要尝试在就绪处理程序上重新建立应用程序的就绪状态。这个探针只是为了检查应用程序是否准备就绪，而不是让应用程序就绪。</h4>
 <p>我并不建议实现任何让程序重新就绪的逻辑。这些逻辑可能会为系统中的某些组件带来危险。</p>
-
-<pre><code class="language-yaml">          readinessProbe:
-            tcpSocket:
-              port: 8066
-            initialDelaySeconds: 120
-            periodSeconds: 5
-            #successThreshold: 1
-          livenessProbe:
-            tcpSocket:
-              port: 8066
-            initialDelaySeconds: 180
-            periodSeconds: 5
-</code></pre>
-
-<pre><code class="language-yaml">          readinessProbe:
-            httpGet:
-              path: /ready
-              port: 80
-            initialDelaySeconds: 120
-            periodSeconds: 5
-            #successThreshold: 1
-          livenessProbe:
-            httpGet:
-                path: /live
-                port: 80
-            initialDelaySeconds: 180
-            periodSeconds: 5
-</code></pre>
-
-<h3 id="1-存活探针检查什么">1.存活探针检查什么？</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">          <span style="color:#f92672">readinessProbe</span>:
+            <span style="color:#f92672">tcpSocket</span>:
+              <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8066</span>
+            <span style="color:#f92672">initialDelaySeconds</span>: <span style="color:#ae81ff">120</span>
+            <span style="color:#f92672">periodSeconds</span>: <span style="color:#ae81ff">5</span>
+            <span style="color:#75715e">#successThreshold: 1</span>
+          <span style="color:#f92672">livenessProbe</span>:
+            <span style="color:#f92672">tcpSocket</span>:
+              <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8066</span>
+            <span style="color:#f92672">initialDelaySeconds</span>: <span style="color:#ae81ff">180</span>
+            <span style="color:#f92672">periodSeconds</span>: <span style="color:#ae81ff">5</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">          <span style="color:#f92672">readinessProbe</span>:
+            <span style="color:#f92672">httpGet</span>:
+              <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/ready</span>
+              <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+            <span style="color:#f92672">initialDelaySeconds</span>: <span style="color:#ae81ff">120</span>
+            <span style="color:#f92672">periodSeconds</span>: <span style="color:#ae81ff">5</span>
+            <span style="color:#75715e">#successThreshold: 1</span>
+          <span style="color:#f92672">livenessProbe</span>:
+            <span style="color:#f92672">httpGet</span>:
+                <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/live</span>
+                <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+            <span style="color:#f92672">initialDelaySeconds</span>: <span style="color:#ae81ff">180</span>
+            <span style="color:#f92672">periodSeconds</span>: <span style="color:#ae81ff">5</span>
+</code></pre></div><h3 id="1存活探针检查什么">1.存活探针检查什么？</h3>
 <p>需要将探针配置为请求特定的URL路径，并让应用从内部对内部运行的所有重要组件执行状态检查，以确保都没有终止后者停止响应。</p>
-
-<h3 id="2-保持探针轻量">2.保持探针轻量</h3>
-
+<h3 id="2保持探针轻量">2.保持探针轻量</h3>
 <p>存活探针不应消耗太多的计算资源，并且运行不应该花太长的时间，默认情况下探测性执行的频率相对较高，一个过重的探针会大大减慢容器运行</p>
-
 <p>Tips:如果在容器中运行Java应用程序，请确保使用HTTP GET存活探针，而不是启动全新的JVM以获取存活信息的exec探针，任何基于JVM或类似的应用程序也是如此，他们的启动过程需要大量的计算资源。</p>
-
-<h3 id="3-无须在探针中实现重试循环">3.无须在探针中实现重试循环</h3>
-
+<h3 id="3无须在探针中实现重试循环">3.无须在探针中实现重试循环</h3>
 <p>可以看到探针的失败阈值是可配置的，并且通常在容器被终止之前探针必须失败多次。即使将失败阈值设置为1，Kubernetes为了确认一次探测的失败，会尝试若干次，因此在探针中自己实现重试循环是浪费精力</p>
 
                         </div>
@@ -247,6 +218,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -276,14 +255,6 @@
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -320,6 +291,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -329,6 +304,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on 卢文的博客</title>
+    <link>http://luwen.tech/categories/mysql/</link>
+    <description>Recent content in mysql on 卢文的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 18 Mar 2021 10:09:57 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>悲观锁和乐观锁</title>
+      <link>http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/</link>
+      <pubDate>Thu, 18 Mar 2021 10:09:57 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/</guid>
+      <description>乐观锁和悲观锁概念 一、并发控制 当程序中可能出现并发的情况时，就需要保证在并发情况下数据的准确性，以此确保当前用户和其他用户一起操作时，所得到的结果和他单独操作时的结果是一样的。这种手段就叫做并发控制。并发控制的目的是保证一个用户的工作不会对另一个用户的工作产生不合理的影响。 没有做</description>
+    </item>
+    
+  </channel>
+</rss>

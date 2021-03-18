@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,96 +97,68 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#一-xss">一、XSS</a>
-<ul>
-<li><a href="#1-非持久型-xss-反射型-xss">1.非持久型 XSS（反射型 XSS ）</a></li>
-<li><a href="#2-持久型-xss-存储型-xss">2.持久型 XSS（存储型 XSS）</a></li>
-<li><a href="#3-如何防御">3.如何防御</a>
-<ul>
-<li><a href="#1-csp">1) CSP</a></li>
-<li><a href="#2-转义字符">2) 转义字符</a></li>
-<li><a href="#3-httponly-cookie">3) HttpOnly Cookie。</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#二-csrf">二、CSRF</a>
-<ul>
-<li><a href="#1-csrf攻击的原理">1.CSRF攻击的原理</a></li>
-<li><a href="#2-如何防御">2.如何防御</a>
-<ul>
-<li><a href="#1-samesite">1) SameSite</a></li>
-<li><a href="#2-referer-check">2) Referer Check</a></li>
-<li><a href="#3-anti-csrf-token">3) Anti CSRF Token</a></li>
-<li><a href="#4-验证码">4) 验证码</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#三-点击劫持">三、点击劫持</a>
-<ul>
-<li><a href="#1-特点">1. 特点</a></li>
-<li><a href="#2-点击劫持的原理">2. 点击劫持的原理</a></li>
-<li><a href="#3-如何防御-1">3. 如何防御</a>
-<ul>
-<li><a href="#1-x-frame-options">1）X-FRAME-OPTIONS</a></li>
-<li><a href="#2-javascript-防御">2）JavaScript 防御</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#四-url跳转漏洞">四、URL跳转漏洞</a>
-<ul>
-<li><a href="#1-url跳转漏洞原理">1.URL跳转漏洞原理</a></li>
-<li><a href="#2-实现方式">2.实现方式：</a></li>
-<li><a href="#3-如何防御-2">3.如何防御</a>
-<ul>
-<li><a href="#1-referer的限制">1)referer的限制</a></li>
-<li><a href="#2-加入有效性验证token">2)加入有效性验证Token</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#五-sql注入">五、SQL注入</a>
-<ul>
-<li><a href="#1-sql注入的原理">1.SQL注入的原理</a></li>
-<li><a href="#2-危害">2.危害</a></li>
-<li><a href="#3-如何防御-3">3.如何防御</a></li>
-</ul></li>
-<li><a href="#六-os命令注入攻击">六、OS命令注入攻击</a>
-<ul>
-<li><a href="#1-原理">1.原理</a></li>
-<li><a href="#2-如何防御-1">2.如何防御</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#一xss">一、XSS</a>
+      <ul>
+        <li><a href="#1非持久型-xss反射型-xss-">1.非持久型 XSS（反射型 XSS ）</a></li>
+        <li><a href="#2持久型-xss存储型-xss">2.持久型 XSS（存储型 XSS）</a></li>
+        <li><a href="#3如何防御">3.如何防御</a></li>
+      </ul>
+    </li>
+    <li><a href="#二csrf">二、CSRF</a>
+      <ul>
+        <li><a href="#1csrf攻击的原理">1.CSRF攻击的原理</a></li>
+        <li><a href="#2如何防御">2.如何防御</a></li>
+      </ul>
+    </li>
+    <li><a href="#三点击劫持">三、点击劫持</a>
+      <ul>
+        <li><a href="#1-特点">1. 特点</a></li>
+        <li><a href="#2-点击劫持的原理">2. 点击劫持的原理</a></li>
+        <li><a href="#3-如何防御">3. 如何防御</a></li>
+      </ul>
+    </li>
+    <li><a href="#四url跳转漏洞">四、URL跳转漏洞</a>
+      <ul>
+        <li><a href="#1url跳转漏洞原理">1.URL跳转漏洞原理</a></li>
+        <li><a href="#2实现方式">2.实现方式：</a></li>
+        <li><a href="#3如何防御-1">3.如何防御</a></li>
+      </ul>
+    </li>
+    <li><a href="#五sql注入">五、SQL注入</a>
+      <ul>
+        <li><a href="#1sql注入的原理">1.SQL注入的原理</a></li>
+        <li><a href="#2危害">2.危害</a></li>
+        <li><a href="#3如何防御-2">3.如何防御</a></li>
+      </ul>
+    </li>
+    <li><a href="#六os命令注入攻击">六、OS命令注入攻击</a>
+      <ul>
+        <li><a href="#1原理">1.原理</a></li>
+        <li><a href="#2如何防御-1">2.如何防御</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<p>在互联网时代，数据安全与个人隐私受到了前所未有的挑战，各种新奇的攻击技术层出不穷。如何才能更好地保护我们的数据？本文主要侧重于分析几种常见的攻击的类型以及防御的方法。</p>
-
-<h2 id="一-xss">一、XSS</h2>
-
+                            <p>在互联网时代，数据安全与个人隐私受到了前所未有的挑战，各种新奇的攻击技术层出不穷。如何才能更好地保护我们的数据？本文主要侧重于分析几种常见的攻击的类型以及防御的方法。</p>
+<h2 id="一xss">一、XSS</h2>
 <p>XSS (Cross-Site Scripting)，跨站脚本攻击，因为缩写和 CSS重叠，所以只能叫 XSS。跨站脚本攻击是指通过存在安全漏洞的Web网站注册用户的浏览器内运行非法的HTML标签或JavaScript进行的一种攻击。</p>
-
 <p>跨站脚本攻击有可能造成以下影响:</p>
-
 <ul>
 <li>利用虚假输入表单骗取用户个人信息。</li>
 <li>利用脚本窃取用户的Cookie值，被害者在不知情的情况下，帮助攻击者发送恶意请求。</li>
 <li>显示伪造的文章或图片。</li>
 </ul>
-
 <p><strong>XSS 的原理是恶意攻击者往 Web 页面里插入恶意可执行网页脚本代码，当用户浏览该页之时，嵌入其中 Web 里面的脚本代码会被执行，从而可以达到攻击者盗取用户信息或其他侵犯用户安全隐私的目的</strong>。</p>
-
 <p>XSS 的攻击方式千变万化，但还是可以大致细分为几种类型。</p>
-
-<h3 id="1-非持久型-xss-反射型-xss">1.非持久型 XSS（反射型 XSS ）</h3>
-
+<h3 id="1非持久型-xss反射型-xss-">1.非持久型 XSS（反射型 XSS ）</h3>
 <p>非持久型 XSS 漏洞，一般是通过给别人发送<strong>带有恶意脚本代码参数的 URL</strong>，当 URL 地址被打开时，特有的恶意代码参数被 HTML 解析、执行。</p>
-
-<p><a href="https://camo.githubusercontent.com/cd483189baef0c2804e2b124edadaa43932ceb64/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32332f313638376234643435663662326437343f773d37333226683d31343926663d706e6726733d3530373838"><img src="https://camo.githubusercontent.com/cd483189baef0c2804e2b124edadaa43932ceb64/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32332f313638376234643435663662326437343f773d37333226683d31343926663d706e6726733d3530373838" alt="img" /></a>
+<p><a href="https://camo.githubusercontent.com/cd483189baef0c2804e2b124edadaa43932ceb64/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32332f313638376234643435663662326437343f773d37333226683d31343926663d706e6726733d3530373838"><img src="https://camo.githubusercontent.com/cd483189baef0c2804e2b124edadaa43932ceb64/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32332f313638376234643435663662326437343f773d37333226683d31343926663d706e6726733d3530373838" alt="img"></a>
 举一个例子，比如页面中包含有以下代码：</p>
-
 <pre><code>&lt;select&gt;
     &lt;script&gt;
         document.write(''
@@ -197,21 +169,15 @@
         document.write('&lt;option value=2&gt;English&lt;/option&gt;');
     &lt;/script&gt;
 &lt;/select&gt;
-</code></pre>
-
-<p>攻击者可以直接通过 URL (类似：<code>https://xxx.com/xxx?default=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>) 注入可执行的脚本代码。不过一些浏览器如Chrome其内置了一些XSS过滤器，可以防止大部分反射型XSS攻击。</p>
-
+</code></pre><p>攻击者可以直接通过 URL (类似：<code>https://xxx.com/xxx?default=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>) 注入可执行的脚本代码。不过一些浏览器如Chrome其内置了一些XSS过滤器，可以防止大部分反射型XSS攻击。</p>
 <p>非持久型 XSS 漏洞攻击有以下几点特征：</p>
-
 <ul>
 <li>即时性，不经过服务器存储，直接通过 HTTP 的 GET 和 POST 请求就能完成一次攻击，拿到用户隐私数据。</li>
 <li>攻击者需要诱骗点击,必须要通过用户点击链接才能发起</li>
 <li>反馈率低，所以较难发现和响应修复</li>
 <li>盗取用户敏感保密信息</li>
 </ul>
-
 <p>为了防止出现非持久型 XSS 漏洞，需要确保这么几件事情：</p>
-
 <ul>
 <li>Web 页面渲染的所有内容或者渲染的数据都必须来自于服务端。</li>
 <li>尽量不要从 <code>URL</code>，<code>document.referrer</code>，<code>document.forms</code> 等这种 DOM API 中获取数据直接渲染。</li>
@@ -219,77 +185,50 @@
 <li>如果做不到以上几点，也必须对涉及 DOM 渲染的方法传入的字符串参数做 escape 转义。</li>
 <li>前端渲染的时候对任何的字段都需要做 escape 转义编码。</li>
 </ul>
-
-<h3 id="2-持久型-xss-存储型-xss">2.持久型 XSS（存储型 XSS）</h3>
-
+<h3 id="2持久型-xss存储型-xss">2.持久型 XSS（存储型 XSS）</h3>
 <p>持久型 XSS 漏洞，一般存在于 Form 表单提交等交互功能，如文章留言，提交文本信息等，黑客利用的 XSS 漏洞，将内容经正常功能提交进入数据库持久保存，当前端页面获得后端从数据库中读出的注入代码时，恰好将其渲染执行。</p>
-
-<p><a href="https://camo.githubusercontent.com/51a9ab9187cbe427b562bf45b181cb0395dac6ed/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32332f313638376234363038656261393132343f773d35393526683d31383526663d706e6726733d3638313431"><img src="https://camo.githubusercontent.com/51a9ab9187cbe427b562bf45b181cb0395dac6ed/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32332f313638376234363038656261393132343f773d35393526683d31383526663d706e6726733d3638313431" alt="img" /></a></p>
-
+<p><a href="https://camo.githubusercontent.com/51a9ab9187cbe427b562bf45b181cb0395dac6ed/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32332f313638376234363038656261393132343f773d35393526683d31383526663d706e6726733d3638313431"><img src="https://camo.githubusercontent.com/51a9ab9187cbe427b562bf45b181cb0395dac6ed/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32332f313638376234363038656261393132343f773d35393526683d31383526663d706e6726733d3638313431" alt="img"></a></p>
 <p>举个例子，对于评论功能来说，就得防范持久型 XSS 攻击，因为我可以在评论中输入以下内容</p>
-
-<p><a href="https://camo.githubusercontent.com/28402d845fa3e9b5f571f116418e44c6d9fb93e4/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32302f313638366237303837393665393861613f773d36353226683d31313426663d706e6726733d38313235"><img src="https://camo.githubusercontent.com/28402d845fa3e9b5f571f116418e44c6d9fb93e4/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32302f313638366237303837393665393861613f773d36353226683d31313426663d706e6726733d38313235" alt="img" /></a></p>
-
+<p><a href="https://camo.githubusercontent.com/28402d845fa3e9b5f571f116418e44c6d9fb93e4/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32302f313638366237303837393665393861613f773d36353226683d31313426663d706e6726733d38313235"><img src="https://camo.githubusercontent.com/28402d845fa3e9b5f571f116418e44c6d9fb93e4/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32302f313638366237303837393665393861613f773d36353226683d31313426663d706e6726733d38313235" alt="img"></a></p>
 <p>主要注入页面方式和非持久型 XSS 漏洞类似，只不过持久型的不是来源于 URL，referer，forms 等，而是来源于<strong>后端从数据库中读出来的数据</strong> 。持久型 XSS 攻击不需要诱骗点击，黑客只需要在提交表单的地方完成注入即可，但是这种 XSS 攻击的成本相对还是很高。</p>
-
 <p>攻击成功需要同时满足以下几个条件：</p>
-
 <ul>
 <li>POST 请求提交表单后端没做转义直接入库。</li>
 <li>后端从数据库中取出数据没做转义直接输出给前端。</li>
 <li>前端拿到后端数据没做转义直接渲染成 DOM。</li>
 </ul>
-
 <p>持久型 XSS 有以下几个特点：</p>
-
 <ul>
 <li>持久性，植入在数据库中</li>
 <li>盗取用户敏感私密信息</li>
 <li>危害面广</li>
 </ul>
-
-<h3 id="3-如何防御">3.如何防御</h3>
-
+<h3 id="3如何防御">3.如何防御</h3>
 <p>对于 XSS 攻击来说，通常有两种方式可以用来防御。</p>
-
 <h4 id="1-csp">1) CSP</h4>
-
 <p>CSP 本质上就是建立白名单，开发者明确告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截是由浏览器自己实现的。我们可以通过这种方式来尽量减少 XSS 攻击。</p>
-
 <p>通常可以通过两种方式来开启 CSP：</p>
-
 <ul>
 <li>设置 HTTP Header 中的 Content-Security-Policy</li>
 <li>设置 meta 标签的方式</li>
 </ul>
-
 <p>这里以设置 HTTP Header 来举例：</p>
-
 <ul>
-<li><p>只允许加载本站资源</p>
-
-<pre><code>Content-Security-Policy: default-src 'self'
-</code></pre></li>
-
-<li><p>只允许加载 HTTPS 协议图片</p>
-
-<pre><code>Content-Security-Policy: img-src https://*
-</code></pre></li>
-
-<li><p>允许加载任何来源框架</p>
-
-<pre><code>Content-Security-Policy: child-src 'none'
-</code></pre></li>
+<li>只允许加载本站资源</li>
 </ul>
-
-<p>如需了解更多属性，请查看<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">Content-Security-Policy文档</a></p>
-
+<pre><code>Content-Security-Policy: default-src 'self'
+</code></pre><ul>
+<li>只允许加载 HTTPS 协议图片</li>
+</ul>
+<pre><code>Content-Security-Policy: img-src https://*
+</code></pre><ul>
+<li>允许加载任何来源框架</li>
+</ul>
+<pre><code>Content-Security-Policy: child-src 'none'
+</code></pre><p>如需了解更多属性，请查看<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">Content-Security-Policy文档</a></p>
 <p>对于这种方式来说，只要开发者配置了正确的规则，那么即使网站存在漏洞，攻击者也不能执行它的攻击代码，并且 CSP 的兼容性也不错。</p>
-
 <h4 id="2-转义字符">2) 转义字符</h4>
-
 <p>用户的输入永远不可信任的，最普遍的做法就是转义输入输出的内容，对于引号、尖括号、斜杠进行转义</p>
-
 <pre><code>function escape(str) {
   str = str.replace(/&amp;/g, '&amp;amp;')
   str = str.replace(/&lt;/g, '&amp;lt;')
@@ -300,92 +239,56 @@
   str = str.replace(/\//g, '&amp;#x2F;')
   return str
 }
-</code></pre>
-
-<p>但是对于显示富文本来说，显然不能通过上面的办法来转义所有字符，因为这样会把需要的格式也过滤掉。对于这种情况，通常采用白名单过滤的办法，当然也可以通过黑名单过滤，但是考虑到需要过滤的标签和标签属性实在太多，更加推荐使用白名单的方式。</p>
-
+</code></pre><p>但是对于显示富文本来说，显然不能通过上面的办法来转义所有字符，因为这样会把需要的格式也过滤掉。对于这种情况，通常采用白名单过滤的办法，当然也可以通过黑名单过滤，但是考虑到需要过滤的标签和标签属性实在太多，更加推荐使用白名单的方式。</p>
 <pre><code>const xss = require('xss')
 let html = xss('&lt;h1 id=&quot;title&quot;&gt;XSS Demo&lt;/h1&gt;&lt;script&gt;alert(&quot;xss&quot;);&lt;/script&gt;')
 // -&gt; &lt;h1&gt;XSS Demo&lt;/h1&gt;&amp;lt;script&amp;gt;alert(&quot;xss&quot;);&amp;lt;/script&amp;gt;
 console.log(html)
-</code></pre>
-
-<p>以上示例使用了 js-xss 来实现，可以看到在输出中保留了 h1 标签且过滤了 script 标签。</p>
-
+</code></pre><p>以上示例使用了 js-xss 来实现，可以看到在输出中保留了 h1 标签且过滤了 script 标签。</p>
 <h4 id="3-httponly-cookie">3) HttpOnly Cookie。</h4>
-
 <p>这是预防XSS攻击窃取用户cookie最有效的防御手段。Web应用程序在设置cookie时，将其属性设为HttpOnly，就可以避免该网页的cookie被客户端恶意JavaScript窃取，保护用户cookie信息。</p>
-
-<h2 id="二-csrf">二、CSRF</h2>
-
+<h2 id="二csrf">二、CSRF</h2>
 <p>CSRF(Cross Site Request Forgery)，即跨站请求伪造，是一种常见的Web攻击，它利用用户已登录的身份，在用户毫不知情的情况下，以用户的名义完成非法操作。</p>
-
-<h3 id="1-csrf攻击的原理">1.CSRF攻击的原理</h3>
-
+<h3 id="1csrf攻击的原理">1.CSRF攻击的原理</h3>
 <p>下面先介绍一下CSRF攻击的原理：</p>
-
-<p><a href="https://camo.githubusercontent.com/a24b3da2f84bbf939f49451010bcfb8292423a6b/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32342f313638383033306132343730323330313f773d34333226683d33303326663d706e6726733d3434343837"><img src="https://camo.githubusercontent.com/a24b3da2f84bbf939f49451010bcfb8292423a6b/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32342f313638383033306132343730323330313f773d34333226683d33303326663d706e6726733d3434343837" alt="img" /></a></p>
-
+<p><a href="https://camo.githubusercontent.com/a24b3da2f84bbf939f49451010bcfb8292423a6b/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32342f313638383033306132343730323330313f773d34333226683d33303326663d706e6726733d3434343837"><img src="https://camo.githubusercontent.com/a24b3da2f84bbf939f49451010bcfb8292423a6b/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32342f313638383033306132343730323330313f773d34333226683d33303326663d706e6726733d3434343837" alt="img"></a></p>
 <p>完成 CSRF 攻击必须要有三个条件：</p>
-
 <ul>
 <li>用户已经登录了站点 A，并在本地记录了 cookie</li>
 <li>在用户没有登出站点 A 的情况下（也就是 cookie 生效的情况下），访问了恶意攻击者提供的引诱危险站点 B (B 站点要求访问站点A)。</li>
 <li>站点 A 没有做任何 CSRF 防御</li>
 </ul>
-
-<p>我们来看一个例子： 当我们登入转账页面后，突然眼前一亮<strong>惊现&rdquo;XXX隐私照片，不看后悔一辈子&rdquo;的链接</strong>，耐不住内心躁动，立马点击了该危险的网站（页面代码如下图所示），但当这页面一加载，便会执行<code>submitForm</code>这个方法来提交转账请求，从而将10块转给黑客。</p>
-
-<p><a href="https://camo.githubusercontent.com/7317352e98d750b1f34cea28a8849e00f8c2d869/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32342f313638383034316662376662636461333f773d35343826683d33383826663d706e6726733d323337313630"><img src="https://camo.githubusercontent.com/7317352e98d750b1f34cea28a8849e00f8c2d869/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32342f313638383034316662376662636461333f773d35343826683d33383826663d706e6726733d323337313630" alt="img" /></a></p>
-
-<h3 id="2-如何防御">2.如何防御</h3>
-
+<p>我们来看一个例子： 当我们登入转账页面后，突然眼前一亮<strong>惊现&quot;XXX隐私照片，不看后悔一辈子&quot;的链接</strong>，耐不住内心躁动，立马点击了该危险的网站（页面代码如下图所示），但当这页面一加载，便会执行<code>submitForm</code>这个方法来提交转账请求，从而将10块转给黑客。</p>
+<p><a href="https://camo.githubusercontent.com/7317352e98d750b1f34cea28a8849e00f8c2d869/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32342f313638383034316662376662636461333f773d35343826683d33383826663d706e6726733d323337313630"><img src="https://camo.githubusercontent.com/7317352e98d750b1f34cea28a8849e00f8c2d869/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32342f313638383034316662376662636461333f773d35343826683d33383826663d706e6726733d323337313630" alt="img"></a></p>
+<h3 id="2如何防御">2.如何防御</h3>
 <p>防范 CSRF 攻击可以遵循以下几种规则：</p>
-
 <ul>
 <li>Get 请求不对数据进行修改</li>
 <li>不让第三方网站访问到用户 Cookie</li>
 <li>阻止第三方网站请求接口</li>
 <li>请求时附带验证信息，比如验证码或者 Token</li>
 </ul>
-
 <h4 id="1-samesite">1) SameSite</h4>
-
 <p>可以对 Cookie 设置 SameSite 属性。该属性表示 Cookie 不随着跨域请求发送，可以很大程度减少 CSRF 的攻击，但是该属性目前并不是所有浏览器都兼容。</p>
-
 <h4 id="2-referer-check">2) Referer Check</h4>
-
 <p>HTTP Referer是header的一部分，当浏览器向web服务器发送请求时，一般会带上Referer信息告诉服务器是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。可以通过检查请求的来源来防御CSRF攻击。正常请求的referer具有一定规律，如在提交表单的referer必定是在该页面发起的请求。所以<strong>通过检查http包头referer的值是不是这个页面，来判断是不是CSRF攻击</strong>。</p>
-
 <p>但在某些情况下如从https跳转到http，浏览器处于安全考虑，不会发送referer，服务器就无法进行check了。若与该网站同域的其他网站有XSS漏洞，那么攻击者可以在其他网站注入恶意脚本，受害者进入了此类同域的网址，也会遭受攻击。出于以上原因，无法完全依赖Referer Check作为防御CSRF的主要手段。但是可以通过Referer Check来监控CSRF攻击的发生。</p>
-
 <h4 id="3-anti-csrf-token">3) Anti CSRF Token</h4>
-
 <p>目前比较完善的解决方案是加入Anti-CSRF-Token。即发送请求时在HTTP 请求中以参数的形式加入一个随机产生的token，并在服务器建立一个拦截器来验证这个token。服务器读取浏览器当前域cookie中这个token值，会进行校验该请求当中的token和cookie当中的token值是否都存在且相等，才认为这是合法的请求。否则认为这次请求是违法的，拒绝该次服务。</p>
-
 <p><strong>这种方法相比Referer检查要安全很多</strong>，token可以在用户登陆后产生并放于session或cookie中，然后在每次请求时服务器把token从session或cookie中拿出，与本次请求中的token 进行比对。由于token的存在，攻击者无法再构造出一个完整的URL实施CSRF攻击。但在处理多个页面共存问题时，当某个页面消耗掉token后，其他页面的表单保存的还是被消耗掉的那个token，其他页面的表单提交时会出现token错误。</p>
-
 <h4 id="4-验证码">4) 验证码</h4>
-
 <p>应用程序和用户进行交互过程中，特别是账户交易这种核心步骤，强制用户输入验证码，才能完成最终请求。在通常情况下，验证码够很好地遏制CSRF攻击。<strong>但增加验证码降低了用户的体验，网站不能给所有的操作都加上验证码</strong>。所以只能将验证码作为一种辅助手段，在关键业务点设置验证码。</p>
-
-<h2 id="三-点击劫持">三、点击劫持</h2>
-
+<h2 id="三点击劫持">三、点击劫持</h2>
 <p>点击劫持是一种视觉欺骗的攻击手段。攻击者将需要攻击的网站通过 iframe 嵌套的方式嵌入自己的网页中，并将 iframe 设置为透明，在页面中透出一个按钮诱导用户点击。</p>
-
 <h3 id="1-特点">1. 特点</h3>
-
 <ul>
 <li>隐蔽性较高，骗取用户操作</li>
 <li>&ldquo;UI-覆盖攻击&rdquo;</li>
 <li>利用iframe或者其它标签的属性</li>
 </ul>
-
 <h3 id="2-点击劫持的原理">2. 点击劫持的原理</h3>
-
 <p>用户在登陆 A 网站的系统后，被攻击者诱惑打开第三方网站，而第三方网站通过 iframe 引入了 A 网站的页面内容，用户在第三方网站中点击某个按钮（被装饰的按钮），实际上是点击了 A 网站的按钮。
 接下来我们举个例子：我在优酷发布了很多视频，想让更多的人关注它，就可以通过点击劫持来实现</p>
-
 <pre><code>iframe {
 width: 1440px;
 height: 900px;
@@ -410,30 +313,20 @@ height:40px;
 &lt;button&gt;点击脱衣&lt;/button&gt;
 &lt;img src=&quot;http://pic1.win4000.com/wallpaper/2018-03-19/5aaf2bf0122d2.jpg&quot;&gt;
 &lt;iframe src=&quot;http://i.youku.com/u/UMjA0NTg4Njcy&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
-</code></pre>
-
-<p><a href="https://camo.githubusercontent.com/ea90076f40c6fe91f0fcf53a1b95aebc146d8438/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32362f313638383564633333303830663062313f773d3132353926683d32383326663d706e6726733d343230303737"><img src="https://camo.githubusercontent.com/ea90076f40c6fe91f0fcf53a1b95aebc146d8438/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32362f313638383564633333303830663062313f773d3132353926683d32383326663d706e6726733d343230303737" alt="img" /></a>
+</code></pre><p><a href="https://camo.githubusercontent.com/ea90076f40c6fe91f0fcf53a1b95aebc146d8438/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32362f313638383564633333303830663062313f773d3132353926683d32383326663d706e6726733d343230303737"><img src="https://camo.githubusercontent.com/ea90076f40c6fe91f0fcf53a1b95aebc146d8438/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32362f313638383564633333303830663062313f773d3132353926683d32383326663d706e6726733d343230303737" alt="img"></a>
 从上图可知，攻击者通过图片作为页面背景，隐藏了用户操作的真实界面，当你按耐不住好奇点击按钮以后，真正的点击的其实是隐藏的那个页面的订阅按钮，然后就会在你不知情的情况下订阅了。
-<a href="https://camo.githubusercontent.com/c999247d80651f54bd836dc6605ca35f6f159724/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32362f313638383564636138333562363464343f773d36343326683d32373626663d706e6726733d313531303838"><img src="https://camo.githubusercontent.com/c999247d80651f54bd836dc6605ca35f6f159724/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32362f313638383564636138333562363464343f773d36343326683d32373626663d706e6726733d313531303838" alt="img" /></a></p>
-
-<h3 id="3-如何防御-1">3. 如何防御</h3>
-
-<h4 id="1-x-frame-options">1）X-FRAME-OPTIONS</h4>
-
+<a href="https://camo.githubusercontent.com/c999247d80651f54bd836dc6605ca35f6f159724/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32362f313638383564636138333562363464343f773d36343326683d32373626663d706e6726733d313531303838"><img src="https://camo.githubusercontent.com/c999247d80651f54bd836dc6605ca35f6f159724/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32362f313638383564636138333562363464343f773d36343326683d32373626663d706e6726733d313531303838" alt="img"></a></p>
+<h3 id="3-如何防御">3. 如何防御</h3>
+<h4 id="1x-frame-options">1）X-FRAME-OPTIONS</h4>
 <p><code>X-FRAME-OPTIONS</code>是一个 HTTP 响应头，在现代浏览器有一个很好的支持。这个 HTTP 响应头 就是为了防御用 iframe 嵌套的点击劫持攻击。</p>
-
 <p>该响应头有三个值可选，分别是</p>
-
 <ul>
 <li>DENY，表示页面不允许通过 iframe 的方式展示</li>
 <li>SAMEORIGIN，表示页面可以在相同域名下通过 iframe 的方式展示</li>
 <li>ALLOW-FROM，表示页面可以在指定来源的 iframe 中展示</li>
 </ul>
-
-<h4 id="2-javascript-防御">2）JavaScript 防御</h4>
-
+<h4 id="2javascript-防御">2）JavaScript 防御</h4>
 <p>对于某些远古浏览器来说，并不能支持上面的这种方式，那我们只有通过 JS 的方式来防御点击劫持了。</p>
-
 <pre><code>&lt;head&gt;
   &lt;style id=&quot;click-jack&quot;&gt;
     html {
@@ -451,78 +344,48 @@ height:40px;
     }
   &lt;/script&gt;
 &lt;/body&gt;
-</code></pre>
-
-<p>以上代码的作用就是当通过 iframe 的方式加载页面时，攻击者的网页直接不显示所有内容了。</p>
-
-<h2 id="四-url跳转漏洞">四、URL跳转漏洞</h2>
-
+</code></pre><p>以上代码的作用就是当通过 iframe 的方式加载页面时，攻击者的网页直接不显示所有内容了。</p>
+<h2 id="四url跳转漏洞">四、URL跳转漏洞</h2>
 <p>定义：借助未验证的URL跳转，将应用程序引导到不安全的第三方区域，从而导致的安全问题。</p>
-
-<h3 id="1-url跳转漏洞原理">1.URL跳转漏洞原理</h3>
-
+<h3 id="1url跳转漏洞原理">1.URL跳转漏洞原理</h3>
 <p>黑客利用URL跳转漏洞来诱导安全意识低的用户点击，导致用户信息泄露或者资金的流失。其原理是黑客构建恶意链接(链接需要进行伪装,尽可能迷惑),发在QQ群或者是浏览量多的贴吧/论坛中。
 安全意识低的用户点击后,经过服务器或者浏览器解析后，跳到恶意的网站中。
-<a href="https://camo.githubusercontent.com/9b742b33d17f24f13b2e11e08fc475a9399a960c/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386539343662383266626438343f773d37343126683d31333426663d706e6726733d3632393032"><img src="https://camo.githubusercontent.com/9b742b33d17f24f13b2e11e08fc475a9399a960c/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386539343662383266626438343f773d37343126683d31333426663d706e6726733d3632393032" alt="img" /></a></p>
-
+<a href="https://camo.githubusercontent.com/9b742b33d17f24f13b2e11e08fc475a9399a960c/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386539343662383266626438343f773d37343126683d31333426663d706e6726733d3632393032"><img src="https://camo.githubusercontent.com/9b742b33d17f24f13b2e11e08fc475a9399a960c/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386539343662383266626438343f773d37343126683d31333426663d706e6726733d3632393032" alt="img"></a></p>
 <p>恶意链接需要进行伪装,经常的做法是熟悉的链接后面加上一个恶意的网址，这样才迷惑用户。
-<a href="https://camo.githubusercontent.com/5a33e6bd2022ac8621adae26b97890a77787449d/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386539336465396663393661373f773d38363526683d31363526663d706e6726733d3837313636"><img src="https://camo.githubusercontent.com/5a33e6bd2022ac8621adae26b97890a77787449d/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386539336465396663393661373f773d38363526683d31363526663d706e6726733d3837313636" alt="img" /></a></p>
-
+<a href="https://camo.githubusercontent.com/5a33e6bd2022ac8621adae26b97890a77787449d/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386539336465396663393661373f773d38363526683d31363526663d706e6726733d3837313636"><img src="https://camo.githubusercontent.com/5a33e6bd2022ac8621adae26b97890a77787449d/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386539336465396663393661373f773d38363526683d31363526663d706e6726733d3837313636" alt="img"></a></p>
 <p>诸如伪装成像如下的网址，你是否能够识别出来是恶意网址呢？</p>
-
 <pre><code>http://gate.baidu.com/index?act=go&amp;url=http://t.cn/RVTatrd
 http://qt.qq.com/safecheck.html?flag=1&amp;url=http://t.cn/RVTatrd
 http://tieba.baidu.com/f/user/passport?jumpUrl=http://t.cn/RVTatrd
-</code></pre>
-
-<h3 id="2-实现方式">2.实现方式：</h3>
-
+</code></pre><h3 id="2实现方式">2.实现方式：</h3>
 <ul>
 <li>Header头跳转</li>
 <li>Javascript跳转</li>
 <li>META标签跳转</li>
 </ul>
-
 <p>这里我们举个Header头跳转实现方式：</p>
-
 <pre><code>&lt;?php
 $url=$_GET['jumpto'];
 header(&quot;Location: $url&quot;);
 ?&gt;
 http://www.wooyun.org/login.php?jumpto=http://www.evil.com
-</code></pre>
-
-<p>这里用户会认为<code>www.wooyun.org</code>都是可信的，但是点击上述链接将导致用户最终访问<code>www.evil.com</code>这个恶意网址。</p>
-
-<h3 id="3-如何防御-2">3.如何防御</h3>
-
-<h4 id="1-referer的限制">1)referer的限制</h4>
-
+</code></pre><p>这里用户会认为<code>www.wooyun.org</code>都是可信的，但是点击上述链接将导致用户最终访问<code>www.evil.com</code>这个恶意网址。</p>
+<h3 id="3如何防御-1">3.如何防御</h3>
+<h4 id="1referer的限制">1)referer的限制</h4>
 <p>如果确定传递URL参数进入的来源，我们可以通过该方式实现安全限制，保证该URL的有效性，避免恶意用户自己生成跳转链接</p>
-
-<h4 id="2-加入有效性验证token">2)加入有效性验证Token</h4>
-
+<h4 id="2加入有效性验证token">2)加入有效性验证Token</h4>
 <p>我们保证所有生成的链接都是来自于我们可信域的，通过在生成的链接里加入用户不可控的Token对生成的链接进行校验，可以避免用户生成自己的恶意链接从而被利用，但是如果功能本身要求比较开放，可能导致有一定的限制。</p>
-
-<h2 id="五-sql注入">五、SQL注入</h2>
-
+<h2 id="五sql注入">五、SQL注入</h2>
 <p>SQL注入是一种常见的Web安全漏洞，攻击者利用这个漏洞，可以访问或修改数据，或者利用潜在的数据库漏洞进行攻击。</p>
-
-<h3 id="1-sql注入的原理">1.SQL注入的原理</h3>
-
+<h3 id="1sql注入的原理">1.SQL注入的原理</h3>
 <p>我们先举一个万能钥匙的例子来说明其原理：</p>
-
-<p><a href="https://camo.githubusercontent.com/6b6e56b99ddadd22dae810f3534aefb2cbf7d962/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386566303532626561336335663f773d38323726683d33323326663d706e6726733d313135363434"><img src="https://camo.githubusercontent.com/6b6e56b99ddadd22dae810f3534aefb2cbf7d962/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386566303532626561336335663f773d38323726683d33323326663d706e6726733d313135363434" alt="img" /></a></p>
-
+<p><a href="https://camo.githubusercontent.com/6b6e56b99ddadd22dae810f3534aefb2cbf7d962/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386566303532626561336335663f773d38323726683d33323326663d706e6726733d313135363434"><img src="https://camo.githubusercontent.com/6b6e56b99ddadd22dae810f3534aefb2cbf7d962/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386566303532626561336335663f773d38323726683d33323326663d706e6726733d313135363434" alt="img"></a></p>
 <pre><code>&lt;form action=&quot;/login&quot; method=&quot;POST&quot;&gt;
     &lt;p&gt;Username: &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;&lt;/p&gt;
     &lt;p&gt;Password: &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;&lt;/p&gt;
     &lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;登陆&quot; /&gt;&lt;/p&gt;
 &lt;/form&gt;
-</code></pre>
-
-<p>后端的 SQL 语句可能是如下这样的：</p>
-
+</code></pre><p>后端的 SQL 语句可能是如下这样的：</p>
 <pre><code>let querySQL = `
     SELECT *
     FROM user
@@ -530,95 +393,64 @@ http://www.wooyun.org/login.php?jumpto=http://www.evil.com
     AND psw='${password}'
 `;
 // 接下来就是执行 sql 语句...
-</code></pre>
-
-<p>这是我们经常见到的登录页面，但如果有一个恶意攻击者输入的用户名是 <code>admin' --</code>，密码随意输入，就可以直接登入系统了。why! &mdash;-这就是SQL注入</p>
-
+</code></pre><p>这是我们经常见到的登录页面，但如果有一个恶意攻击者输入的用户名是 <code>admin' --</code>，密码随意输入，就可以直接登入系统了。why! &mdash;-这就是SQL注入</p>
 <p>我们之前预想的SQL 语句是:</p>
-
 <pre><code>SELECT * FROM user WHERE username='admin' AND psw='password'
-</code></pre>
-
-<p>但是恶意攻击者用奇怪用户名将你的 SQL 语句变成了如下形式：</p>
-
+</code></pre><p>但是恶意攻击者用奇怪用户名将你的 SQL 语句变成了如下形式：</p>
 <pre><code>SELECT * FROM user WHERE username='admin' --' AND psw='xxxx'
-</code></pre>
-
-<p>在 SQL 中,<code>' --</code>是闭合和注释的意思，&ndash; 是注释后面的内容的意思，所以查询语句就变成了：</p>
-
+</code></pre><p>在 SQL 中,<code>' --</code>是闭合和注释的意思，&ndash; 是注释后面的内容的意思，所以查询语句就变成了：</p>
 <pre><code>SELECT * FROM user WHERE username='admin'
-</code></pre>
-
-<p>所谓的万能密码,本质上就是SQL注入的一种利用方式。</p>
-
+</code></pre><p>所谓的万能密码,本质上就是SQL注入的一种利用方式。</p>
 <p>一次SQL注入的过程包括以下几个过程：</p>
-
 <ul>
 <li>获取用户请求参数</li>
 <li>拼接到代码当中</li>
 <li>SQL语句按照我们构造参数的语义执行成功</li>
 </ul>
-
 <p><strong>SQL注入的必备条件：
 1.可以控制输入的数据
 2.服务器要执行的代码拼接了控制的数据</strong>。
-<a href="https://camo.githubusercontent.com/37b7a91241224b6a258af372ca57fd012f75eaf5/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386565373837646132393561663f773d37313626683d31373926663d706e6726733d3634323634"><img src="https://camo.githubusercontent.com/37b7a91241224b6a258af372ca57fd012f75eaf5/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386565373837646132393561663f773d37313626683d31373926663d706e6726733d3634323634" alt="img" /></a>
+<a href="https://camo.githubusercontent.com/37b7a91241224b6a258af372ca57fd012f75eaf5/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386565373837646132393561663f773d37313626683d31373926663d706e6726733d3634323634"><img src="https://camo.githubusercontent.com/37b7a91241224b6a258af372ca57fd012f75eaf5/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386565373837646132393561663f773d37313626683d31373926663d706e6726733d3634323634" alt="img"></a>
 我们会发现SQL注入流程中与正常请求服务器类似，只是黑客控制了数据，构造了SQL查询，而正常的请求不会SQL查询这一步，<strong>SQL注入的本质:数据和代码未分离，即数据当做了代码来执行。</strong></p>
-
-<h3 id="2-危害">2.危害</h3>
-
+<h3 id="2危害">2.危害</h3>
 <ul>
 <li>获取数据库信息
-
 <ul>
 <li>管理员后台用户名和密码</li>
 <li>获取其他数据库敏感信息：用户名、密码、手机号码、身份证、银行卡信息……</li>
 <li>整个数据库：脱裤</li>
-</ul></li>
+</ul>
+</li>
 <li>获取服务器权限</li>
 <li>植入Webshell，获取服务器后门</li>
 <li>读取服务器敏感文件</li>
 </ul>
-
-<h3 id="3-如何防御-3">3.如何防御</h3>
-
+<h3 id="3如何防御-2">3.如何防御</h3>
 <ul>
 <li><strong>严格限制Web应用的数据库的操作权限</strong>，给此用户提供仅仅能够满足其工作的最低权限，从而最大限度的减少注入攻击对数据库的危害</li>
 <li><strong>后端代码检查输入的数据是否符合预期</strong>，严格限制变量的类型，例如使用正则表达式进行一些匹配处理。</li>
-<li><strong>对进入数据库的特殊字符（&rsquo;，&rdquo;，\，&lt;，&gt;，&amp;，*，; 等）进行转义处理，或编码转换</strong>。基本上所有的后端语言都有对字符串进行转义处理的方法，比如 lodash 的 lodash._escapehtmlchar 库。</li>
+<li><strong>对进入数据库的特殊字符（'，&quot;，\，&lt;，&gt;，&amp;，*，; 等）进行转义处理，或编码转换</strong>。基本上所有的后端语言都有对字符串进行转义处理的方法，比如 lodash 的 lodash._escapehtmlchar 库。</li>
 <li><strong>所有的查询语句建议使用数据库提供的参数化查询接口</strong>，参数化的语句使用参数而不是将用户输入变量嵌入到 SQL 语句中，即不要直接拼接 SQL 语句。例如 Node.js 中的 mysqljs 库的 query 方法中的 ? 占位参数。</li>
 </ul>
-
-<h2 id="六-os命令注入攻击">六、OS命令注入攻击</h2>
-
+<h2 id="六os命令注入攻击">六、OS命令注入攻击</h2>
 <p>OS命令注入和SQL注入差不多，只不过SQL注入是针对数据库的，而OS命令注入是针对操作系统的。OS命令注入攻击指通过Web应用，执行非法的操作系统命令达到攻击的目的。只要在能调用Shell函数的地方就有存在被攻击的风险。倘若调用Shell时存在疏漏，就可以执行插入的非法命令。</p>
-
 <p>命令注入攻击可以向Shell发送命令，让Windows或Linux操作系统的命令行启动程序。也就是说，通过命令注入攻击可执行操作系统上安装着的各种程序。</p>
-
-<h3 id="1-原理">1.原理</h3>
-
-<p><a href="https://camo.githubusercontent.com/8c43d63cda61f65150bd62b5bc0305c8e541cb42/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386632383563623864613663373f773d36353726683d31353426663d706e6726733d3335353739"><img src="https://camo.githubusercontent.com/8c43d63cda61f65150bd62b5bc0305c8e541cb42/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386632383563623864613663373f773d36353726683d31353426663d706e6726733d3335353739" alt="img" /></a>
+<h3 id="1原理">1.原理</h3>
+<p><a href="https://camo.githubusercontent.com/8c43d63cda61f65150bd62b5bc0305c8e541cb42/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386632383563623864613663373f773d36353726683d31353426663d706e6726733d3335353739"><img src="https://camo.githubusercontent.com/8c43d63cda61f65150bd62b5bc0305c8e541cb42/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f312f32372f313638386632383563623864613663373f773d36353726683d31353426663d706e6726733d3335353739" alt="img"></a>
 黑客构造命令提交给web应用程序，web应用程序提取黑客构造的命令，拼接到被执行的命令中，因黑客注入的命令打破了原有命令结构，导致web应用执行了额外的命令，最后web应用程序将执行的结果输出到响应页面中。</p>
-
 <p>我们通过一个例子来说明其原理，假如需要实现一个需求：用户提交一些内容到服务器，然后在服务器执行一些系统命令去返回一个结果给用户</p>
-
 <pre><code>// 以 Node.js 为例，假如在接口中需要从 github 下载用户指定的 repo
 const exec = require('mz/child_process').exec;
 let params = {/* 用户输入的参数 */};
 exec(`git clone ${params.repo} /some/path`);
-</code></pre>
-
-<p>如果 <code>params.repo</code> 传入的是 <code>https://github.com/admin/admin.github.io.git</code> 确实能从指定的 git repo 上下载到想要的代码。
+</code></pre><p>如果 <code>params.repo</code> 传入的是 <code>https://github.com/admin/admin.github.io.git</code> 确实能从指定的 git repo 上下载到想要的代码。
 但是如果 <code>params.repo</code> 传入的是 <code>https://github.com/xx/xx.git &amp;&amp; rm -rf /* &amp;&amp;</code> 恰好你的服务是用 root 权限起的就糟糕了。</p>
-
-<h3 id="2-如何防御-1">2.如何防御</h3>
-
+<h3 id="2如何防御-1">2.如何防御</h3>
 <ul>
 <li>后端对前端提交内容进行规则限制（比如正则表达式）。</li>
 <li>在调用系统命令前对所有传入参数进行命令行参数转义过滤。</li>
 <li>不要直接拼接命令语句，借助一些工具做拼接、转义预处理，例如 Node.js 的 <code>shell-escape npm</code>包</li>
 </ul>
-
 <p>转</p>
 
                         </div>
@@ -684,6 +516,14 @@ exec(`git clone ${params.repo} /some/path`);
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -713,14 +553,6 @@ exec(`git clone ${params.repo} /some/path`);
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -757,6 +589,10 @@ exec(`git clone ${params.repo} /some/path`);
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -766,6 +602,10 @@ exec(`git clone ${params.repo} /some/path`);
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

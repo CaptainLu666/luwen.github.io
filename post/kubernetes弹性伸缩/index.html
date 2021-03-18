@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -96,18 +96,16 @@
                         <div class="clear">
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
-                                
+                                <nav id="TableOfContents"></nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
                             <p>自动弹性伸缩(AutoScaling)，是Kubernetes的一大功能和亮点。在OpenStack IaaS云计算中也有类似的服务，即Senlin。即基于资源使用情况自动弹性缩容和扩容工作负载。Kubernetes的自动弹性伸缩有两个维度：</p>
-
 <ul>
 <li>Cluster Autoscaler：处理K8s集群Node节点伸缩，该功能依赖于IaaS云提供商云主机服务和资源监控服务。</li>
 <li>Horizontal Pod Autoscaler（HPA）：处理Pod自动弹性伸缩副本集，该功能依赖于监控服务采集到的资源指标数据。</li>
 </ul>
-
 <p>节点自动伸缩组件是基于kubernetes资源调度的分配情况进行伸缩判断的，节点中资源的分配是通过资源请求（Request）进行计算的。当Pod由于资源请求（Request）无法满足并进入等待（Pending）状态时，节点自动伸缩组件会根据配置的弹性伸缩组配置信息中的资源规格以及约束配置，计算所需的节点数目，如果可以满足伸缩条件，则会触发伸缩组的节点加入。当一个节点在弹性伸缩组中且节点上Pod的资源请求低于阈值时，节点自动伸缩组件会将节点进行缩容。因此资源请求（Request）的正确、合理设置，是弹性伸缩的前提条件。</p>
 
                         </div>
@@ -173,6 +171,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -202,14 +208,6 @@
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -246,6 +244,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -255,6 +257,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>安全 on 卢文的博客</title>
@@ -6,11 +6,7 @@
     <description>Recent content in 安全 on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 04 Sep 2020 11:45:55 +0800</lastBuildDate>
-    
-	<atom:link href="http://luwen.tech/categories/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 04 Sep 2020 11:45:55 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>常见web安全攻防</title>
       <link>http://luwen.tech/post/%E5%B8%B8%E8%A7%81web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/</link>

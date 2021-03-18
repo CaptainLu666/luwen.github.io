@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,48 +97,33 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#1-定时任务重启">1.定时任务重启</a></li>
-<li><a href="#pm三种进程管理模式">pm三种进程管理模式</a></li>
-<li><a href="#最大请求数max-requests-即当一个-php-cgi-进程处理的请求数累积到-max-requests-个后-自动重启该进程-这样达到了释放内存的目的了">最大请求数max_requests，即当一个 PHP-CGI 进程处理的请求数累积到 max_requests 个后，自动重启该进程，这样达到了释放内存的目的了</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1定时任务重启">1.定时任务重启</a></li>
+        <li><a href="#pm三种进程管理模式">pm三种进程管理模式</a></li>
+        <li><a href="#最大请求数max_requests即当一个-php-cgi-进程处理的请求数累积到-max_requests-个后自动重启该进程这样达到了释放内存的目的了">最大请求数max_requests，即当一个 PHP-CGI 进程处理的请求数累积到 max_requests 个后，自动重启该进程，这样达到了释放内存的目的了</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<p>##Php 内存释放策略：</p>
-
-<h3 id="1-定时任务重启">1.定时任务重启</h3>
-
+                            <p>##Php 内存释放策略：</p>
+<h3 id="1定时任务重启">1.定时任务重启</h3>
 <pre><code>0 0 * * *   systemctl reload php-fpm
-</code></pre>
-
-<p>###2. 配置参数</p>
-
+</code></pre><p>###2. 配置参数</p>
 <h3 id="pm三种进程管理模式">pm三种进程管理模式</h3>
-
 <pre><code>pm = static，始终保持一个固定数量的子进程，这个数由pm.max_children定义，这种方式很不灵活，也通常不是默认的。
 
 pm = dynamic，启动时会产生固定数量的子进程（由pm.start_servers控制）可以理解成最小子进程数，而最大子进程数则由pm.max_children去控制，子进程数会在最大和最小数范围中变化。闲置的子进程数还可以由另2个配置控制，分别是pm.min_spare_servers和pm.max_spare_servers。如果闲置的子进程超出了pm.max_spare_servers，则会被杀掉。小于pm.min_spare_servers则会启动进程（注意，pm.max_spare_servers应小于pm.max_children）。
 
 pm = ondemand，这种模式和pm = dynamic相反，把内存放在第一位，每个闲置进程在持续闲置了pm.process_idle_timeout秒后就会被杀掉，如果服务器长时间没有请求，就只会有一个php-fpm主进程。弊端是遇到高峰期或者如果pm.process_idle_timeout的值太短的话，容易出现504 Gateway Time-out错误，因此pm = dynamic和pm = ondemand谁更适合视实际情况而定。
-</code></pre>
-
-<h3 id="最大请求数max-requests-即当一个-php-cgi-进程处理的请求数累积到-max-requests-个后-自动重启该进程-这样达到了释放内存的目的了">最大请求数max_requests，即当一个 PHP-CGI 进程处理的请求数累积到 max_requests 个后，自动重启该进程，这样达到了释放内存的目的了</h3>
-
+</code></pre><h3 id="最大请求数max_requests即当一个-php-cgi-进程处理的请求数累积到-max_requests-个后自动重启该进程这样达到了释放内存的目的了">最大请求数max_requests，即当一个 PHP-CGI 进程处理的请求数累积到 max_requests 个后，自动重启该进程，这样达到了释放内存的目的了</h3>
 <pre><code>pm.max_requests = 2048
-</code></pre>
-
-<p>线上高并发的情况下建议使用pm = static的模式，搭配配置max_requests，防止内存泄露。</p>
+</code></pre><p>线上高并发的情况下建议使用pm = static的模式，搭配配置max_requests，防止内存泄露。</p>
 
                         </div>
 
@@ -203,6 +188,14 @@ pm = ondemand，这种模式和pm = dynamic相反，把内存放在第一位，�
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -232,14 +225,6 @@ pm = ondemand，这种模式和pm = dynamic相反，把内存放在第一位，�
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -276,6 +261,10 @@ pm = ondemand，这种模式和pm = dynamic相反，把内存放在第一位，�
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -285,6 +274,10 @@ pm = ondemand，这种模式和pm = dynamic相反，把内存放在第一位，�
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

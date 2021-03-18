@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,74 +97,43 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#5-清理退出的容器">5.清理退出的容器</a></li>
-<li><a href="#6-格式化清理镜像">6.格式化清理镜像</a></li>
-<li><a href="#8-删除关闭的容器">8.删除关闭的容器</a></li>
-<li><a href="#9-删除所有dangling镜像-即无tag的镜像">9.<strong>删除所有dangling镜像（即无tag的镜像）</strong>：</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#5清理退出的容器">5.清理退出的容器</a></li>
+        <li><a href="#6格式化清理镜像">6.格式化清理镜像</a></li>
+        <li><a href="#8删除关闭的容器">8.删除关闭的容器</a></li>
+        <li><a href="#9删除所有dangling镜像即无tag的镜像">9.<strong>删除所有dangling镜像（即无tag的镜像）</strong>：</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<p>###1.dangling是一种特殊的，不会再被使用到的镜像，docker有专门清理dangling镜像的命令</p>
-
+                            <p>###1.dangling是一种特殊的，不会再被使用到的镜像，docker有专门清理dangling镜像的命令</p>
 <pre><code>docker image prune -f
-</code></pre>
-
-<p>###2.历史版本镜像直接使用docker删除镜像的命令即可</p>
-
+</code></pre><p>###2.历史版本镜像直接使用docker删除镜像的命令即可</p>
 <pre><code>docker rmi [image]
-</code></pre>
-
-<p>###3.可以批量清除无用的镜像，且不会影响使用中的镜像和基础镜像</p>
-
+</code></pre><p>###3.可以批量清除无用的镜像，且不会影响使用中的镜像和基础镜像</p>
 <pre><code>docker images | awk 'NR!=1{print $1&quot;:&quot;$2}' | xargs docker rmi 
-</code></pre>
-
-<p>###4.查看Docker耗费磁盘</p>
-
+</code></pre><p>###4.查看Docker耗费磁盘</p>
 <pre><code>docker system prune -f
-</code></pre>
-
-<h3 id="5-清理退出的容器">5.清理退出的容器</h3>
-
+</code></pre><h3 id="5清理退出的容器">5.清理退出的容器</h3>
 <pre><code>docker rm $(docker ps -q -f status=exited)
-</code></pre>
-
-<h3 id="6-格式化清理镜像">6.格式化清理镜像</h3>
-
+</code></pre><h3 id="6格式化清理镜像">6.格式化清理镜像</h3>
 <pre><code>1.查找镜像
 docker images --filter &quot;dangling=true&quot;
 2.清理镜像
 docker rmi $(docker images -f &quot;dangling=true&quot; -q)
-</code></pre>
-
-<p>###7.docker system命令,<strong>docker system prune</strong>命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像（即无tag的镜像）。<strong>docker system prune -a</strong>命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉。注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉了……所以使用之前一定要想清楚</p>
-
+</code></pre><p>###7.docker system命令,<strong>docker system prune</strong>命令可以用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像（即无tag的镜像）。<strong>docker system prune -a</strong>命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉。注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉了……所以使用之前一定要想清楚</p>
 <pre><code>docker system prun -a
-</code></pre>
-
-<h3 id="8-删除关闭的容器">8.删除关闭的容器</h3>
-
+</code></pre><h3 id="8删除关闭的容器">8.删除关闭的容器</h3>
 <pre><code>docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm
-</code></pre>
-
-<h3 id="9-删除所有dangling镜像-即无tag的镜像">9.<strong>删除所有dangling镜像（即无tag的镜像）</strong>：</h3>
-
+</code></pre><h3 id="9删除所有dangling镜像即无tag的镜像">9.<strong>删除所有dangling镜像（即无tag的镜像）</strong>：</h3>
 <pre><code>docker volume rm $(docker volume ls -qf dangling=true)
-</code></pre>
-
-<p>参考;<a href="https://docs.docker.com/engine/reference/commandline/images/#filtering">https://docs.docker.com/engine/reference/commandline/images/#filtering</a></p>
+</code></pre><p>参考;https://docs.docker.com/engine/reference/commandline/images/#filtering</p>
 
                         </div>
 
@@ -229,6 +198,14 @@ docker rmi $(docker images -f &quot;dangling=true&quot; -q)
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -258,14 +235,6 @@ docker rmi $(docker images -f &quot;dangling=true&quot; -q)
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -302,6 +271,10 @@ docker rmi $(docker images -f &quot;dangling=true&quot; -q)
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -311,6 +284,10 @@ docker rmi $(docker images -f &quot;dangling=true&quot; -q)
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

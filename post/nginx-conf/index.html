@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -96,162 +96,161 @@
                         <div class="clear">
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
-                                
+                                <nav id="TableOfContents"></nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            <pre><code class="language-nginx">#强制跳转到https
-server {
-    listen 80;
-    server_name	www.luwen.tech;
-    rewrite ^(.*)$  https://www.luwen.tech$1 permanent;
+                            <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#75715e">#强制跳转到https
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">server</span> {
+    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+    <span style="color:#f92672">server_name</span>	<span style="color:#e6db74">www.luwen.tech</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^(.*)</span>$  <span style="color:#e6db74">https://www.luwen.tech</span>$1 <span style="color:#e6db74">permanent</span>;
 }
-#luwen.tech跳转为www.luwen.tech
-#https配置
-server {
-    listen 80;
-    listen      443 ssl;
-    charset     utf-8;
+<span style="color:#75715e">#luwen.tech跳转为www.luwen.tech
+</span><span style="color:#75715e">#https配置
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">server</span> {
+    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+    <span style="color:#f92672">listen</span>      <span style="color:#ae81ff">443</span> <span style="color:#e6db74">ssl</span>;
+    <span style="color:#f92672">charset</span>     <span style="color:#e6db74">utf-8</span>;
 
-    ssl on;
-    ssl_certificate   cert/all.luwen.tech.pem;
-    ssl_certificate_key  cert/all.luwen.tech.key;
-    ssl_session_timeout 5m;
-    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers on;
+    <span style="color:#f92672">ssl</span> <span style="color:#66d9ef">on</span>;
+    <span style="color:#f92672">ssl_certificate</span>   <span style="color:#e6db74">cert/all.luwen.tech.pem</span>;
+    <span style="color:#f92672">ssl_certificate_key</span>  <span style="color:#e6db74">cert/all.luwen.tech.key</span>;
+    <span style="color:#f92672">ssl_session_timeout</span> <span style="color:#ae81ff">5m</span>;
+    <span style="color:#f92672">ssl_ciphers</span> <span style="color:#e6db74">ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4</span>;
+    <span style="color:#f92672">ssl_protocols</span> <span style="color:#e6db74">TLSv1</span> <span style="color:#e6db74">TLSv1.1</span> <span style="color:#e6db74">TLSv1.2</span>;
+    <span style="color:#f92672">ssl_prefer_server_ciphers</span> <span style="color:#66d9ef">on</span>;
 
-    server_name luwen.tech;
-    rewrite ^/shengxian/ https://www.luwen.tech/xy/c-$arg_p.html? permanent;
-    rewrite ^/shengxian(\d+)\.html$ https://www.luwen.tech/xy/c-$1.html permanent;
-    rewrite ^(.*)$  https://www.luwen.tech$1 permanent;
+    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">luwen.tech</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/shengxian/</span> <span style="color:#e6db74">https://www.luwen.tech/xy/c-</span>$arg_p.html? <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/shengxian(\d+)\.html</span>$ <span style="color:#e6db74">https://www.luwen.tech/xy/c-</span>$1.html <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^(.*)</span>$  <span style="color:#e6db74">https://www.luwen.tech</span>$1 <span style="color:#e6db74">permanent</span>;
 }
 
-server {
-    listen      443 ssl;
-    server_name www.luwen.tech;
-    charset     utf-8;
+<span style="color:#66d9ef">server</span> {
+    <span style="color:#f92672">listen</span>      <span style="color:#ae81ff">443</span> <span style="color:#e6db74">ssl</span>;
+    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">www.luwen.tech</span>;
+    <span style="color:#f92672">charset</span>     <span style="color:#e6db74">utf-8</span>;
 
-    ssl on;
-    ssl_certificate   cert/all.luwen.tech.pem;
-    ssl_certificate_key  cert/all.luwen.tech.key;
-    ssl_session_timeout 5m;
-    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers on;
-    deny 120.239.22.36;
+    <span style="color:#f92672">ssl</span> <span style="color:#66d9ef">on</span>;
+    <span style="color:#f92672">ssl_certificate</span>   <span style="color:#e6db74">cert/all.luwen.tech.pem</span>;
+    <span style="color:#f92672">ssl_certificate_key</span>  <span style="color:#e6db74">cert/all.luwen.tech.key</span>;
+    <span style="color:#f92672">ssl_session_timeout</span> <span style="color:#ae81ff">5m</span>;
+    <span style="color:#f92672">ssl_ciphers</span> <span style="color:#e6db74">ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4</span>;
+    <span style="color:#f92672">ssl_protocols</span> <span style="color:#e6db74">TLSv1</span> <span style="color:#e6db74">TLSv1.1</span> <span style="color:#e6db74">TLSv1.2</span>;
+    <span style="color:#f92672">ssl_prefer_server_ciphers</span> <span style="color:#66d9ef">on</span>;
+    <span style="color:#f92672">deny</span> <span style="color:#ae81ff">120</span><span style="color:#e6db74">.239.22.36</span>;
 
-    root        /data/vip/luwen/code/web;
-    index       index.php index.html;
-  #阿里云获取真实客户端ip
-    set_real_ip_from 100.64.0.0/10;
-    real_ip_header X-Forwarded-For;
+    <span style="color:#f92672">root</span>        <span style="color:#e6db74">/data/vip/luwen/code/web</span>;
+    <span style="color:#f92672">index</span>       <span style="color:#e6db74">index.php</span> <span style="color:#e6db74">index.html</span>;
+  <span style="color:#75715e">#阿里云获取真实客户端ip
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">set_real_ip_from</span> <span style="color:#ae81ff">100</span><span style="color:#e6db74">.64.0.0/10</span>;
+    <span style="color:#f92672">real_ip_header</span> <span style="color:#e6db74">X-Forwarded-For</span>;
 
-    location ~* /\.ht {
-        deny  all;
+    <span style="color:#f92672">location</span> ~<span style="color:#e6db74">*</span> <span style="color:#e6db74">/\.ht</span> {
+        <span style="color:#f92672">deny</span>  <span style="color:#e6db74">all</span>;
     }
-  #跨域配置
-    add_header Access-Control-Allow-Origin '*';
-    add_header Access-Control-Allow-Methods 'GET,POST,OPTIONS';
-    add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Origin,Accept,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
-    if ($request_method = 'OPTIONS') {
-        return 204;
+  <span style="color:#75715e">#跨域配置
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">add_header</span> <span style="color:#e6db74">Access-Control-Allow-Origin</span> <span style="color:#e6db74">&#39;*&#39;</span>;
+    <span style="color:#f92672">add_header</span> <span style="color:#e6db74">Access-Control-Allow-Methods</span> <span style="color:#e6db74">&#39;GET,POST,OPTIONS&#39;</span>;
+    <span style="color:#f92672">add_header</span> <span style="color:#e6db74">Access-Control-Allow-Headers</span> <span style="color:#e6db74">&#39;DNT,X-Mx-ReqToken,Origin,Accept,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization&#39;</span>;
+    <span style="color:#f92672">if</span> <span style="color:#e6db74">(</span>$request_method = <span style="color:#e6db74">&#39;OPTIONS&#39;)</span> {
+        <span style="color:#f92672">return</span> <span style="color:#ae81ff">204</span>;
     }
-#301跳转
-    rewrite ^/index$ https://www.luwen.tech/ permanent;
-    rewrite ^/sc$ https://www.luwen.tech/sc/ permanent;
-    rewrite ^/gbm$ https://www.luwen.tech/gbm/ permanent;
-    rewrite ^/m$ https://www.luwen.tech/m/ permanent;
-    rewrite ^/xy$ https://www.luwen.tech/xy/ permanent;
-    rewrite ^/about$ https://www.luwen.tech/about/ permanent;
+<span style="color:#75715e">#301跳转
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/index</span>$ <span style="color:#e6db74">https://www.luwen.tech/</span> <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/sc</span>$ <span style="color:#e6db74">https://www.luwen.tech/sc/</span> <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/gbm</span>$ <span style="color:#e6db74">https://www.luwen.tech/gbm/</span> <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/m</span>$ <span style="color:#e6db74">https://www.luwen.tech/m/</span> <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/xy</span>$ <span style="color:#e6db74">https://www.luwen.tech/xy/</span> <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/about</span>$ <span style="color:#e6db74">https://www.luwen.tech/about/</span> <span style="color:#e6db74">permanent</span>;
 
-    rewrite ^/index/index https://www.luwen.tech permanent;
-    rewrite ^/contact https://www.luwen.tech/about/contact permanent;
-    rewrite ^/sx/ https://www.luwen.tech/xy/c-$arg_p.html? permanent;
-    rewrite ^/sx(\d+)\.html$ https://www.luwen.tech/xy/c-$1.html permanent;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/index/index</span> <span style="color:#e6db74">https://www.luwen.tech</span> <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/contact</span> <span style="color:#e6db74">https://www.luwen.tech/about/contact</span> <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/sx/</span> <span style="color:#e6db74">https://www.luwen.tech/xy/c-</span>$arg_p.html? <span style="color:#e6db74">permanent</span>;
+    <span style="color:#f92672">rewrite</span> <span style="color:#e6db74">^/sx(\d+)\.html</span>$ <span style="color:#e6db74">https://www.luwen.tech/xy/c-</span>$1.html <span style="color:#e6db74">permanent</span>;
 
-  #禁止蜘蛛访问某些链接
-    set $deny_spider &quot;&quot;;
+  <span style="color:#75715e">#禁止蜘蛛访问某些链接
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">set</span> $deny_spider <span style="color:#e6db74">&#34;&#34;</span>;
 
-    if ( $request_uri ~* &quot;/\?utm_source=www.buysaasss.cn|/sc\?bd_vid=71352269503152213708100|/\?source=baidu1&amp;e_keywordid=(\d+)&amp;cishu&quot; ) {
-        set $deny_spider 'y';
+    <span style="color:#f92672">if</span> <span style="color:#e6db74">(</span> $request_uri ~<span style="color:#e6db74">*</span> <span style="color:#e6db74">&#34;/\?utm_source=www.buysaasss.cn|/sc\?bd_vid=71352269503152213708100|/\?source=baidu1&amp;e_keywordid=(\d+)&amp;cishu&#34;</span> <span style="color:#e6db74">)</span> {
+        <span style="color:#f92672">set</span> $deny_spider <span style="color:#e6db74">&#39;y&#39;</span>;
     }
 
-    if ($http_user_agent ~* &quot;qihoobot|Baiduspider|Googlebot|Googlebot-Mobile|Googlebot-Image|Mediapartners-Google|Adsbot-Google|Feedfetcher-Google|Yahoo! Slurp|Yahoo! Slurp China|YoudaoBot|Sosospider|Sogou spider|Sogou web spider|MSNBot|ia_archiver|Tomato Bot&quot;)
+    <span style="color:#f92672">if</span> <span style="color:#e6db74">(</span>$http_user_agent ~<span style="color:#e6db74">*</span> <span style="color:#e6db74">&#34;qihoobot|Baiduspider|Googlebot|Googlebot-Mobile|Googlebot-Image|Mediapartners-Google|Adsbot-Google|Feedfetcher-Google|Yahoo!</span> <span style="color:#e6db74">Slurp|Yahoo!</span> <span style="color:#e6db74">Slurp</span> <span style="color:#e6db74">China|YoudaoBot|Sosospider|Sogou</span> <span style="color:#e6db74">spider|Sogou</span> <span style="color:#e6db74">web</span> <span style="color:#e6db74">spider|MSNBot|ia_archiver|Tomato</span> <span style="color:#e6db74">Bot&#34;)</span>
     {
-        set $deny_spider &quot;${deny_spider}es&quot;;
+        <span style="color:#f92672">set</span> $deny_spider <span style="color:#e6db74">&#34;</span>${deny_spider}es&#34;;
     }
 
-    if ($deny_spider = 'yes') {
-        return 403;
-        break;
+    <span style="color:#f92672">if</span> <span style="color:#e6db74">(</span>$deny_spider = <span style="color:#e6db74">&#39;yes&#39;)</span> {
+        <span style="color:#f92672">return</span> <span style="color:#ae81ff">403</span>;
+        <span style="color:#f92672">break</span>;
     }
-#访问目录反向代理
-    location ~ ^/xueyuan {
-        proxy_set_header Host &quot;xueyuan.luwen.tech&quot;;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://sxxy_servers;
-    }
-
-    location ~ ^/wp-login.php {
-        proxy_set_header Host &quot;xueyuan.luwen.tech&quot;;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://sxxy_servers;
-    }
-#alias使用
-    location ^~ /about/legalnotices/ {
-         alias  /data/vip/luwen/code/web/aboutus/legalnotices/;
+<span style="color:#75715e">#访问目录反向代理
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">^/xueyuan</span> {
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> <span style="color:#e6db74">&#34;xueyuan.luwen.tech&#34;</span>;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://sxxy_servers</span>;
     }
 
-    location ~ ^/wp-admin {
-        proxy_set_header Host &quot;xueyuan.luwen.tech&quot;;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://sxxy_servers;
+    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">^/wp-login.php</span> {
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> <span style="color:#e6db74">&#34;xueyuan.luwen.tech&#34;</span>;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://sxxy_servers</span>;
+    }
+<span style="color:#75715e">#alias使用
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">location</span> <span style="color:#e6db74">^~</span> <span style="color:#e6db74">/about/legalnotices/</span> {
+         <span style="color:#f92672">alias</span>  <span style="color:#e6db74">/data/vip/luwen/code/web/aboutus/legalnotices/</span>;
     }
 
-    location ~ ^/wp-content {
-        proxy_set_header Host &quot;xueyuan.luwen.tech&quot;;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://sxxy_servers;
+    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">^/wp-admin</span> {
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> <span style="color:#e6db74">&#34;xueyuan.luwen.tech&#34;</span>;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://sxxy_servers</span>;
     }
 
-    location ~ ^/wp-includes {
-        proxy_set_header Host &quot;xueyuan.luwen.tech&quot;;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://sxxy_servers;
+    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">^/wp-content</span> {
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> <span style="color:#e6db74">&#34;xueyuan.luwen.tech&#34;</span>;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://sxxy_servers</span>;
     }
-    location = /sitemap.xml {
-        proxy_set_header Host &quot;xueyuan.luwen.tech&quot;;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://sxxy_servers;
+
+    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">^/wp-includes</span> {
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> <span style="color:#e6db74">&#34;xueyuan.luwen.tech&#34;</span>;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://sxxy_servers</span>;
     }
-    location / {
-        if ($request_method = HEAD) {
-            access_log off;
+    <span style="color:#f92672">location</span> = <span style="color:#e6db74">/sitemap.xml</span> {
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> <span style="color:#e6db74">&#34;xueyuan.luwen.tech&#34;</span>;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+        <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://sxxy_servers</span>;
+    }
+    <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+        <span style="color:#f92672">if</span> <span style="color:#e6db74">(</span>$request_method = <span style="color:#e6db74">HEAD)</span> {
+            <span style="color:#f92672">access_log</span> <span style="color:#66d9ef">off</span>;
         }
-        if (!-e $request_filename) {
-           rewrite  ^(.*)$  /index.php  last;
-           break;
+        <span style="color:#f92672">if</span> <span style="color:#e6db74">(!-e</span> $request_filename<span style="color:#e6db74">)</span> {
+           <span style="color:#f92672">rewrite</span>  <span style="color:#e6db74">^(.*)</span>$  <span style="color:#e6db74">/index.php</span>  <span style="color:#e6db74">last</span>;
+           <span style="color:#f92672">break</span>;
         }
      }
 
-    location ~ \.php$ {
-        try_files $uri =404;
-        fastcgi_pass    unix__tmp_php5_cgi_sock;
-        include         fastcgi.conf;
+    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">\.php$</span> {
+        <span style="color:#f92672">try_files</span> $uri =<span style="color:#ae81ff">404</span>;
+        <span style="color:#f92672">fastcgi_pass</span>    <span style="color:#e6db74">unix__tmp_php5_cgi_sock</span>;
+        <span style="color:#f92672">include</span>         <span style="color:#e6db74">fastcgi.conf</span>;
     }
 
-    access_log /data/logs/www/www.luwen.tech.log luwenlog;
+    <span style="color:#f92672">access_log</span> <span style="color:#e6db74">/data/logs/www/www.luwen.tech.log</span> <span style="color:#e6db74">luwenlog</span>;
 }
-</code></pre>
-
+</code></pre></div>
                         </div>
 
                         
@@ -315,6 +314,14 @@ server {
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -344,14 +351,6 @@ server {
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -388,6 +387,10 @@ server {
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -397,6 +400,10 @@ server {
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

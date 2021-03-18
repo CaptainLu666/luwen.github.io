@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,29 +97,22 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#jenkins配置slave进行构建时-发现slave构建的控制台输入中文乱码-查看master-slave的jenkins系统信息file-encoding和sun-jnu-encoding都没有问题-从系统管理-节点管理-slave节点-系统信息">jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#jenkins配置slave进行构建时发现slave构建的控制台输入中文乱码查看masterslave的jenkins系统信息fileencoding和sunjnuencoding都没有问题从系统管理-节点管理-slave节点-系统信息">jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<h3 id="jenkins配置slave进行构建时-发现slave构建的控制台输入中文乱码-查看master-slave的jenkins系统信息file-encoding和sun-jnu-encoding都没有问题-从系统管理-节点管理-slave节点-系统信息">jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息</h3>
-
-<pre><code class="language-shell">file.encoding=ANSI_X3.4-1968
-sun.jnu.encoding=ANSI_X3.4-1968
-</code></pre>
-
-<p>###解决;Jenkins家目录/var/lib/jenkins/ 下面都没有.bashrc文件,从其他用户copy一个过来，修改权限，重启主从节点服务完成。</p>
+                            <h3 id="jenkins配置slave进行构建时发现slave构建的控制台输入中文乱码查看masterslave的jenkins系统信息fileencoding和sunjnuencoding都没有问题从系统管理-节点管理-slave节点-系统信息">jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">file.encoding<span style="color:#f92672">=</span>ANSI_X3.4-1968
+sun.jnu.encoding<span style="color:#f92672">=</span>ANSI_X3.4-1968
+</code></pre></div><p>###解决;Jenkins家目录/var/lib/jenkins/ 下面都没有.bashrc文件,从其他用户copy一个过来，修改权限，重启主从节点服务完成。</p>
 
                         </div>
 
@@ -184,6 +177,14 @@ sun.jnu.encoding=ANSI_X3.4-1968
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -213,14 +214,6 @@ sun.jnu.encoding=ANSI_X3.4-1968
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -257,6 +250,10 @@ sun.jnu.encoding=ANSI_X3.4-1968
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -266,6 +263,10 @@ sun.jnu.encoding=ANSI_X3.4-1968
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.81.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>悲观锁和乐观锁 | 卢文的博客</title>
+    <meta property="og:title" content="悲观锁和乐观锁 - 卢文的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2021-03-18T10:09:57&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-03-18T10:09:57&#43;08:00">
+        
+    <meta name="Keywords" content="golang,go语言,python,kubernetes">
+    <meta name="description" content="悲观锁和乐观锁">
+        
+    <meta name="author" content="SniperLu">
+    <meta property="og:url" content="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://luwen.tech">
+                        卢文的博客
+                    </a>
+                
+                <p class="description">专注于linux运维，k8s云原生架构，python，golang</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://luwen.tech">首页</a>
+                    
+                    <a  href="http://luwen.tech/books/" title="新书">新书</a>
+                    
+                    <a  href="http://luwen.tech/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://luwen.tech/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">悲观锁和乐观锁</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021年3月18日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://luwen.tech/categories/mysql">mysql</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#乐观锁和悲观锁概念">乐观锁和悲观锁概念</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#以上更新语句存在一个比较严重的问题即aba问题--imghttpsupload-imagesjianshuioupload_images7038163-8ca34c3adccb7ca6jpgimagemogr2auto-orientstripimageview22w640formatwebp">以上更新语句存在一个比较严重的问题，即<strong>ABA问题</strong>：  <img src="https:////upload-images.jianshu.io/upload_images/7038163-8ca34c3adccb7ca6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="img"></a></li>
+    <li><a href="#一个比较好的解决办法就是通过一个单独的可以顺序递增的-version-字段优化如下--imghttpsupload-imagesjianshuioupload_images7038163-a23fb455b893f97fjpgimagemogr2auto-orientstripimageview22w640formatwebp">一个比较好的解决办法，就是通过一个单独的可以顺序递增的 version 字段。优化如下：  <img src="https:////upload-images.jianshu.io/upload_images/7038163-a23fb455b893f97f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="img"></a></li>
+  </ul>
+</nav>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <h3 id="乐观锁和悲观锁概念">乐观锁和悲观锁概念</h3>
+<h1 id="一并发控制">一、并发控制</h1>
+<p>当程序中可能出现<a href="https://www.jianshu.com/p/e8d674931af4">并发</a>的情况时，就需要保证在并发情况下数据的准确性，以此确保当前用户和其他用户一起操作时，所得到的结果和他单独操作时的结果是一样的。这种手段就叫做并发控制。并发控制的目的是保证一个用户的工作不会对另一个用户的工作产生不合理的影响。</p>
+<p><strong>没有做好并发控制，就可能导致<a href="https://www.jianshu.com/p/7e76ce65e3ad">脏读、幻读和不可重复读</a>等问题。</strong></p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-a8d6ce3ed17394f5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/479/format/webp" alt="img"></p>
+<p>常说的并发控制，一般都和数据库管理系统(DBMS)有关。在 DBMS 中的并发控制的任务，是确保在多个事务同时存取数据库中同一数据时，不破坏事务的隔离性、一致性和数据库的统一性。</p>
+<p><code>实现并发控制的主要手段大致可以分为乐观并发控制和悲观并发控制两种。</code>
+首先要明确：无论是悲观锁还是乐观锁，都是人们定义出来的概念，可以认为是一种思想。其实不仅仅是关系型数据库系统中有乐观锁和悲观锁的概念，像 hibernate、<a href="https://www.jianshu.com/p/72fc26ec5216">tair</a>、memcache 等都有类似的概念。所以，不应该拿乐观锁、悲观锁和其他的数据库锁等进行对比。乐观锁比较适用于读多写少的情况(多读场景)，悲观锁比较适用于写多读少的情况(多写场景)。</p>
+<h1 id="二悲观锁pessimistic-lock">二、悲观锁(Pessimistic Lock)</h1>
+<p>1️⃣理解
+当要对数据库中的一条数据进行修改的时候，为了避免同时被其他人修改，最好的办法就是直接对该数据进行加锁以防止并发。这种借助数据库锁机制，在修改数据之前先锁定，再修改的方式被称之为悲观并发控制【Pessimistic Concurrency Control，缩写“PCC”，又名“悲观锁”】。</p>
+<p>悲观锁，正如其名，具有强烈的独占和排他特性。它指的是对数据被外界(包括本系统当前的其他事务，以及来自外部系统的事务处理)修改持保守态度。因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制(也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据)。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-ea0875b10d5864c7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/format/webp" alt="img"></p>
+<p>之所以叫做悲观锁，是因为这是一种对数据的修改持有悲观态度的并发控制方式。总是假设最坏的情况，每次读取数据的时候都默认其他线程会更改数据，因此需要进行加锁操作，当其他线程想要访问数据时，都需要阻塞挂起。悲观锁的实现：</p>
+<ol>
+<li>传统的关系型数据库使用这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。</li>
+<li>Java 里面的同步 <a href="https://www.jianshu.com/p/c8f997e7f75c">synchronized</a> 关键字的实现。</li>
+</ol>
+<p>2️⃣<strong>悲观锁主要分为<a href="https://www.jianshu.com/p/b4731a7d255a">共享锁和排他锁</a>：</strong></p>
+<ul>
+<li>共享锁【shared locks】又称为读锁，简称S锁。顾名思义，共享锁就是多个事务对于同一数据可以共享一把锁，都能访问到数据，但是只能读不能修改。</li>
+<li>排他锁【exclusive locks】又称为写锁，简称X锁。顾名思义，排他锁就是不能与其他锁并存，如果一个事务获取了一个数据行的排他锁，其他事务就不能再获取该行的其他锁，包括共享锁和排他锁，但是获取排他锁的事务是可以对数据行读取和修改。</li>
+</ul>
+<p>3️⃣说明
+悲观并发控制实际上是“先取锁再访问”的保守策略，为数据处理的安全提供了保证。但是在效率方面，处理加锁的机制会让数据库产生额外的开销，还有增加产生死锁的机会。另外还会降低并行性，一个事务如果锁定了某行数据，其他事务就必须等待该事务处理完才可以处理那行数据。</p>
+<h1 id="三乐观锁optimistic-locking">三、乐观锁(Optimistic Locking)</h1>
+<p>1️⃣理解
+乐观锁是相对悲观锁而言的，乐观锁假设数据一般情况下不会造成冲突，所以在数据进行提交更新的时候，才会正式对数据的冲突与否进行检测，如果发现冲突了，则返回给用户错误的信息，让用户决定如何去做。乐观锁适用于读操作多的场景，这样可以提高程序的吞吐量。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-dea06d00a74071fb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="img"></p>
+<p>乐观锁机制采取了更加宽松的加锁机制。乐观锁是相对悲观锁而言，也是为了避免数据库幻读、业务处理时间过长等原因引起数据处理错误的一种机制，但乐观锁不会刻意使用数据库本身的锁机制，而是依据数据本身来保证数据的正确性。乐观锁的实现：</p>
+<ol>
+<li>CAS 实现：Java 中java.util.concurrent.atomic包下面的原子变量使用了乐观锁的一种 CAS 实现方式。</li>
+<li>版本号控制：一般是在数据表中加上一个数据版本号 version 字段，表示数据被修改的次数。当数据被修改时，version 值会+1。当线程A要更新数据值时，在读取数据的同时也会读取 version 值，在提交更新时，若刚才读取到的 version 值与当前数据库中的 version 值相等时才更新，否则重试更新操作，直到更新成功。</li>
+</ol>
+<p>2️⃣说明
+乐观并发控制相信事务之间的数据竞争(data race)的概率是比较小的，因此尽可能直接做下去，直到提交的时候才去锁定，所以不会产生任何锁和死锁。</p>
+<h1 id="四具体实现">四、具体实现</h1>
+<p>1️⃣悲观锁实现方式
+悲观锁的实现，往往依靠数据库提供的锁机制。在数据库中，悲观锁的流程如下：</p>
+<ol>
+<li>在对记录进行修改前，先尝试为该记录加上排他锁(exclusive locks)。</li>
+<li>如果加锁失败，说明该记录正在被修改，那么当前查询可能要等待或者抛出异常。具体响应方式由开发者根据实际需要决定。</li>
+<li>如果成功加锁，那么就可以对记录做修改，<a href="https://www.jianshu.com/p/7e76ce65e3ad">事务</a>完成后就会解锁了。</li>
+<li>期间如果有其他对该记录做修改或加排他锁的操作，都会等待解锁或直接抛出异常。</li>
+</ol>
+<p><strong>拿比较常用的 <a href="https://www.jianshu.com/p/1ed1c5319b09">MySql Innodb 引擎</a>举例，来说明一下在 SQL 中如何使用悲观锁。</strong></p>
+<p>要使用悲观锁，必须关闭 <a href="https://www.jianshu.com/p/359c3fe50c7f">MySQL</a> 数据库的自动提交属性。因为 MySQL 默认使用 autocommit 模式，也就是说，当执行一个更新操作后，MySQL 会立刻将结果进行提交。(sql语句：set autocommit=0)</p>
+<p>以电商下单扣减库存的过程说明一下悲观锁的使用：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-6cc15e52ffa4f893.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/503/format/webp" alt="img"></p>
+<p>以上，在对id = 1的记录修改前，先通过 <a href="https://www.jianshu.com/p/6ecc0d21dc50">for update</a> 的方式进行加锁，然后再进行修改。这就是比较典型的悲观锁策略。</p>
+<p>如果以上修改库存的代码发生并发，同一时间只有一个线程可以开启事务并获得id=1的锁，其它的事务必须等本次事务提交之后才能执行。这样可以保证当前的数据不会被其它事务修改。</p>
+<p>上面提到，使用 <a href="https://www.jianshu.com/p/6ecc0d21dc50">select…for update</a> 会把数据给锁住，不过需要注意一些锁的级别，MySQL InnoDB 默认行级锁。行级锁都是基于索引的，如果一条 SQL 语句用不到索引是不会使用行级锁的，会使用表级锁把整张表锁住，这点需要注意。</p>
+<p>2️⃣乐观锁实现方式<code>乐观锁不需要借助数据库的锁机制。</code></p>
+<p>主要就是两个步骤：冲突检测和数据更新。比较典型的就是 CAS (Compare and Swap)。</p>
+<p>CAS 即比较并交换。是解决多线程并行情况下使用锁造成性能损耗的一种机制，CAS 操作包含三个操作数——内存位置(V)、预期原值(A)和新值(B)。如果内存位置的值(V)与预期原值(A)相匹配，那么处理器会自动将该位置值更新为新值(B)。否则，处理器不做任何操作。无论哪种情况，它都会在 CAS 指令之前返回该位置的值。CAS 有效地说明了“我认为位置(V)应该包含值(A)。如果包含该值，则将新值(B)放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可”。Java 中，sun.misc.Unsafe 类提供了硬件级别的原子操作来实现这个 CAS。<a href="https://www.jianshu.com/p/67076450de38">java.util.concurrent</a>包下大量的类都使用了这个 Unsafe.java 类的 CAS 操作。</p>
+<p>当多个线程尝试使用 CAS 同时更新同一个变量时，只有其中一个线程能更新变量的值，而其它线程都失败，失败的线程并不会被挂起，而是被告知这次竞争中失败，并可以再次尝试。比如前面的扣减库存问题，通过乐观锁可以实现如下：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-623702054ade5d92.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/490/format/webp" alt="img"></p>
+<p>乐观锁使用</p>
+<p>在更新之前，先查询一下库存表中当前库存数(quantity)，然后在做 update 的时候，以库存数作为一个修改条件。当提交更新的时候，判断数据库表对应记录的当前库存数与第一次取出来的库存数进行比对，如果数据库表当前库存数与第一次取出来的库存数相等，则予以更新，否则认为是过期数据。</p>
+<h2 id="以上更新语句存在一个比较严重的问题即aba问题--imghttpsupload-imagesjianshuioupload_images7038163-8ca34c3adccb7ca6jpgimagemogr2auto-orientstripimageview22w640formatwebp">以上更新语句存在一个比较严重的问题，即<strong>ABA问题</strong>：  <img src="https:////upload-images.jianshu.io/upload_images/7038163-8ca34c3adccb7ca6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="img"></h2>
+<ol>
+<li>比如说线程一从数据库中取出库存数 3，这时候线程二也从数据库中取出库存数 3，并且线程二进行了一些操作变成了 2。</li>
+<li>然后线程二又将库存数变成 3，这时候线程一进行 CAS 操作发现数据库中仍然是 3，然后线程一操作成功。</li>
+<li>尽管线程一的 CAS 操作成功，但是不代表这个过程就是没有问题的。</li>
+</ol>
+<h2 id="一个比较好的解决办法就是通过一个单独的可以顺序递增的-version-字段优化如下--imghttpsupload-imagesjianshuioupload_images7038163-a23fb455b893f97fjpgimagemogr2auto-orientstripimageview22w640formatwebp">一个比较好的解决办法，就是通过一个单独的可以顺序递增的 version 字段。优化如下：  <img src="https:////upload-images.jianshu.io/upload_images/7038163-a23fb455b893f97f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="img"></h2>
+<p>乐观锁每次在执行数据修改操作时，都会带上一个版本号，一旦版本号和数据的版本号一致就可以执行修改操作并对版本号执行 +1 操作，否则就执行失败。因为每次操作的版本号都会随之增加，所以不会出现 ABA 问题。除了 version 以外，还可以使用时间戳，因为时间戳天然具有顺序递增性。</p>
+<p>以上 SQL 其实还是有一定的问题的，就是一旦遇上<a href="https://www.jianshu.com/p/58589a7dc5c6">高并发</a>的时候，就只有一个线程可以修改成功，那么就会存在大量的失败。对于像淘宝这样的电商网站，高并发是常有的事，总让用户感知到失败显然是不合理的。所以，还是要想办法减少乐观锁的粒度。一个比较好的建议，就是减小乐观锁力度，最大程度的提升吞吐率，提高并发能力！如下：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-f176266a4a5136d6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/427/format/webp" alt="img"></p>
+<p>以上 SQL 语句中，如果用户下单数为 1，则通过<code>quantity - 1 &gt; 0</code>的方式进行乐观锁控制。在执行过程中，会在一次原子操作中查询一遍 quantity 的值，并将其扣减掉 1。</p>
+<p>高并发环境下<a href="https://www.jianshu.com/p/a791ce04ff71">锁粒度</a>把控是一门重要的学问。选择一个好的锁，在保证数据安全的情况下，可以大大提升吞吐率，进而提升性能。</p>
+<h1 id="五理解-cas-底层">五、理解 CAS 底层</h1>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-498d724533e17e1e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="img"></p>
+<p>流程图</p>
+<p>假如说有 3 个线程并发的要修改一个 <a href="https://www.jianshu.com/p/97141241ff29">AtomicInteger</a> 的值，底层机制如下：</p>
+<ol>
+<li>首先，每个线程都会先获取当前的值，接着走一个原子的 CAS 操作。原子的意思就是这个 CAS 操作一定是自己完整执行完的，不会被别人打断。</li>
+<li>然后 CAS 操作里，会比较一下，现在的值是不是刚才获取到的那个值。如果是，说明没人改过这个值，然后设置成累加 1 之后的一个值。</li>
+<li>同理，如果有人在执行 CAS 的时候，发现之前获取的值跟当前的值不一样，会导致 CAS 失败。失败之后，进入一个无限循环，再次获取值，接着执行 CAS 操作。</li>
+</ol>
+<h1 id="六cas-典型应用">六、CAS 典型应用</h1>
+<p>java.util.concurrent.atomic包下的类大多是使用 CAS 操作来实现的，比如 <a href="https://www.jianshu.com/p/97141241ff29">AtomicInteger</a>、AtomicBoolean、AtomicLong。一般在竞争不是特别激烈的时候，使用该包下的原子操作性能比使用 <a href="https://www.jianshu.com/p/c8f997e7f75c">synchronized</a> 关键字的方式高效的多(查看 getAndSet()，可知如果资源竞争十分激烈的话，这个 for 循环可能会持续很久都不能成功跳出。不过这种情况可能需要考虑降低资源竞争才是)。
+在较多的场景都可能会使用到这些原子类操作。一个典型应用就是计数了，在多线程的情况下需要考虑<a href="https://www.jianshu.com/p/4eff0eda5b24">线程安全</a>问题。</p>
+<p>1️⃣支持计数功能 Demo 实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Increment</span> {
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>() {
+        count<span style="color:#f92672">++</span>;
+    }
+}
+</code></pre></div><p>在并发环境下对 count 进行自增运算是不安全的，为什么不安全以及如何解决这个问题呢？</p>
+<p>2️⃣为什么并发环境下的 count 自增操作不安全？因为 count++ 不是原子操作，而是三个原子操作的组合：</p>
+<ol>
+<li>读取<a href="https://www.jianshu.com/p/e657743298ef">内存</a>中的 count 值赋值给局部变量 temp；</li>
+<li>执行 temp+1 操作；</li>
+<li>将 temp 赋值给 count。</li>
+</ol>
+<p>所以如果两个线程同时执行 count++ 的话，不能保证线程一按顺序执行完上述三步后线程二才开始执行。</p>
+<p>3️⃣并发环境下 count++ 不安全问题的解决方案</p>
+<p>方案①：<a href="https://www.jianshu.com/p/c8f997e7f75c">synchronized</a> 加锁。同一时间只有一个线程能加锁，其他线程需要等待锁，这样就不会出现 count 计数不准确的问题了：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Increment</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">synchronized</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        count<span style="color:#f92672">++;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>但是引入 synchronized 会造成多个线程排队的问题，相当于让各个线程串行化了，一个接一个的排队、加锁、处理数据、释放锁，下一个再进来。同一时间只有一个线程执行，这样的锁有点“重量级”了。这类似于悲观锁的实现，需要获取这个资源，就给它加锁，别的线程都无法访问该资源，直到操作完后释放对该资源的锁。虽然随着 Java 版本更新，也对 synchronized 做了很多优化，但是处理这种简单的累加操作，仍然显得“太重了”。</p>
+<p>方案②：Atomic 原子类。对于 count++ 的操作，完全可以换一种做法，Java 并发包下面提供了一系列的 Atomic 原子类，比如说 AtomicInteger：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//import java.util.concurrent.atomic.AtomicInteger;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String[] args) {
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> AtomicInteger count <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AtomicInteger(<span style="color:#ae81ff">0</span>);
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> increase() {
+        count.incrementAndGet();
+    }
+}
+</code></pre></div><p>多个线程可以并发的执行 AtomicInteger 的 incrementAndGet()，意思就是把 count 的值累加 1，接着返回累加后最新的值。实际上，Atomic 原子类底层用的不是传统意义的锁机制，而是无锁化的 CAS 机制，通过 CAS 机制保证多线程修改一个数值的安全性。</p>
+<h1 id="七cas-性能优化">七、CAS 性能优化</h1>
+<p>从流程图可以看出来，大量的线程同时并发修改一个 AtomicInteger，可能有很多线程会不停的自旋，进入一个无限重复的循环中。这些线程不停地获取值，然后发起 CAS 操作，但是发现这个值被别人改过了，于是再次进入下一个循环，获取值，发起 CAS 操作又失败了，再次进入下一个循环。在大量线程高并发更新 AtomicInteger 的时候，这种问题可能会比较明显，导致大量线程空循环，自旋转，性能和效率都不是特别好。那么如何优化呢？</p>
+<p><a href="https://www.jianshu.com/p/3d464b74e0f8">Java8</a> 有一个新的类，LongAdder，它就是尝试使用分段 CAS 以及自动分段迁移的方式来大幅度提升多线程高并发执行 CAS 操作的性能，这个类具体是如何优化性能的呢？如图：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-d39dc7b044720746.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt="img"></p>
+<p>LongAdder</p>
+<p>LongAdder 核心思想就是热点分离，这一点和 <a href="https://www.jianshu.com/p/78989cd553b4">ConcurrentHashMap</a> 的设计思想相似。就是将 value 值分离成一个数组，当多线程访问时，通过 hash 算法映射到其中的一个数字进行计数。而最终的结果，就是这些数组的求和累加。这样一来，就减小了锁的粒度。</p>
+<p>LongAddr 的兄弟类如下：</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/7038163-77b76c9b7f619b25.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp" alt="img"></p>
+<p>LongAdder兄弟类</p>
+<h1 id="八如何选择">八、如何选择</h1>
+<p>在乐观锁与悲观锁的选择上面，主要看下两者的区别以及适用场景就可以了。
+1️⃣响应效率：如果需要非常高的响应速度，建议采用乐观锁方案，成功就执行，不成功就失败，不需要等待其他并发去释放锁。乐观锁并未真正加锁，效率高。一旦锁的粒度掌握不好，更新失败的概率就会比较高，容易发生业务失败。
+2️⃣冲突频率：如果冲突频率非常高，建议采用悲观锁，保证成功率。冲突频率大，选择乐观锁会需要多次重试才能成功，代价比较大。
+3️⃣重试代价：如果重试代价大，建议采用悲观锁。悲观锁依赖数据库锁，效率低。更新失败的概率比较低。
+4️⃣乐观锁如果有人在你之前更新了，你的更新应当是被拒绝的，可以让用户从新操作。悲观锁则会等待前一个更新完成。这也是区别。</p>
+<p>随着互联网<a href="https://www.jianshu.com/p/58589a7dc5c6">三高架构(高并发、高性能、高可用)</a>的提出，悲观锁已经越来越少的被应用到生产环境中了，尤其是并发量比较大的业务场景。</p>
+<p>转载</p>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/brew%E4%BD%BF%E7%94%A8/">Brew使用</a></li>
+        
+        <li><a href="/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/">Php Fpm三种模式</a></li>
+        
+        <li><a href="/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/">Docker镜像清理</a></li>
+        
+        <li><a href="/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/">Php Fpm平滑重启</a></li>
+        
+        <li><a href="/post/lua%E5%AE%89%E8%A3%85luasql-mysql/">Lua安装luasql Mysql</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://luwen.tech">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/" title="Docker镜像清理">Docker镜像清理</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/" title="Php Fpm平滑重启">Php Fpm平滑重启</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/" title="Lua安装luasql Mysql">Lua安装luasql Mysql</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/" title="Centos7配置ftp">Centos7配置ftp</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/sql%E5%AD%A6%E4%B9%A0/" title="Sql学习">Sql学习</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/" title="小程序防盗链">小程序防盗链</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/categories/Aliyun/">Aliyun(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Devops/">Devops(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Docker/">Docker(8)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Golang/">Golang(3)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(13)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Linux/">Linux(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/linux/">linux(4)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/nginx/">nginx(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E5%8D%8F%E8%AE%AE/">协议(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E5%AE%89%E5%85%A8/">安全(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/SniperLu" title="SniperLu’s github">SniperLu的github地址</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.cnblogs.com/mikeluwen/" title="SniperLu&#39;s blog">SniperLu的原博客地址</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://luwen.tech/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://luwen.tech">卢文的博客 By SniperLu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

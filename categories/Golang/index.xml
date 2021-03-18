@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on 卢文的博客</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Golang on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 18 Sep 2020 16:53:10 +0800</lastBuildDate>
-    
-	<atom:link href="http://luwen.tech/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 18 Sep 2020 16:53:10 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>优秀的golang学习网址</title>
       <link>http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/</link>

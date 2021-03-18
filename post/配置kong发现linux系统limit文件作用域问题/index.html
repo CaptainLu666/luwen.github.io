@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,109 +97,77 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#查阅资料发现-kong网关的这两个参数是根据linux系统的ulimit-值来设置的">查阅资料发现，kong网关的这两个参数是根据linux系统的ulimit 值来设置的：</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#查阅资料发现kong网关的这两个参数是根据linux系统的ulimit-值来设置的">查阅资料发现，kong网关的这两个参数是根据linux系统的ulimit 值来设置的：</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<p>###配置kong网关，修改nginx.conf文件的worker_rlimit_nofile 65535；worker_connections 65535；参数后重启linux系统参数会变成1024.</p>
-
-<h3 id="查阅资料发现-kong网关的这两个参数是根据linux系统的ulimit-值来设置的">查阅资料发现，kong网关的这两个参数是根据linux系统的ulimit 值来设置的：</h3>
-
+                            <p>###配置kong网关，修改nginx.conf文件的worker_rlimit_nofile 65535；worker_connections 65535；参数后重启linux系统参数会变成1024.</p>
+<h3 id="查阅资料发现kong网关的这两个参数是根据linux系统的ulimit-值来设置的">查阅资料发现，kong网关的这两个参数是根据linux系统的ulimit 值来设置的：</h3>
 <blockquote>
 <p>The worker_connections will be automatically set to the ulimit you set for the Kong process.
 If you wish to set it to a value higher than the default 16384, you need to bump up the ulimit and Kong will automatically render the Nginx template with the increased worker_connections count.</p>
 </blockquote>
-
 <p>Ulimit -a 查看系统值，发现都是65535</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Cat /etc/security/limits.conf
 
-<pre><code class="language-shell">Cat /etc/security/limits.conf
+* soft nofile <span style="color:#ae81ff">65535</span>
+* hard nofile <span style="color:#ae81ff">65535</span>
+* soft noproc <span style="color:#ae81ff">65535</span>
+* hard noproc <span style="color:#ae81ff">65535</span>
+</code></pre></div><p>###使用命令kong reload重新加载后发现参数会修改正确，kong是通过/etc/rc.local来启动的，改为systemd启动</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /etc/systemd/system/kong.service
 
-* soft nofile 65535
-* hard nofile 65535
-* soft noproc 65535
-* hard noproc 65535
-</code></pre>
+​ <span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+​ Description<span style="color:#f92672">=</span>Kong API Gateway
+​ After<span style="color:#f92672">=</span>network.target
 
-<p>###使用命令kong reload重新加载后发现参数会修改正确，kong是通过/etc/rc.local来启动的，改为systemd启动</p>
+​ <span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+​ User<span style="color:#f92672">=</span>root
+​	Group<span style="color:#f92672">=</span>root
+​	ExecStart<span style="color:#f92672">=</span>/usr/local/bin/kong start -c /etc/kong/kong.conf
+​	ExecStop<span style="color:#f92672">=</span>/usr/local/bin/kong stop
+​	ExecReload<span style="color:#f92672">=</span>/usr/local/bin/kong reload -c /etc/kong/kong.conf
+​	Type<span style="color:#f92672">=</span>forking
+​	PIDFile<span style="color:#f92672">=</span>/usr/local/kong/pids/nginx.pid
+​	RestartSec<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
+​	Restart<span style="color:#f92672">=</span>on-failure
 
-<pre><code class="language-shell">cat /etc/systemd/system/kong.service
-
-​ [Unit]
-​ Description=Kong API Gateway
-​ After=network.target
-
-​ [Service]
-​ User=root
-​	Group=root
-​	ExecStart=/usr/local/bin/kong start -c /etc/kong/kong.conf
-​	ExecStop=/usr/local/bin/kong stop
-​	ExecReload=/usr/local/bin/kong reload -c /etc/kong/kong.conf
-​	Type=forking
-​	PIDFile=/usr/local/kong/pids/nginx.pid
-​	RestartSec=60
-​	Restart=on-failure
-
-​	[Install]
-​	WantedBy=default.target
-</code></pre>
-
-<p>###重启后现象不变，参数还是1024，查看启动日志发现</p>
-
+​	<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+​	WantedBy<span style="color:#f92672">=</span>default.target
+</code></pre></div><p>###重启后现象不变，参数还是1024，查看启动日志发现</p>
 <blockquote>
 <p>[warn] ulimit is currently set to &ldquo;1024&rdquo;.</p>
 </blockquote>
-
 <p>###分析原因是</p>
-
 <blockquote>
 <p>在Centos7系统中，使用Systemd替代了之前的SysV。/etc/security/limits.conf文件的配置作用域缩小了。/etc/security/limits.conf的配置，只适用于通过PAM认证登录用户的资源限制，它对systemd的service的资源限制不生效。因此登录用户的限制，通过/etc/security/limits.conf与/etc/security/limits.d下的文件设置即可。</p>
-
+</blockquote>
+<blockquote>
 <p>对于systemd service的资源设置，则需修改全局配置，全局配置文件放在/etc/systemd/system.conf和/etc/systemd/user.conf，同时也会加载两个对应目录中的所有.conf文件/etc/systemd/system.conf.d/<em>.conf和/etc/systemd/user.conf.d/</em>.conf。system.conf是系统实例使用的，user.conf是用户实例使用的。</p>
 </blockquote>
-
 <pre><code>vim /etc/systemd/system.conf
 DefaultLimitNOFILE=100000
 DefaultLimitNPROC=65535
-</code></pre>
-
-<p>查看进程的limit限制：</p>
-
+</code></pre><p>查看进程的limit限制：</p>
 <pre><code>cat /proc/pid/limits
-</code></pre>
-
-<p>查看进程实时打开的文件数：</p>
-
+</code></pre><p>查看进程实时打开的文件数：</p>
 <pre><code>lsof -p PID |wc -l
-</code></pre>
-
-<p>查看系统总限制打开的文件数：</p>
-
+</code></pre><p>查看系统总限制打开的文件数：</p>
 <pre><code>cat /proc/sys/fs/file-max
-</code></pre>
-
-<p>查看系统修改成功参数</p>
-
-<p><img src="/Users/luwen/Library/Application Support/typora-user-images/image-20191114180504351.png" alt="image-20191114180504351" /></p>
-
+</code></pre><p>查看系统修改成功参数</p>
+<p>![image-20191114180504351](/Users/luwen/Library/Application Support/typora-user-images/image-20191114180504351.png)</p>
 <p>还要一个坑就是/etc/security/limits.d/20-nproc.conf默认配置</p>
-
 <pre><code>*          soft    nproc     4096
 root       soft    nproc     unlimited
-</code></pre>
-
-<p>除了root，其它用户默认限制4096个进程</p>
+</code></pre><p>除了root，其它用户默认限制4096个进程</p>
 
                         </div>
 
@@ -264,6 +232,14 @@ root       soft    nproc     unlimited
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -293,14 +269,6 @@ root       soft    nproc     unlimited
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -337,6 +305,10 @@ root       soft    nproc     unlimited
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -346,6 +318,10 @@ root       soft    nproc     unlimited
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

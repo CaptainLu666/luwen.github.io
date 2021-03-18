@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,107 +97,79 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li><a href="#构建容器的最佳做法">构建容器的最佳做法</a>
-<ul>
-<li><a href="#每个容器打包一个应用">每个容器打包一个应用</a></li>
-<li><a href="#正确处理-pid-1-信号处理和僵尸进程">正确处理 PID 1、信号处理和僵尸进程</a>
-<ul>
-<li><a href="#问题-1-linux-内核如何处理信号">问题 1：Linux 内核如何处理信号</a></li>
-<li><a href="#问题-2-经典-init-系统如何处理孤立进程">问题 2：经典 init 系统如何处理孤立进程</a></li>
-<li><a href="#解决方案-1-作为-pid-1-运行并注册信号处理程序">解决方案 1：作为 PID 1 运行并注册信号处理程序</a></li>
-<li><a href="#解决方案-2-使用专用-init-系统">解决方案 2：使用专用 init 系统</a></li>
-</ul></li>
-<li><a href="#优化-docker-构建缓存">优化 Docker 构建缓存</a></li>
-<li><a href="#移除不必要的工具">移除不必要的工具</a>
-<ul>
-<li><a href="#文件系统内容">文件系统内容</a></li>
-<li><a href="#文件系统安全">文件系统安全</a></li>
-</ul></li>
-<li><a href="#构建尽可能小的映像">构建尽可能小的映像</a>
-<ul>
-<li><a href="#使用尽可能小的基础映像">使用尽可能小的基础映像</a></li>
-<li><a href="#降低映像中的杂乱程度">降低映像中的杂乱程度</a></li>
-<li><a href="#尝试创建具有通用层的映像">尝试创建具有通用层的映像</a></li>
-</ul></li>
-<li><a href="#在-container-registry-中使用漏洞扫描">在 Container Registry 中使用漏洞扫描</a></li>
-<li><a href="#正确标记映像">正确标记映像</a>
-<ul>
-<li><a href="#使用语义版本控制进行标记">使用语义版本控制进行标记</a></li>
-<li><a href="#使用-git-提交哈希值进行标记">使用 Git 提交哈希值进行标记</a></li>
-</ul></li>
-<li><a href="#仔细考虑是否使用公开映像">仔细考虑是否使用公开映像</a>
-<ul>
-<li><a href="#关于许可的说明">关于许可的说明</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#每个容器打包一个应用">每个容器打包一个应用</a></li>
+    <li><a href="#正确处理-pid-1信号处理和僵尸进程">正确处理 PID 1、信号处理和僵尸进程</a>
+      <ul>
+        <li><a href="#问题-1linux-内核如何处理信号">问题 1：Linux 内核如何处理信号</a></li>
+        <li><a href="#问题-2经典-init-系统如何处理孤立进程">问题 2：经典 init 系统如何处理孤立进程</a></li>
+        <li><a href="#解决方案-1作为-pid-1-运行并注册信号处理程序">解决方案 1：作为 PID 1 运行并注册信号处理程序</a></li>
+        <li><a href="#解决方案-2使用专用-init-系统">解决方案 2：使用专用 init 系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#优化-docker-构建缓存">优化 Docker 构建缓存</a></li>
+    <li><a href="#移除不必要的工具">移除不必要的工具</a>
+      <ul>
+        <li><a href="#文件系统内容">文件系统内容</a></li>
+        <li><a href="#文件系统安全">文件系统安全</a></li>
+      </ul>
+    </li>
+    <li><a href="#构建尽可能小的映像">构建尽可能小的映像</a>
+      <ul>
+        <li><a href="#使用尽可能小的基础映像">使用尽可能小的基础映像</a></li>
+        <li><a href="#降低映像中的杂乱程度">降低映像中的杂乱程度</a></li>
+        <li><a href="#尝试创建具有通用层的映像">尝试创建具有通用层的映像</a></li>
+      </ul>
+    </li>
+    <li><a href="#在-container-registry-中使用漏洞扫描">在 Container Registry 中使用漏洞扫描</a></li>
+    <li><a href="#正确标记映像">正确标记映像</a>
+      <ul>
+        <li><a href="#使用语义版本控制进行标记">使用语义版本控制进行标记</a></li>
+        <li><a href="#使用-git-提交哈希值进行标记">使用 Git 提交哈希值进行标记</a></li>
+      </ul>
+    </li>
+    <li><a href="#仔细考虑是否使用公开映像">仔细考虑是否使用公开映像</a>
+      <ul>
+        <li><a href="#关于许可的说明">关于许可的说明</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<h1 id="构建容器的最佳做法">构建容器的最佳做法</h1>
-
+                            <h1 id="构建容器的最佳做法">构建容器的最佳做法</h1>
 <p>本文介绍构建容器的一系列最佳做法。这些做法涵盖了广泛的目标（从缩短构建时间到创建更小、弹性更佳的映像），旨在使容器更加容易构建（例如，使用 <a href="https://cloud.google.com/cloud-build/docs?hl=zh-cn">Cloud Build</a>），并且更加容易在 <a href="https://cloud.google.com/kubernetes-engine/docs?hl=zh-cn">Google Kubernetes Engine (GKE)</a> 中运行。</p>
-
 <p>这些最佳做法的重要性并不相同。例如，成功运行某一生产工作负载可能无需其中某些做法，但必须使用其他做法。特别是，与安全相关的最佳做法的重要性较为主观。是否实现它们取决于您的环境和所受限制。</p>
-
 <p>若要充分理解本文中的内容，您需要了解一些关于 Docker 和 Kubernetes 的知识。此处讨论的一些最佳做法也适用于 Windows 容器，但大多数做法假定您使用的是 Linux 容器。有关运行和操作容器的建议，请参阅<a href="https://cloud.google.com/solutions/best-practices-for-operating-containers?hl=zh-cn">操作容器的最佳做法</a>。</p>
-
 <h2 id="每个容器打包一个应用">每个容器打包一个应用</h2>
-
 <p><strong>重要性：高</strong></p>
-
 <p><strong>注意</strong>：在此最佳做法的上下文中，“应用”被视为具有<strong>唯一</strong>父进程且可能具有多个子进程的单个软件。</p>
-
 <p>开始使用容器时，一种常见误解是将它们视为可以同时运行许多不同项的虚拟机。容器可以这样工作，但这样做会减少容器模型的大部分优点。例如，采用经典 Apache/MySQL/PHP 堆栈：您可能非常想在单个容器中运行所有组件。但是，最佳做法是使用两个或三个不同容器：一个用于 Apache，一个用于 MySQL，如果运行 PHP-FPM，则可能还有一个用于 PHP。</p>
-
 <p>由于容器与其托管的应用具有相同的生命周期，因此每个容器应仅包含一个应用。当容器启动时，应用也应该启动，当应用停止时，容器也应该停止。下图展示了此最佳做法。</p>
-
-<p><img src="https://cloud.google.com/solutions/images/bp-containers-processes-inside.svg?hl=zh-cn" alt="显示没有自定义映像的启动过程的图表。" /></p>
-
+<p><img src="https://cloud.google.com/solutions/images/bp-containers-processes-inside.svg?hl=zh-cn" alt="显示没有自定义映像的启动过程的图表。"></p>
 <p><strong>图 1.</strong> 左边的容器符合最佳做法，右边的容器则不符合最佳做法。</p>
-
 <p>如果一个容器中具有多个应用，则这些应用可能具有不同的生命周期或处于不同状态。例如，容器可能最终会运行，但其中一个核心组件崩溃或无响应。如果不进行额外的运行状况检查，则整个容器管理系统（Docker 或 Kubernetes）将无法判断该容器是否运行正常。对于 Kubernetes，这意味着在需要时不会默认重启容器。</p>
-
 <p>您可能会在公开映像中看到以下操作，但<strong>不要</strong>按照它们的示例进行操作：</p>
-
 <ul>
 <li>使用 <a href="http://supervisord.org/">supervisord</a> 等进程管理系统来管理容器中的一个或多个应用。</li>
 <li>使用 bash 脚本作为容器中的入口点，并使其生成多个应用作为后台作业。如需了解如何在容器中正确使用 bash 脚本，请参阅<a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn#signal-handling">正确处理 PID 1、信号处理和僵尸进程</a>。</li>
 </ul>
-
 <p><strong>注意</strong>：您可能会看到有些知名供应商的官方映像并未实施这种最佳做法。供应商这样做的原因是他们需要多个组件正常工作，并且他们希望用户能够通过单个 <code>docker run</code> 命令来运行他们的软件。虽然此方法可用于测试和实验，但我们不建议在生产中运行这些映像。</p>
-
-<h2 id="正确处理-pid-1-信号处理和僵尸进程">正确处理 PID 1、信号处理和僵尸进程</h2>
-
+<h2 id="正确处理-pid-1信号处理和僵尸进程">正确处理 PID 1、信号处理和僵尸进程</h2>
 <p><strong>重要性：高</strong></p>
-
 <p>Linux 信号是控制容器内进程生命周期的主要方式。根据以往的最佳做法，为了将应用的生命周期与其所处的容器紧密关联，请确保您的应用正确处理 Linux 信号。最重要的 Linux 信号是 SIGTERM，因为它可以终止进程。您的应用可能还会接收 SIGKILL 信号（用于非正常终止进程）或 SIGINT 信号（在输入 <code>Ctrl+C</code> 时发送此信号，此信号通常被视为类似 SIGTERM）。</p>
-
 <p>进程标识符 (PID) 是 Linux 内核为每个进程提供的唯一标识符。PID 属于命名空间，这意味着容器具有一组自己的 PID，这些 PID 映射到主机系统上的 PID。启动 Linux 内核时启动的第一个进程具有 PID 1。对于常规操作系统，此进程是 init 系统，例如 systemd 或 SysV。同样，在容器中启动的第一个进程将获得 PID 1。Docker 和 Kubernetes 使用信号与容器内的进程通信，特别是终止它们。Docker 和 Kubernetes 都只能向容器内具有 PID 1 的进程发送信号。</p>
-
 <p>在容器的上下文中，PID 和 Linux 信号会产生两个需要考虑的问题。</p>
-
-<h3 id="问题-1-linux-内核如何处理信号">问题 1：Linux 内核如何处理信号</h3>
-
+<h3 id="问题-1linux-内核如何处理信号">问题 1：Linux 内核如何处理信号</h3>
 <p>对于具有 PID 1 的进程，Linux 内核处理其信号的方式与处理其他进程的信号的方式有所不同。系统不会自动为此进程注册信号处理程序，这意味着 SIGTERM 或 SIGINT 等信号在默认情况下不起作用。默认情况下，您必须使用 SIGKILL 来终止进程，防止出现任何正常关闭。使用 SIGKILL 可能会导致面向用户的错误、（数据存储区的）写入中断或监控系统中出现不必要的提醒，具体取决于您的应用。</p>
-
-<h3 id="问题-2-经典-init-系统如何处理孤立进程">问题 2：经典 init 系统如何处理孤立进程</h3>
-
+<h3 id="问题-2经典-init-系统如何处理孤立进程">问题 2：经典 init 系统如何处理孤立进程</h3>
 <p>经典 init 系统（如 systemd）也可用于移除（回收）孤立的僵尸进程。孤立进程（其父级已结束的进程）被重新附加到具有 PID 1 的进程，该进程应在这些进程结束时回收它们。普通 init 系统即可做到这一点。但在容器中，这一职责由具有 PID 1 的进程承担。如果该进程无法正确处理回收，则可能会出现耗尽内存或一些其他资源的风险。</p>
-
 <p>针对这些问题，有几个常见解决方案，将在以下各部分中进行概述。</p>
-
-<h3 id="解决方案-1-作为-pid-1-运行并注册信号处理程序">解决方案 1：作为 PID 1 运行并注册信号处理程序</h3>
-
+<h3 id="解决方案-1作为-pid-1-运行并注册信号处理程序">解决方案 1：作为 PID 1 运行并注册信号处理程序</h3>
 <p>该解决方案只解决了第一个问题。如果您的应用以可控方式生成子进程（通常是这种情况），则该解决方案有效，且避免了第二个问题。</p>
-
 <p>实现此解决方案的最简单方法是使用 Dockerfile 中的 <code>CMD</code> 和/或 <code>ENTRYPOINT</code> 指令来启动进程。例如，在以下 Dockerfile 中，<code>nginx</code> 是第一个也是唯一一个要启动的进程。</p>
-
 <pre><code>FROM debian:9
 
 RUN apt-get update &amp;&amp; \
@@ -206,136 +178,82 @@ RUN apt-get update &amp;&amp; \
 EXPOSE 80
 
 CMD [ &quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot; ]
-</code></pre>
-
-<p><strong>警告</strong>：<code>nginx</code> 进程会注册自己的信号处理程序。如果使用此解决方案，在许多情况下，您必须在应用代码中执行相同操作。</p>
-
+</code></pre><p><strong>警告</strong>：<code>nginx</code> 进程会注册自己的信号处理程序。如果使用此解决方案，在许多情况下，您必须在应用代码中执行相同操作。</p>
 <p>有时，您可能需要在容器中准备环境，以便进程能够正常运行。在此情况下，最佳做法是让容器在启动时启动一个 shell 脚本。此 shell 脚本的任务是准备环境和启动主进程。但是，如果采用此方法，shell 脚本将具有 PID 1 而不是您的进程，因此您必须使用内置的 <code>exec</code> 命令从 shell 脚本启动进程。<code>exec</code> 命令会将脚本替换为您所需的程序。然后，您的进程将继承 PID 1。</p>
-
-<h3 id="解决方案-2-使用专用-init-系统">解决方案 2：使用专用 init 系统</h3>
-
+<h3 id="解决方案-2使用专用-init-系统">解决方案 2：使用专用 init 系统</h3>
 <p>正如您在较经典的 Linux 环境中所做的那样，您还可以使用 init 系统来处理这些问题。但是，如果仅出于此目的，普通 init 系统（例如 systemd 或 SysV）太过复杂而庞大，因此我们建议您使用专为容器创建的 init 系统（例如 <a href="https://github.com/krallin/tini">tini</a>）。</p>
-
 <p>如果使用专用 init 系统，则 init 进程具有 PID 1 并执行以下操作：</p>
-
 <ul>
 <li>注册正确的信号处理程序。</li>
 <li>确保信号适用于您的应用。</li>
 <li>回收任何最终的僵尸进程。</li>
 </ul>
-
 <p>您可以通过使用 <code>docker run</code> 命令的 <code>--init</code> 选项在 Docker 中使用此解决方案。要在 Kubernetes 中使用此解决方案，必须在容器映像中安装 init 系统，并将其用作容器的入口点。</p>
-
 <h2 id="优化-docker-构建缓存">优化 Docker 构建缓存</h2>
-
 <p><strong>重要性：高</strong></p>
-
 <p>Docker <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache">构建缓存</a>可以大幅度加速容器映像的构建。映像是逐层构建的，在 Dockerfile 中，每条指令都会在生成的映像中创建一层。在构建期间，如果可能，Docker 会重复使用先前构建中的层并跳过可能很昂贵的步骤。仅当所有先前的构建步骤都使用 Docker 的构建缓存时，Docker 才能使用该缓存。虽然此行为通常有助于加速构建，但您需要考虑一些情况。</p>
-
 <p>例如，要充分利用 Docker 构建缓存，必须将经常更改的构建步骤置于 Dockerfile 底部。如果将它们放在顶部，则 Docker 无法将其构建缓存用于其他不经常更改的构建步骤。由于通常会为每个新版本的源代码构建一个新 Docker 映像，因此，请尽可能晚地向 Dockerfile 中的映像添加源代码。在下图中，您可以看到，如果更改 <code>STEP 1</code>，则 Docker 只能重复使用 <code>FROM debian:9</code> 步骤中的层。但是，如果更改 <code>STEP 3</code>，则 Docker 可以重复使用 <code>STEP 1</code> 和 <code>STEP 2</code> 的层。</p>
-
-<p><img src="https://cloud.google.com/solutions/images/bp-containers-optimization.svg?hl=zh-cn" alt="如何使用 Docker 构建缓存的示例" /></p>
-
+<p><img src="https://cloud.google.com/solutions/images/bp-containers-optimization.svg?hl=zh-cn" alt="如何使用 Docker 构建缓存的示例"></p>
 <p><strong>图 2.</strong> 如何使用 Docker 构建缓存的示例。绿色表示可以重复使用的层。红色表示必须重新创建的层。</p>
-
 <p>重复使用层还有另外一种结果：如果构建步骤依赖于存储在本地文件系统上的任何类型的缓存，则必须在同一构建步骤中生成此缓存。如果不生成此缓存，则构建步骤可能会通过来自先前构建的过期缓存执行。软件包管理器（如 apt 或 yum）中最常出现此行为：您必须在安装软件包的同一个 <code>RUN</code> 命令中更新代码库。</p>
-
 <p>如果您在下面的 Dockerfile 中更改了第二个 <code>RUN</code> 步骤，则系统不会重新运行 <code>apt-get update</code> 命令，而是使用已过期的 apt 缓存。</p>
-
 <pre><code>FROM debian:9
 
 RUN apt-get update
 RUN apt-get install -y nginx
-</code></pre>
-
-<p>改为在单个 <code>RUN</code> 步骤中合并这两个命令：</p>
-
+</code></pre><p>改为在单个 <code>RUN</code> 步骤中合并这两个命令：</p>
 <pre><code>FROM debian:9
 
 RUN apt-get update &amp;&amp; \
     apt-get install -y nginx
-</code></pre>
-
-<h2 id="移除不必要的工具">移除不必要的工具</h2>
-
+</code></pre><h2 id="移除不必要的工具">移除不必要的工具</h2>
 <p><strong>重要性：中</strong></p>
-
 <p>要保护您的应用免受攻击者攻击，请尝试移除任何不必要的工具，以减少应用的攻击面。例如，移除可用于在系统内创建逆向 shell 的 <a href="http://netcat.sourceforge.net/">netcat</a> 等实用工具。如果 netcat 未处于容器中，攻击者就必须另寻攻击方法。</p>
-
 <p>此最佳做法适用于任何工作负载，即使是非容器化的工作负载也是如此。不同之处在于，与针对经典虚拟机或裸机服务器实现此最佳做法相比，针对容器实现此最佳做法要简单得多。</p>
-
 <p>这些工具中的某些工具可能对调试很有用。例如，如果您将此最佳做法的适用范围扩大，则详尽的日志、跟踪、分析和<a href="https://cloud.google.com/apm?hl=zh-cn">应用性能管理</a>系统几乎是必需的。实际上，您无法再依赖本地调试工具，因为它们通常需要很高的特权。</p>
-
 <h3 id="文件系统内容">文件系统内容</h3>
-
 <p>此最佳做法的第一部分涉及容器映像的内容。请在映像中保留尽可能少的内容。如果您可以将应用编译为单个静态链接的二进制文件，则通过将此二进制文件添加到<a href="https://hub.docker.com/_/scratch/">暂存映像</a>，您可以获得仅包含应用而不包含任何其他内容的最终映像。通过减少映像中打包的工具数，可以减少潜在攻击者在容器中可执行的操作。如需了解详情，请参阅<a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn#build-the-smallest-image-possible">构建尽可能小的映像</a>。</p>
-
 <h3 id="文件系统安全">文件系统安全</h3>
-
 <p>不在映像中保留任何工具还不够：您必须防止潜在的攻击者安装其自己的工具。您可以结合使用以下两种方法：</p>
-
 <ul>
 <li>避免在容器内以根身份运行：此方法提供了第一层安全，并且可以防止攻击者使用映像中嵌入的软件包管理器（例如 <code>apt-get</code> 或 <code>apk</code>）修改根拥有的文件。要使此方法有用，必须停用或卸载 <code>sudo</code> 命令。<a href="https://cloud.google.com/solutions/best-practices-for-operating-containers?hl=zh-cn#avoid_running_as_root">避免以根身份运行</a>中更加广泛地介绍了此主题。</li>
 <li>以只读模式启动容器，您可以使用 <code>docker run</code> 命令中的 <code>--read-only</code> 标志或使用 Kubernetes 中的 <code>readOnlyRootFilesystem</code> 选项来执行此操作。您可以使用 <a href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems"><code>PodSecurityPolicy</code></a> 在 Kubernetes 中强制执行此操作。</li>
 </ul>
-
 <p><strong>警告</strong>：如果您的应用需要将临时数据写入磁盘，您仍然可以使用 <code>readOnlyRootFilesystem</code> 选项并为临时文件添加 <a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir"><code>emptyDir</code> 卷</a>。Kubernetes 不支持 <a href="https://github.com/kubernetes/kubernetes/issues/48912"><code>emptyDir</code> 卷上的装载选项</a>，因此您无法在启用 <code>noexec</code> 标志的情况下装载此卷，这意味着攻击者可以在此卷中放置二进制文件并执行该文件。</p>
-
 <h2 id="构建尽可能小的映像">构建尽可能小的映像</h2>
-
 <p><strong>重要性：中</strong></p>
-
 <p>构建较小的映像可以带来上传和下载速度更快等优点，这对于 Kubernetes 中 pod 的冷启动时间来说尤为重要：映像越小，节点下载映像的速度越快。但是，构建小映像可能很困难，因为您可能会在最终映像中无意间添加构建依赖项或未优化的层。</p>
-
 <p><strong>注意</strong>：这篇<a href="https://cloudplatform.googleblog.com/2018/04/Kubernetes-best-practices-how-and-why-to-build-small-container-images.html">博文</a>包含有关此主题的大量有用信息，并提供了各种语言版本的示例。</p>
-
 <h3 id="使用尽可能小的基础映像">使用尽可能小的基础映像</h3>
-
 <p>基础映像是 Dockerfile 的 <code>FROM</code> 指令中引用的映像。Dockerfile 中的每个其他指令都在此映像基础上构建。基础映像越小，生成的映像越小，下载速度也就越快。例如，<a href="https://hub.docker.com/r/library/alpine/tags/">alpine:3.7</a> 映像比 <a href="https://hub.docker.com/r/library/centos/tags/">centos:7</a> 映像小 71 MB。</p>
-
 <p>您甚至可以使用<a href="https://hub.docker.com/r/library/scratch/">暂存</a>基础映像，它是一个空映像，您可以在该映像上构建自己的运行时环境。如果您的应用是静态链接的二进制文件，则使用临时基本映像非常容易：</p>
-
 <pre><code>FROM scratch
 COPY mybinary /mybinary
 CMD [ &quot;/mybinary&quot; ]
-</code></pre>
-
-<p><a href="https://github.com/GoogleContainerTools/distroless"><code>distroless</code></a> 项目为您提供了许多不同语言的最小基础映像。这些映像仅包含特定语言的运行时依赖项，但不包含 Linux 发行版中的诸多工具（shell、软件包管理器等）。</p>
-
+</code></pre><p><a href="https://github.com/GoogleContainerTools/distroless"><code>distroless</code></a> 项目为您提供了许多不同语言的最小基础映像。这些映像仅包含特定语言的运行时依赖项，但不包含 Linux 发行版中的诸多工具（shell、软件包管理器等）。</p>
 <h3 id="降低映像中的杂乱程度">降低映像中的杂乱程度</h3>
-
 <p>要减小映像大小，请仅在其中安装严格需要的内容。人们可能会倾向于安装额外的软件包，然后在稍后的步骤中移除它们。但仅仅依靠这种方法还不够。Dockerfile 的每条指令都会创建一层，所以在创建映像之后的步骤中从映像中移除数据无法减小整个映像的大小（数据仍然存在，只是隐藏在更深的层中）。请参考下面的示例：</p>
-
 <table>
 <thead>
 <tr>
-<th align="left">差 Dockerfile</th>
-<th align="left">好 Dockerfile</th>
+<th style="text-align:left">差 Dockerfile</th>
+<th style="text-align:left">好 Dockerfile</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
-<td align="left"><code>FROM debian:9 RUN apt-get update &amp;&amp; \    apt-get install -y \    [buildpackage] RUN [build my app] RUN apt-get autoremove --purge \    -y [buildpackage] &amp;&amp; \    apt-get -y clean &amp;&amp; \    rm -rf /var/lib/apt/lists/*</code></td>
-<td align="left"><code>FROM debian:9 RUN apt-get update &amp;&amp; \    apt-get install -y \    [buildpackage] &amp;&amp; \    [build my app] &amp;&amp; \    apt-get autoremove --purge \    -y [buildpackage] &amp;&amp; \    apt-get -y clean &amp;&amp; \    rm -rf /var/lib/apt/lists/*</code></td>
+<td style="text-align:left"><code>FROM debian:9 RUN apt-get update &amp;&amp; \    apt-get install -y \    [buildpackage] RUN [build my app] RUN apt-get autoremove --purge \    -y [buildpackage] &amp;&amp; \    apt-get -y clean &amp;&amp; \    rm -rf /var/lib/apt/lists/* </code></td>
+<td style="text-align:left"><code>FROM debian:9 RUN apt-get update &amp;&amp; \    apt-get install -y \    [buildpackage] &amp;&amp; \    [build my app] &amp;&amp; \    apt-get autoremove --purge \    -y [buildpackage] &amp;&amp; \    apt-get -y clean &amp;&amp; \    rm -rf /var/lib/apt/lists/* </code></td>
 </tr>
 </tbody>
 </table>
-
 <p>在差版本的 Dockerfile 中，<code>[buildpackage]</code> 和 <code>/var/lib/apt/lists/*</code> 中的文件仍然存在于与第一条 <code>RUN</code> 对应的层中。此层包含在映像之中，必须与其余层一并上传和下载，即使其中所包含的数据在最终得到的映像中无法访问也是如此。</p>
-
 <p>在好版本的 Dockerfile 中，所有内容都在一个仅包含构建应用的层中完成。<code>[buildpackage]</code> 和 <code>/var/lib/apt/lists/*</code> 中的文件不存在于生成的映像中的任何位置，也未隐藏在更深的层中。</p>
-
 <p>如需详细了解映像层，请参阅<a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn#optimize-for-the-docker-build-cache">优化 Docker 构建缓存</a>。</p>
-
 <p>减小映像中的杂乱程度的另一种好办法是使用多阶段构建（在 Docker 17.05 中引入）。多阶段构建允许您在第一个“构建”容器中构建应用，并将结果用于其他容器，同时使用同一 Dockerfile。</p>
-
-<p><img src="https://cloud.google.com/solutions/images/bp-containers-multistage.svg?hl=zh-cn" alt="Docker 多阶段构建过程" /></p>
-
+<p><img src="https://cloud.google.com/solutions/images/bp-containers-multistage.svg?hl=zh-cn" alt="Docker 多阶段构建过程"></p>
 <p><strong>图 3.</strong> Docker 多阶段构建过程。</p>
-
 <p>在以下 Dockerfile 中，<code>hello</code> 二进制文件在第一个容器中构建，并在第二个容器中注入。由于第二个容器基于<a href="https://hub.docker.com/r/library/scratch/">暂存映像</a>，因此生成的映像仅包含 <code>hello</code> 二进制文件，而不包含构建期间所需的源文件和目标文件。二进制文件必须静态链接，才能在不需要暂存映像中的任何外部库的情况下正常工作。</p>
-
 <pre><code>FROM golang:1.10 as builder
 
 WORKDIR /tmp/go
@@ -345,35 +263,21 @@ RUN CGO_ENABLED=0 go build -a -ldflags '-s' -o hello
 FROM scratch
 CMD [ &quot;/hello&quot; ]
 COPY --from=builder /tmp/go/hello /hello
-</code></pre>
-
-<h3 id="尝试创建具有通用层的映像">尝试创建具有通用层的映像</h3>
-
+</code></pre><h3 id="尝试创建具有通用层的映像">尝试创建具有通用层的映像</h3>
 <p>如果必须下载 Docker 映像，Docker 首先会检查您是否已具有映像中的某些层。如果您具有这些层，则不会下载它们。如果您之前下载的另一映像与您当前正在下载的映像具有相同的基础，则可能会出现此情况。结果是第二个映像的已下载数据量要少得多。</p>
-
 <p>在组织级别，您可以为开发者提供一组通用的标准基础映像，从而利用这一规律减少下载量。您的系统下载各基础映像的次数必须仅为一次。初始下载后，仅需要使每个映像具有唯一性的层。实际上，映像的共同点越多，下载速度就越快。</p>
-
-<p><img src="https://cloud.google.com/solutions/images/bp-containers-common-layers.svg?hl=zh-cn" alt="尝试创建具有通用层的映像" /></p>
-
+<p><img src="https://cloud.google.com/solutions/images/bp-containers-common-layers.svg?hl=zh-cn" alt="尝试创建具有通用层的映像"></p>
 <p><strong>图 4.</strong> 创建具有通用层的映像。</p>
-
 <h2 id="在-container-registry-中使用漏洞扫描">在 Container Registry 中使用漏洞扫描</h2>
-
 <p><strong>重要性：中</strong></p>
-
 <p>在裸机服务器和虚拟机领域，软件漏洞是一个众所周知的问题。解决这些漏洞的一种常用方法是，使用列出每个服务器上安装的软件包的集中式库存系统。订阅上游操作系统的漏洞 Feed，以便在漏洞影响服务器时收到通知，并对其进行相应修补。</p>
-
 <p>但是，由于容器应该是不可变的（详情请参阅<a href="https://cloud.google.com/solutions/best-practices-for-operating-containers?hl=zh-cn#statelessness">容器的无状态性和不变性</a>），因此，如果存在漏洞，请勿对其进行就地修补。最佳做法是重新构建映像（包含补丁程序），并重新部署该映像。与服务器相比，容器的生命周期短得多，标识不太清晰明确。因此，使用类似的集中式库存系统来检测容器中的漏洞不是一种好方法。</p>
-
 <p><a href="https://cloud.google.com/container-registry/docs?hl=zh-cn">Container Registry</a> 的<a href="https://cloud.google.com/container-registry/docs/vulnerability-scanning?hl=zh-cn">漏洞扫描</a>功能可帮助您解决此问题。启用后，此功能可识别容器映像的软件包漏洞。在将映像上传到 Container Registry 时以及漏洞数据库有更新时，系统都会扫描映像。您可以通过以下几种方式处理此功能报告的信息：</p>
-
 <ul>
 <li>创建一个类似 cron 的作业，该作业会列出漏洞并触发漏洞修复过程（如果存在修补程序），</li>
 <li>检测到漏洞后，使用 <a href="https://cloud.google.com/container-registry/docs/vulnerability-scanning?hl=zh-cn#pubsub_name_notifications">Cloud Pub/Sub 集成</a>来触发组织使用的修补过程。</li>
 </ul>
-
 <p>我们建议自动执行修补过程，并依赖最初用于构建映像的现有持续集成流水线。如果您对持续部署流水线有信心，则可能还想要在准备就绪时自动部署已修复的映像。但是，大多数人更喜欢在部署之前执行手动验证步骤。可通过以下过程实现此目标：</p>
-
 <ol>
 <li>将映像存储在 Container Registry 中并启用漏洞扫描。</li>
 <li>配置一个作业，该作业定期从 Container Registry 中获取新漏洞，并在需要时触发映像的重新构建。</li>
@@ -381,65 +285,42 @@ COPY --from=builder /tmp/go/hello /hello
 <li>手动检查暂存环境是否存在问题。</li>
 <li>如果未发现任何问题，手动触发到生产的部署。</li>
 </ol>
-
 <p><strong>注意</strong>：在撰写本文时，漏洞扫描适用于基于 Alpine、Debian、Ubuntu、Red Hat Enterprise Linux 和 CentOS 的映像。</p>
-
 <h2 id="正确标记映像">正确标记映像</h2>
-
 <p><strong>重要性：中</strong></p>
-
 <p>Docker 映像通常由两个部分标识：它们的名称和标记。例如，对于 <code>google/cloud-sdk:193.0.0</code> 映像，<code>google/cloud-sdk</code> 是其名称，<code>193.0.0</code> 是其标记。如果您未在 Docker 命令中提供标记，则系统默认使用 <code>latest</code> 标记。在任意给定时间，名称/标记对都是唯一的。但是，您可以根据需要将标记重新分配给其他映像。</p>
-
 <p>构建映像时，是否正确标记映像取决于您。请遵循一致的标记策略。记录您的标记策略，以便映像用户能够轻松理解它。</p>
-
 <p>容器映像是一种封装和发布软件片段的方式。通过标记映像，用户即可识别特定版本的软件，从而方便下载。因此，请将容器映像上的标记系统与软件的发布政策紧密关联。</p>
-
 <h3 id="使用语义版本控制进行标记">使用语义版本控制进行标记</h3>
-
 <p>发布软件的常用方法是使用版本号“标记”（如 <code>git tag</code> 命令中所示）特定版本的源代码。<a href="https://semver.org/">语义版本控制规范</a>提供了一种用于处理版本号的简便方法。在此系统中，您的软件版本号由三部分组成：<code>X.Y.Z</code>，其中：</p>
-
 <ul>
 <li><code>X</code> 是主要版本号，仅在发布不兼容的 API 更改时递增。</li>
 <li><code>Y</code> 是次要版本号，在发布新功能时递增。</li>
 <li><code>Z</code> 是补丁程序版本，在发布 bug 修复时递增。</li>
 </ul>
-
 <p>次要版本号或补丁程序版本号的每次递增都必须针对向后兼容的更改。</p>
-
 <p>如果您使用此系统或类似系统，请根据以下政策标记您的映像：</p>
-
 <ul>
 <li><code>latest</code> 标记始终表示最新（可能处于稳定状态）的映像。创建新映像后，此标记会立即移动。</li>
 <li><code>X.Y.Z</code> 标记表示软件的某个特定版本。请勿将其移动至其他映像。</li>
 <li><code>X.Y</code> 标记表示软件的 <code>X.Y</code> 次要分支的最新补丁程序版本。在有新的补丁程序版本发布后，此标记会移动。</li>
 <li><code>X</code> 标记表示 <code>X</code> 主要分支的最新次要版本的最新补丁程序版本。在有新的补丁程序版本或新的次要版本发布时，系统会移动此标记。</li>
 </ul>
-
 <p>通过使用此政策，用户可以灵活选择要使用的软件版本。他们可以选择特定的 X.Y.Z 版本，并可确保该映像永远不会更改，也可以选择一个不太具体的标记，自动获取更新。</p>
-
 <h3 id="使用-git-提交哈希值进行标记">使用 Git 提交哈希值进行标记</h3>
-
 <p>如果您拥有高级持续交付系统并且经常发布软件，则可能不会使用“语义版本控制规范”中所述的版本号。在此情况下，处理版本号的常见方法是使用 Git 提交 SHA-1 哈希值（或其较短版本）作为版本号。按照设计，Git 提交哈希值是不可变的，其引用特定版本的软件。</p>
-
 <p>您可以将此提交哈希值用作软件的版本号，也可以将其用作从此特定版本的软件构建的 Docker 映像的标签。这样做可使 Docker 映像可跟踪：由于在此情况下映像标记是不可变的，因此您可以立即知道哪个特定版本的软件正在给定容器内运行。在持续交付流水线中，系统会为您的部署使用版本号自动更新功能。</p>
-
 <h2 id="仔细考虑是否使用公开映像">仔细考虑是否使用公开映像</h2>
-
 <p><strong>重要性：不适用</strong></p>
-
 <p><strong>注意</strong>：严格来说，这项声明不是最佳做法，而是您在使用容器的过程中必须处理的一个主题。您的组织及其限制会影响您对解决方案的选择。</p>
-
 <p>Docker 的一大优势是适用于各种软件的大量公开发布的映像。这些映像可帮助您快速上手。但是，为组织设计容器策略时，您可能会遇到公开提供的映像无法满足的限制。以下是一些可能导致无法使用公开映像的限制示例：</p>
-
 <ul>
 <li>需要准确控制映像内的内容。</li>
 <li>不希望依赖外部代码库。</li>
 <li>需要严格控制生产环境中的漏洞。</li>
 <li>需要在每个映像中使用相同的基本操作系统。</li>
 </ul>
-
 <p>满足所有这些限制的方法是相同的，可惜代价很高：您必须构建自己的映像。对于数量有限的映像，构建您自己的映像是可行的，但此数量具有快速增长的趋势。要大规模管理此类系统，请考虑使用以下方法：</p>
-
 <ul>
 <li>一种以可靠方式构建映像的自动化方法，即使对于很少构建的映像也是如此。 Cloud Build 中的<a href="https://cloud.google.com/cloud-build/docs/running-builds/automate-builds?hl=zh-cn">构建触发器</a>是实现这一点的好方法。</li>
 <li>标准化的基础映像。Google 提供了一些可供您使用的<a href="https://github.com/GoogleContainerTools/base-images-docker">基础映像</a>。</li>
@@ -447,9 +328,7 @@ COPY --from=builder /tmp/go/hello /hello
 <li>一种处理映像漏洞的方法。如需了解详情，请参阅<a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn#heading=h.qtg3gwa1gg9u">在 Container Registry 中使用漏洞分析</a>。</li>
 <li>一种对组织中不同团队创建的映像强制执行内部标准的方法。</li>
 </ul>
-
 <p>以下几种工具可帮助您对您构建和部署的映像强制执行政策：</p>
-
 <ul>
 <li><a href="https://github.com/GoogleCloudPlatform/container-diff">container-diff</a> 可以分析映像内容，甚至可以对两个映像进行比较。</li>
 <li><a href="https://github.com/GoogleCloudPlatform/container-structure-test">container-structure-test</a> 可以测试映像内容是否符合您定义的一组规则。</li>
@@ -457,14 +336,10 @@ COPY --from=builder /tmp/go/hello /hello
 <li>Kubernetes 具有<a href="https://kubernetes.io/docs/admin/admission-controllers/#validatingadmissionwebhook-alpha-in-18-beta-in-19">准入控制器</a>，该控制器可用于在 Kubernetes 中部署工作负载之前检查许多先决条件。</li>
 <li>Kubernetes 还具有 <a href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/">pod 安全政策</a>，可用于在集群中强制使用安全选项。</li>
 </ul>
-
 <p>您可能还想采用混合系统：使用 Debian 或 Alpine 等公开映像作为基础映像，并以该映像为基础进行构建。或者，您可能想要将公开映像用于某些非关键映像，并针对其他情况构建自己的映像。这些问题并没有正确或错误的答案，但您必须对其进行处理。</p>
-
 <h3 id="关于许可的说明">关于许可的说明</h3>
-
 <p>在 Docker 映像中添加第三方库和软件包之前，请确保相应许可允许您执行此操作。第三方许可还可能对重新分配施加限制，这些限制会在您将 Docker 映像发布到公共注册表时应用。</p>
-
-<p>参考链接：<a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn">https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn</a></p>
+<p>参考链接：https://cloud.google.com/solutions/best-practices-for-building-containers?hl=zh-cn</p>
 
                         </div>
 
@@ -529,6 +404,14 @@ COPY --from=builder /tmp/go/hello /hello
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -558,14 +441,6 @@ COPY --from=builder /tmp/go/hello /hello
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -602,6 +477,10 @@ COPY --from=builder /tmp/go/hello /hello
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -611,6 +490,10 @@ COPY --from=builder /tmp/go/hello /hello
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

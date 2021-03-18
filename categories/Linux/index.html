@@ -3,26 +3,26 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Linux | 卢文的博客</title>
-    <meta property="og:title" content="Linux - 卢文的博客">
+    <title>linux | 卢文的博客</title>
+    <meta property="og:title" content="linux - 卢文的博客">
     <meta property="og:type" content="article">
         
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Linux">
+    <meta name="description" content="linux">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/categories/Linux/">
+    <meta property="og:url" content="http://luwen.tech/categories/linux/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/categories/Linux/index.xml" title="卢文的博客" />
+    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/categories/linux/index.xml" title="卢文的博客" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -71,11 +71,103 @@
                     
                     <h3 class="archive-title">
                         分类
-                        <span class="keyword">Linux</span>
+                        <span class="keyword">linux</span>
                         中的文章
                     </h3>
                     
 
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/">Lua安装luasql Mysql</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年11月24日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/linux">linux</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                yum install mariadb-devel -y ln -s /usr/lib64/mysql/libmysqlclient.so /usr/lib64/libmysqlclient.so luarocks install luasql-mysql MYSQL_INCDIR=/usr/include/mysql……
+                                <p class="readmore"><a href="http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/">Centos7配置ftp</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年11月17日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/linux">linux</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                1.安装 yum -y install vsftpd 修改配置文件/etc/vsftpd/vsftpd.conf anonymous_enable=NO local_enable=YES write_enable=YES local_umask=022 dirmessage_enable=YES xferlog_enable=YES connect_from_port_20=YES xferlog_std_format=YES chroot_local_user=NO chroot_list_enable=YES chroot_list_file=/etc/vsftpd/chroot_list allow_writeable_chroot=YES listen=YES ftpd_banner=”welcome test Ftp Server.” pam_service_name=vsftpd #设置PAM使用的名称,该名称就是/etc/pam.d/目录下vsfptd文件的文件名 userlist_enable=YES tcp_wrappers=YES local_root=/home/www/test/upload/ virtual_use_local_privs=YES guest_enable=YES #表示是否开启vsft……
+                                <p class="readmore"><a href="http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/">小程序防盗链</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年10月12日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/linux">linux</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                开启防盗链后，小程序访问就不显示图片了。如何解决？ 在白名单中添加servicewechat.com就行了 就是添加servicewechat.com域名到许可域名中，就好了。 我们在进行小程序开发的时候，接口中的图片如果实现了防盗链，那么可能图片无法显示。 如果不防盗链的话，万一被人抓……
+                                <p class="readmore"><a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">网站性能指标</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年9月16日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/linux">linux</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                并发数、吞吐量的概念最初用来衡量网络设备的性能，后来推广到服务器及业务上评估系统的整体性能。 一、网络设备的并发数、吞吐量 并发数（Concurrency）****： 也叫并发连接数，指网络设备所能处理的最大会话数量。这里的会话数是指请求-&gt;响应一次会话。 吞吐量**（Throug……
+                                <p class="readmore"><a href="http://luwen.tech/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">阅读全文</a></p>
+                            </div>
+                        </article>
                     
                         <article class="post">
                             <header>
@@ -148,6 +240,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -177,14 +277,6 @@
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -221,6 +313,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -230,6 +326,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

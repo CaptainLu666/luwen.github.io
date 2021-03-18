@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.81.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -97,57 +97,37 @@
                             <div class="toc-article">
                                 <div class="toc-title">文章目录</div>
                                 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#原表order记录数8501257">原表order记录数8501257</a></li>
-</ul></li>
-<li><a href="#创建临时新表并复制表结构">创建临时新表并复制表结构：</a></li>
-<li><a href="#重命名原表-改新表改名">重命名原表、改新表改名</a></li>
-<li><a href="#按业务需求导入数据">按业务需求导入数据</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#创建临时新表并复制表结构">创建临时新表并复制表结构：</a></li>
+        <li><a href="#重命名原表改新表改名">重命名原表、改新表改名</a></li>
+        <li><a href="#按业务需求导入数据">按业务需求导入数据</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            
-
-<p>###线上数据库历史订单记录表比较大，800多W条记录，频繁查询容易占用系统资源，按日期分表过程如下：</p>
-
+                            <p>###线上数据库历史订单记录表比较大，800多W条记录，频繁查询容易占用系统资源，按日期分表过程如下：</p>
 <h4 id="原表order记录数8501257">原表order记录数8501257</h4>
-
-<pre><code class="language-sql">select count(1) from `order`;
-+----------+
-| count(1) |
-+----------+
-|  8501257 |
-+----------+
-</code></pre>
-
-<h3 id="创建临时新表并复制表结构">创建临时新表并复制表结构：</h3>
-
-<pre><code class="language-sql">create table order_new like `order`;
-</code></pre>
-
-<h3 id="重命名原表-改新表改名">重命名原表、改新表改名</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">count</span>(<span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">from</span> <span style="color:#f92672">`</span><span style="color:#66d9ef">order</span><span style="color:#f92672">`</span>;
+<span style="color:#f92672">+</span><span style="color:#75715e">----------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#66d9ef">count</span>(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span>  <span style="color:#ae81ff">8501257</span> <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">----------+
+</span></code></pre></div><h3 id="创建临时新表并复制表结构">创建临时新表并复制表结构：</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> order_new <span style="color:#66d9ef">like</span> <span style="color:#f92672">`</span><span style="color:#66d9ef">order</span><span style="color:#f92672">`</span>;
+</code></pre></div><h3 id="重命名原表改新表改名">重命名原表、改新表改名</h3>
 <pre><code>rename table `order` to order_20200814;
 rename table order_new to `order`;
-</code></pre>
-
-<h3 id="按业务需求导入数据">按业务需求导入数据</h3>
-
-<pre><code class="language-sql">INSERT INTO `order`() SELECT * FROM order_20200814 WHERE CREATE_DATE &gt; '2020-07-14 00:00:00';
-</code></pre>
-
-<p><strong><em>注意点：rename表的时候业务会中断0.0x毫秒，尽量在业务量很低的时间段进行。</em></strong></p>
+</code></pre><h3 id="按业务需求导入数据">按业务需求导入数据</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> <span style="color:#f92672">`</span><span style="color:#66d9ef">order</span><span style="color:#f92672">`</span>() <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> order_20200814 <span style="color:#66d9ef">WHERE</span> CREATE_DATE <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;2020-07-14 00:00:00&#39;</span>;
+</code></pre></div><p><em><strong>注意点：rename表的时候业务会中断0.0x毫秒，尽量在业务量很低的时间段进行。</strong></em></p>
 
                         </div>
 
@@ -212,6 +192,14 @@ rename table order_new to `order`;
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
@@ -241,14 +229,6 @@ rename table order_new to `order`;
     
     <li>
         <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址">优秀的golang学习网址</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档">阿里云自定义权限文档</a>
     </li>
     
 </ul>
@@ -285,6 +265,10 @@ rename table order_new to `order`;
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
     </li>
     
@@ -294,6 +278,10 @@ rename table order_new to `order`;
     
     <li>
         <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/mysql/">mysql(1)</a>
     </li>
     
     <li>

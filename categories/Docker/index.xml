@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on 卢文的博客</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Docker on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 15 Jan 2021 23:57:37 +0800</lastBuildDate>
-    
-	<atom:link href="http://luwen.tech/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 15 Jan 2021 23:57:37 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Docker镜像清理</title>
       <link>http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/</link>
@@ -71,7 +67,7 @@
       <pubDate>Sat, 09 May 2020 16:12:10 +0800</pubDate>
       
       <guid>http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/</guid>
-      <description>#docker 在宿主机上根据进程PID查找归属容器ID ###在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 ###查找容器id docker inspect -f &amp;quot;{{.Id}} {{.State.Pid}}&amp;quot; $(docker ps -q) |grep &amp;lt;PID&amp;gt; ###查找k8s pod name docker inspect -f &amp;quot;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&amp;quot; $(docker ps -q) |grep &amp;lt;PID&amp;gt; ##</description>
+      <description>#docker 在宿主机上根据进程PID查找归属容器ID ###在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 ###查找容器id docker inspect -f &amp;#34;{{.Id}} {{.State.Pid}}&amp;#34; $(docker ps -q) |grep &amp;lt;PID&amp;gt; ###查找k8s pod name docker inspect -f &amp;#34;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&amp;#34; $(docker ps -q) |grep &amp;lt;PID&amp;gt; ##</description>
     </item>
     
     <item>
@@ -80,7 +76,7 @@
       <pubDate>Tue, 26 Nov 2019 17:48:59 +0800</pubDate>
       
       <guid>http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/</guid>
-      <description>指定国内源build镜像 docker build &amp;ndash;build-arg APT_MIRROR=&amp;ldquo;http://mirrors.163.com&amp;quot; -t openapi:v1.1 .</description>
+      <description>指定国内源build镜像 docker build &amp;ndash;build-arg APT_MIRROR=&amp;ldquo;http://mirrors.163.com&amp;rdquo; -t openapi:v1.1 .</description>
     </item>
     
   </channel>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Prometheus on 卢文的博客</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Prometheus on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 25 Aug 2020 11:02:10 +0800</lastBuildDate>
-    
-	<atom:link href="http://luwen.tech/categories/Prometheus/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 25 Aug 2020 11:02:10 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Prometheus/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SpringBoot使用Micrometer集成Prometheus监控Jvm</title>
       <link>http://luwen.tech/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/</link>
