@@ -80,6 +80,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/">K8s</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年3月19日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                问题现象： Pod无法访问自己暴露的服务，存在时好时坏或者调度到自己就出问题的现象。 ##问题原因： Flannel目前默认不允许回环访问。 ##解决方法： 使用Headless Service暴露服务和访问 重建集群使用Terway的网络插件 修改Flannel的配置，然后重建Flannel和……
+                                <p class="readmore"><a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/">K8s污点和容忍</a>
                                 </h1>
                             </header>
@@ -284,29 +307,6 @@
                             </div>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Kubernetes常用命令</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月29日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                1.查看资源占用： kubectl describe node &ldquo;cn-beijing.172.16.89.154&rdquo; | sed &lsquo;1,/Non-terminated Pods/d&rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 4.kubectl get nodes &ndash;show-labels 5.kubectl get nodes 4.删除evicted状态pod kubectl get pods | grep Evicted | awk &lsquo;{print $1}&rsquo; | xargs kubectl delete pod 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 node……
-                                <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
 
                     
 
@@ -352,6 +352,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="K8s">K8s</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" title="Php内存泄露">Php内存泄露</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
     </li>
     
@@ -383,14 +391,6 @@
         <a href="http://luwen.tech/post/sql%E5%AD%A6%E4%B9%A0/" title="Sql学习">Sql学习</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/" title="小程序防盗链">小程序防盗链</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -417,7 +417,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(13)</a>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(14)</a>
     </li>
     
     <li>
@@ -437,7 +437,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+        <a href="http://luwen.tech/categories/lnmp/">lnmp(3)</a>
     </li>
     
     <li>

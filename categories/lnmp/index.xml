@@ -6,7 +6,16 @@
     <description>Recent content in lnmp on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 16 Jan 2021 00:56:40 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/lnmp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Mar 2021 23:24:03 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/lnmp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Php内存泄露</title>
+      <link>http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/</link>
+      <pubDate>Fri, 19 Mar 2021 23:24:03 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/</guid>
+      <description>php内存限制 #####一般我们通过修改php.ini的memory_limit来限制php进程内存大小，但是这个限制可以被突破，通过代码： ini_set(&#39;memory_limit&#39;, &#39;2048M&#39;); #限制内存最大2048M ini_set(&amp;quot;memory_limit&amp;quot;,-1); #放开脚本内存限制 #####我们可以通过修改php-fpm的参数来限制php-fpm的最大内存，这样可以解决内</description>
+    </item>
+    
     <item>
       <title>Php Fpm三种模式</title>
       <link>http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/</link>

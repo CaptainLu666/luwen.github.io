@@ -70,6 +70,52 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/k8s-token/" title="K8s Token" >K8s Token</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月28日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                kubectl get sa admin -n kube-system -o yaml apiVersion: v1 kind: ServiceAccount metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&quot;apiVersion&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}} creationTimestamp: 2018-11-05T09:23:39Z name: admin namespace: kube-system resourceVersion: &quot;889&quot; selfLink: /api/v1/namespaces/kube-system/serviceaccounts/admin uid: 7af4f177-e0dc-11e8-8ef4-00163e009d2a secrets: - name: admin-token-5tctj 查看对应的clusterrolebinding： kubectl get clusterrolebinding admin -oyaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRoleBinding metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&quot;apiVersion&quot;:&quot;rbac.authorization.k8s.io/v1beta1&quot;,&quot;kind&quot;:&quot;ClusterRoleBinding&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;&quot;},&quot;roleRef&quot;:{&quot;apiGroup&quot;:&quot;rbac.authorization.k8s.io&quot;,&quot;kind&quot;:&quot;ClusterRole&quot;,&quot;name&quot;:&quot;cluster-admin&quot;},&quot;subjects&quot;:[{&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}]} creationTimestamp: 2018-11-05T09:23:39Z name: admin resourceVersion: &quot;886&quot; selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/admin uid: 7af6ff9d-e0dc-11e8-8ef4-00163e009d2a roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: admin namespace: kube-system 查看admin sa绑定的clusterrole和对应的权限。命令： kubectl get clusterrole cluster-admin -o yaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRole metadata:……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/k8s-token/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/" title="解决golang依赖包问题" >解决golang依赖包问题</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月20日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Golang">Golang</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                问题描述 当我们使用 go get、go install、go mod 等命令时，会自动下载相应的包或依赖包。但由于众所周知的原因，类似于 golang.org/x/&hellip; 的包会出现下载失败的情况。如下所示： 123 $ go get -u golang.org/x/sysgo get golang.org/x/sys: unrecognized import path &ldquo;golang.org/x/sys&rdquo; (https fetch: Get https://golang.org/x/sys?go-get=1: dial tcp 216.239.37.1:443: i/o timeout) 解决方式 那我们该如何解决问题呢？毕竟还要制造 bug 的嘛~ 手动下载 我们常见的 golang.org/x/&hellip; 包，一般……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/" title="Kubernetes弹性伸缩" >Kubernetes弹性伸缩</a>
                                 </h1>
                             </header>
@@ -293,6 +339,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="K8s">K8s</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" title="Php内存泄露">Php内存泄露</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁">悲观锁和乐观锁</a>
     </li>
     
@@ -324,14 +378,6 @@
         <a href="http://luwen.tech/post/sql%E5%AD%A6%E4%B9%A0/" title="Sql学习">Sql学习</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/" title="小程序防盗链">小程序防盗链</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置">Jenkins增加k8s云配置</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -358,7 +404,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(13)</a>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(14)</a>
     </li>
     
     <li>
@@ -378,7 +424,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/lnmp/">lnmp(2)</a>
+        <a href="http://luwen.tech/categories/lnmp/">lnmp(3)</a>
     </li>
     
     <li>

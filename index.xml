@@ -6,7 +6,25 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 18 Mar 2021 10:09:57 +0800</lastBuildDate><atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Mar 2021 23:28:19 +0800</lastBuildDate><atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>K8s</title>
+      <link>http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Fri, 19 Mar 2021 23:28:19 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/</guid>
+      <description>问题现象： Pod无法访问自己暴露的服务，存在时好时坏或者调度到自己就出问题的现象。 ##问题原因： Flannel目前默认不允许回环访问。 ##解决方法： 使用Headless Service暴露服务和访问 重建集群使用Terway的网络插件 修改Flannel的配置，然后重建Flannel和</description>
+    </item>
+    
+    <item>
+      <title>Php内存泄露</title>
+      <link>http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/</link>
+      <pubDate>Fri, 19 Mar 2021 23:24:03 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/</guid>
+      <description>php内存限制 #####一般我们通过修改php.ini的memory_limit来限制php进程内存大小，但是这个限制可以被突破，通过代码： ini_set(&#39;memory_limit&#39;, &#39;2048M&#39;); #限制内存最大2048M ini_set(&amp;quot;memory_limit&amp;quot;,-1); #放开脚本内存限制 #####我们可以通过修改php-fpm的参数来限制php-fpm的最大内存，这样可以解决内</description>
+    </item>
+    
     <item>
       <title>悲观锁和乐观锁</title>
       <link>http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/</link>

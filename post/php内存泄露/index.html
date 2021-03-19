@@ -7,22 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>协议 | 卢文的博客</title>
-    <meta property="og:title" content="协议 - 卢文的博客">
+    <title>Php内存泄露 | 卢文的博客</title>
+    <meta property="og:title" content="Php内存泄露 - 卢文的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2021-03-19T23:24:03&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-03-19T23:24:03&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="协议">
+    <meta name="description" content="Php内存泄露">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/categories/%E5%8D%8F%E8%AE%AE/">
+    <meta property="og:url" content="http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
+        <link rel="stylesheet" href="/css/prism.css">
+    
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/categories/%E5%8D%8F%E8%AE%AE/index.xml" title="卢文的博客" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -31,7 +36,6 @@
     
     
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -47,7 +51,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://luwen.tech">首页</a>
+                    <a class="current" href="http://luwen.tech">首页</a>
                     
                     <a  href="http://luwen.tech/books/" title="新书">新书</a>
                     
@@ -68,48 +72,102 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">协议</span>
-                        中的文章
-                    </h3>
-                    
-
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/">Robots文件语法</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月1日
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Php内存泄露</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021年3月19日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
                             
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/%E5%8D%8F%E8%AE%AE">协议</a>
-                                
-                            </div>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/lnmp">lnmp</a></span>
                             
-                            <div class="post-content">
-                                前言 搜索引擎通过网络蜘蛛抓取网页的内容，并展示在相关的搜索结果中。但是有些网页内容我们可能并不想被搜索引擎收录和索引，如管理员后台等。 我们就可以通过 robots.txt 文件来声明允许/禁止搜索引擎的蜘蛛抓取某些目录或网页，从而限制搜索引擎的收录范围。 本文就介绍下网站的 robots.txt 文件的配置和使用方法，以及如……
-                                <p class="readmore"><a href="http://luwen.tech/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/">阅读全文</a></p>
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#php内存限制">php内存限制</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
                             </div>
-                        </article>
+                        </div>
+                        
+                        <div class="post-content">
+                            <h3 id="php内存限制">php内存限制</h3>
+<p>#####一般我们通过修改php.ini的memory_limit来限制php进程内存大小，但是这个限制可以被突破，通过代码：</p>
+<pre><code>ini_set('memory_limit', '2048M'); #限制内存最大2048M
+ini_set(&quot;memory_limit&quot;,-1);  #放开脚本内存限制
+</code></pre><p>#####我们可以通过修改php-fpm的参数来限制php-fpm的最大内存，这样可以解决内存溢出到只服务器内存耗尽</p>
+<pre><code>php_admin_value[memory_limit] = 512M
+</code></pre><p>php查看进程启动时间:</p>
+<pre><code>ps -eo lstart 启动时间
+ps -eo etime 运行多长时间.
+ps -eo pid,lstart,etime | grep 5176  查看进程的启动时间和运行多长时间
+</code></pre>
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/">悲观锁和乐观锁</a></li>
+        
+        <li><a href="/post/brew%E4%BD%BF%E7%94%A8/">Brew使用</a></li>
+        
+        <li><a href="/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/">Php Fpm三种模式</a></li>
+        
+        <li><a href="/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/">Docker镜像清理</a></li>
+        
+        <li><a href="/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/">Php Fpm平滑重启</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
                     
+    
 
-                    
-
-
-
-
-
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -276,13 +334,28 @@
 </footer>
 
 
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
 
 
 
