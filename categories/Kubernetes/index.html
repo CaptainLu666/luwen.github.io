@@ -80,6 +80,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/helm%E5%AE%89%E8%A3%85sentry/">Helm安装sentry</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年4月6日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                centos 7 安装postgresql 12 + redis 安装postgresql12 yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm yum install -y postgresql12 postgresql12-server /usr/pgsql-12/bin/postgresql-12-setup initdb systemctl start postgresql-12 systemctl enbale postgresql-12 修改posgresql配置 vim /var/lib/pgsql/12/data/postgresql.conf listen_addresses = '内网ip' vim /var/lib/pgsql/12/data/pg_hba.conf host all all 172.16.0.0/12 trust 创建sentry库 su - postgres ALTER USER postgres WITH PASSWORD 'isdlfjlsjflsjdfX'; #创建用户密码 CREATE DATABASE sentry; GRANT ALL PRIVILEGES ON DATABASE sentry TO postgres; \l 列出数据库 \c 连接数据库 \dt 列出表 redis 安装略 下载char……
+                                <p class="readmore"><a href="http://luwen.tech/post/helm%E5%AE%89%E8%A3%85sentry/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/">K8s</a>
                                 </h1>
                             </header>
@@ -284,29 +307,6 @@
                             </div>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">Kubernetes弹性伸缩</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月14日
-                            </date>
-                            
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                自动弹性伸缩(AutoScaling)，是Kubernetes的一大功能和亮点。在OpenStack IaaS云计算中也有类似的服务，即Senlin。即基于资源使用情况自动弹性缩容和扩容工作负载。Kubernetes的自动弹性伸缩有两个维度： Cluster Autoscaler：处理K8s集群N……
-                                <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">阅读全文</a></p>
-                            </div>
-                        </article>
-                    
 
                     
 
@@ -352,6 +352,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/helm%E5%AE%89%E8%A3%85sentry/" title="Helm安装sentry">Helm安装sentry</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="K8s">K8s</a>
     </li>
     
@@ -387,10 +391,6 @@
         <a href="http://luwen.tech/post/centos7%E9%85%8D%E7%BD%AEftp/" title="Centos7配置ftp">Centos7配置ftp</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/sql%E5%AD%A6%E4%B9%A0/" title="Sql学习">Sql学习</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -417,7 +417,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(14)</a>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(15)</a>
     </li>
     
     <li>

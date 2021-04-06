@@ -7,27 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Jenkins Slave节点乱码问题 | 卢文的博客</title>
-    <meta property="og:title" content="Jenkins Slave节点乱码问题 - 卢文的博客">
-    <meta property="og:type" content="article">
-        
-    <meta property="article:published_time" content="2020-09-16T23:50:53&#43;08:00">
-        
-        
-    <meta property="article:modified_time" content="2020-09-16T23:50:53&#43;08:00">
-        
+    <title>卢文的博客 | 专注于linux运维，k8s云原生架构，python，golang</title>
+    <meta property="og:title" content="卢文的博客 | 专注于linux运维，k8s云原生架构，python，golang">
+    <meta property="og:type" content="website">
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Jenkins Slave节点乱码问题">
-        
-    <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/">
+    <meta name="description" content="在互联网行业做多年酱油运维，专注于linux系统运维、kubernetes云原生架构、Go语言(golang)、python、运维架构">
+    <meta property="og:url" content="http://luwen.tech/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
-        <link rel="stylesheet" href="/css/prism.css">
-    
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/index.xml" title="卢文的博客" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -37,15 +28,18 @@
     
 </head>
 
+
 <body>
 <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://luwen.tech">
-                        卢文的博客
-                    </a>
+                    <h1>
+                        <a id="logo" href="http://luwen.tech">
+                            卢文的博客
+                        </a>
+                    </h1>
                 
                 <p class="description">专注于linux运维，k8s云原生架构，python，golang</p>
             </div>
@@ -72,96 +66,68 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title">Jenkins Slave节点乱码问题</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2020年9月16日
-                        </date>
-                        
-                        <div class="post-meta">
-                            <span>|</span>
-                            
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Devops">Devops</a></span>
-                            
-                        </div>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
-                        </div>
-                        
-                        
-                        <div class="clear">
-                            <div class="toc-article">
-                                <div class="toc-title">文章目录</div>
-                                <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#jenkins配置slave进行构建时发现slave构建的控制台输入中文乱码查看masterslave的jenkins系统信息fileencoding和sunjnuencoding都没有问题从系统管理-节点管理-slave节点-系统信息">jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-                            </div>
-                        </div>
-                        
-                        <div class="post-content">
-                            <h3 id="jenkins配置slave进行构建时发现slave构建的控制台输入中文乱码查看masterslave的jenkins系统信息fileencoding和sunjnuencoding都没有问题从系统管理-节点管理-slave节点-系统信息">jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">file.encoding<span style="color:#f92672">=</span>ANSI_X3.4-1968
-sun.jnu.encoding<span style="color:#f92672">=</span>ANSI_X3.4-1968
-</code></pre></div><p>###解决;Jenkins家目录/var/lib/jenkins/ 下面都没有.bashrc文件,从其他用户copy一个过来，修改权限，重启主从节点服务完成。</p>
-
-                        </div>
-
-                        
-
-
-                        
-
-<div class="post-archive">
-    <h2>See Also</h2>
-    <ul class="listing">
-        
-        <li><a href="/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">网站性能指标</a></li>
-        
-        <li><a href="/post/nginx-conf/">Nginx Conf</a></li>
-        
-        <li><a href="/post/%E5%B8%B8%E8%A7%81web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/">常见web安全攻防</a></li>
-        
-        <li><a href="/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/">Robots文件语法</a></li>
-        
-        <li><a href="/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/">SpringBoot使用Micrometer集成Prometheus监控Jvm</a></li>
-        
-    </ul>
-</div>
-
-
-                        <div class="post-meta meta-tags">
-                            
-                            没有标签
-                            
-                        </div>
-                    </article>
                     
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/about/" title="博客介绍" >博客介绍</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年8月9日
+                            </date>
+                            
+                            <div class="post-content">
+                                记录知识点，工作中遇到的问题和解决方法 微信公众号……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/about/">阅读全文</a></p>
+                        </article>
+                    
+                    
+
+
+
+<ol class="page-navigator">
+    
+    <li class="prev">
+        <a href="http://luwen.tech/page/5/">上一页</a>
+    </li>
     
 
     
+    <li >
+        <a href="http://luwen.tech/">1</a>
+    </li>
     
-    <div class="post bg-white">
-      <script src="https://utteranc.es/client.js"
-            repo= "free3y/free3y_issue"
-            issue-term="pathname"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
-      </script>
-    </div>
+    <li >
+        <a href="http://luwen.tech/page/2/">2</a>
+    </li>
     
+    <li >
+        <a href="http://luwen.tech/page/3/">3</a>
+    </li>
+    
+    <li >
+        <a href="http://luwen.tech/page/4/">4</a>
+    </li>
+    
+    <li >
+        <a href="http://luwen.tech/page/5/">5</a>
+    </li>
+    
+    <li  class="current">
+        <a href="http://luwen.tech/page/6/">6</a>
+    </li>
+    
+
+    
+</ol>
+
+
+
                 </div>
             </div>
+
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -328,28 +294,13 @@ sun.jnu.encoding<span style="color:#f92672">=</span>ANSI_X3.4-1968
 </footer>
 
 
-    <script type="text/javascript">
-    
-    (function(){
-        $("pre code").parent().addClass("line-numbers")
-    }())
-
-    window.MathJax = {
-        tex2jax: {
-            inlineMath: [ ['$','$'] ],
-            processEscapes: true
-        }
-    };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
 
 
 

@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Jenkins Slave节点乱码问题 | 卢文的博客</title>
-    <meta property="og:title" content="Jenkins Slave节点乱码问题 - 卢文的博客">
+    <title>Helm安装sentry | 卢文的博客</title>
+    <meta property="og:title" content="Helm安装sentry - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2020-09-16T23:50:53&#43;08:00">
+    <meta property="article:published_time" content="2021-04-06T23:56:07&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2020-09-16T23:50:53&#43;08:00">
+    <meta property="article:modified_time" content="2021-04-06T23:56:07&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Jenkins Slave节点乱码问题">
+    <meta name="description" content="Helm安装sentry">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/">
+    <meta property="og:url" content="http://luwen.tech/post/helm%E5%AE%89%E8%A3%85sentry/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,16 +74,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Jenkins Slave节点乱码问题</h1>
+                            <h1 class="post-title">Helm安装sentry</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2020年9月16日
+                            2021年4月6日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Devops">Devops</a></span>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
                             
                         </div>
                         
@@ -100,7 +100,17 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#jenkins配置slave进行构建时发现slave构建的控制台输入中文乱码查看masterslave的jenkins系统信息fileencoding和sunjnuencoding都没有问题从系统管理-节点管理-slave节点-系统信息">jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息</a></li>
+        <li><a href="#centos-7-安装postgresql-12--redis">centos 7 安装postgresql 12 + redis</a></li>
+        <li><a href="#修改posgresql配置">修改posgresql配置</a></li>
+        <li><a href="#创建sentry库">创建sentry库</a></li>
+        <li><a href="#redis-安装略">redis 安装略</a></li>
+        <li><a href="#下载chart文件">下载chart文件</a></li>
+        <li><a href="#修改valuesyml配置">修改values.yml配置</a></li>
+        <li><a href="#这里用外置的数据库和redis删除requirementslock--requirementsyaml文件">这里用外置的数据库和redis,删除requirements.lock  requirements.yaml文件</a></li>
+        <li><a href="#创建pv对应templates的pvc">创建pv,对应templates的pvc</a></li>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#问题1">问题1</a></li>
+        <li><a href="#问题2">问题2</a></li>
       </ul>
     </li>
   </ul>
@@ -109,10 +119,104 @@
                         </div>
                         
                         <div class="post-content">
-                            <h3 id="jenkins配置slave进行构建时发现slave构建的控制台输入中文乱码查看masterslave的jenkins系统信息fileencoding和sunjnuencoding都没有问题从系统管理-节点管理-slave节点-系统信息">jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">file.encoding<span style="color:#f92672">=</span>ANSI_X3.4-1968
-sun.jnu.encoding<span style="color:#f92672">=</span>ANSI_X3.4-1968
-</code></pre></div><p>###解决;Jenkins家目录/var/lib/jenkins/ 下面都没有.bashrc文件,从其他用户copy一个过来，修改权限，重启主从节点服务完成。</p>
+                            <h3 id="centos-7-安装postgresql-12--redis">centos 7 安装postgresql 12 + redis</h3>
+<pre><code>安装postgresql12
+yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+yum install -y postgresql12 postgresql12-server
+/usr/pgsql-12/bin/postgresql-12-setup initdb
+ systemctl start postgresql-12
+ systemctl enbale postgresql-12 
+</code></pre><h3 id="修改posgresql配置">修改posgresql配置</h3>
+<pre><code>vim /var/lib/pgsql/12/data/postgresql.conf
+listen_addresses = '内网ip'
+vim /var/lib/pgsql/12/data/pg_hba.conf
+host    all             all             172.16.0.0/12           trust 
+</code></pre><h3 id="创建sentry库">创建sentry库</h3>
+<pre><code>su - postgres
+ALTER USER postgres WITH PASSWORD 'isdlfjlsjflsjdfX'; #创建用户密码
+CREATE DATABASE sentry;
+GRANT ALL PRIVILEGES ON DATABASE sentry TO postgres;
+\l  列出数据库
+\c  连接数据库
+\dt 列出表
+
+</code></pre><h3 id="redis-安装略">redis 安装略</h3>
+<h3 id="下载chart文件">下载chart文件</h3>
+<pre><code>git clone https://github.com/kubernetes/charts
+</code></pre><h3 id="修改valuesyml配置">修改values.yml配置</h3>
+<pre><code>postgresql:
+  enabled: false   #(用外置的数据库设置为false)
+  nameOverride: sentry-postgresql
+  postgresqlDatabase: sentry
+  postgresqlUsername: postgres
+  # The following variables are only used when internal PG is disabled
+  postgresqlHost: 1.1.1.1
+  postgresqlPassword: tstestsetetstX
+  postgresqlPort: 5432
+  # When defined the `postgresqlPassword` field is ignored
+  # existingSecret: secret-name
+  # existingSecretKey: postgresql-password
+
+redis:
+  enabled: false   #(用外置的redis设置为false)
+  nameOverride: sentry-redis
+  # The following variables are only used when internal PG is disabled
+  host: 1.1.1.1
+  # Just omit the password field if your redis cluster doesn't use password
+  password: testtest
+  port: 6379
+  # When defined the `password` field is ignored
+  # existingSecret: secret-name
+  # existingSecretKey: redis-password
+  master:
+    persistence:
+      enabled: true
+      # If change pvc size redis.master.persistence.size: 20Gi
+</code></pre><h3 id="这里用外置的数据库和redis删除requirementslock--requirementsyaml文件">这里用外置的数据库和redis,删除requirements.lock  requirements.yaml文件</h3>
+<h3 id="创建pv对应templates的pvc">创建pv,对应templates的pvc</h3>
+<pre><code>apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sentry-pv
+  labels:
+    alicloud-pvname: sentry-pv
+spec:
+  capacity:
+    storage: &quot;10Gi&quot;
+  accessModes:
+    - ReadWriteOnce
+  flexVolume:
+    driver: &quot;alicloud/nas&quot;
+    options:
+      server: &quot;sldflsdf-sdlfsldfj-sdlfjlsdfj.com&quot;
+      path: &quot;/sentry&quot;
+      vers: &quot;4.0&quot;
+      minorversion: &quot;0,noresvport&quot;
+</code></pre><h3 id="安装">安装</h3>
+<pre><code>helm2 install --dry-run  --debug --namespace=sentry --name sentry --waite stable/sentry #测试安装，查看输出是否正确
+helm2 install --debug --namespace=sentry --name sentry --wait stable/sentry  #正式安装
+</code></pre><h3 id="问题1">问题1</h3>
+<pre><code>如果出现很多表没有例如：
+relation &quot;sentry_projectkey&quot; does not exist\nLINE 1: ...te_limit_window&quot;, &quot;sentry_projectkey&quot;.&quot;data&quot; FROM &quot;sentry_pr...\n                                                             ^\n',)
+SQL: SELECT &quot;sentry_projectkey&quot;.&quot;id&quot;, &quot;sentry_projectkey&quot;.&quot;project_id&quot;
+问题解决：
+db-init初始化失败，有可能是postgresql报错了：
+could not open extension control file &quot;/usr/pgsql-12/share/extension/citext.control
+安装
+yum install centos-release-scl
+yum install llvm-toolset-7-clang
+yum install -y postgresql12*
+问题解决
+</code></pre><h3 id="问题2">问题2</h3>
+<p>![image-20210407001952368](/Users/luwen/Library/Application Support/typora-user-images/image-20210407001952368.png)</p>
+<pre><code>报错信息:sentry django.request: Internal Server Error: /auth/login/
+
+问题原因是创建管理员用户失败，需要修改config配置：
+SINGLE_ORGANIZATION 为false，然后重启pod
+然后登陆pod，用命令创建超级用户：
+sentry createuser
+问题解决
+</code></pre><p>bug解决参考地址:https://github.com/getsentry/sentry/issues/7015</p>
 
                         </div>
 
@@ -125,15 +229,15 @@ sun.jnu.encoding<span style="color:#f92672">=</span>ANSI_X3.4-1968
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">网站性能指标</a></li>
+        <li><a href="/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/">K8s</a></li>
         
-        <li><a href="/post/nginx-conf/">Nginx Conf</a></li>
+        <li><a href="/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/">Php内存泄露</a></li>
         
-        <li><a href="/post/%E5%B8%B8%E8%A7%81web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/">常见web安全攻防</a></li>
+        <li><a href="/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/">悲观锁和乐观锁</a></li>
         
-        <li><a href="/post/robots%E6%96%87%E4%BB%B6%E8%AF%AD%E6%B3%95/">Robots文件语法</a></li>
+        <li><a href="/post/brew%E4%BD%BF%E7%94%A8/">Brew使用</a></li>
         
-        <li><a href="/post/SpringBoot%E4%BD%BF%E7%94%A8Micrometer%E9%9B%86%E6%88%90Prometheus%E7%9B%91%E6%8E%A7Jvm/">SpringBoot使用Micrometer集成Prometheus监控Jvm</a></li>
+        <li><a href="/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/">Php Fpm三种模式</a></li>
         
     </ul>
 </div>
