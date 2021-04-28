@@ -6,7 +6,16 @@
     <description>Recent content in Kubernetes on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 16 Apr 2021 19:59:12 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 10:18:41 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pod修改时区</title>
+      <link>http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/</link>
+      <pubDate>Wed, 28 Apr 2021 10:18:41 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/</guid>
+      <description>1.挂载服务器的时区 [root@k8s-m ~]# cat demo-pod.yaml apiVersion: v1 kind: Pod metadata: name: nginx-pod namespace: default labels: app: my-pod spec: containers: - name: my-pod image: nginx volumeMounts: - name: host-time mountPath: /etc/localtime readOnly: true volumes: - name: host-time hostPath: path: /etc/localtime 2.传递变量 [root@k8s-m ~]# cat time-pod.yaml apiVersion: v1 kind: Pod metadata: name: pod-env-tz spec: containers: - name: ngx-time image: nginx:latest env: - name: TZ value: Asia/Shanghai 3.重新构建镜像，做镜像时候将时区改对 4.修改apiserver的配置清单，用Pod Pres方式更改所有容器的时区</description>
+    </item>
+    
     <item>
       <title>阿里云k8s支持低版本tls</title>
       <link>http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%94%AF%E6%8C%81%E4%BD%8E%E7%89%88%E6%9C%ACtls/</link>

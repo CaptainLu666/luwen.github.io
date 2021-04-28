@@ -70,6 +70,52 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" title="网站性能指标" >网站性能指标</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年9月16日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/linux">linux</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                并发数、吞吐量的概念最初用来衡量网络设备的性能，后来推广到服务器及业务上评估系统的整体性能。 一、网络设备的并发数、吞吐量 并发数（Concurrency）****： 也叫并发连接数，指网络设备所能处理的最大会话数量。这里的会话数是指请求-&gt;响应一次会话。 吞吐量**（Throug……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/nginx-conf/" title="Nginx Conf" >Nginx Conf</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年9月8日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/nginx">nginx</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                #强制跳转到https server { listen 80; server_name www.luwen.tech; rewrite ^(.*)$ https://www.luwen.tech$1 permanent; } #luwen.tech跳转为www.luwen.tech #https配置 server { listen 80; listen 443 ssl; charset utf-8; ssl on; ssl_certificate cert/all.luwen.tech.pem; ssl_certificate_key cert/all.luwen.tech.key; ssl_session_timeout 5m; ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_prefer_server_ciphers on; server_name luwen.tech; rewrite ^/shengxian/ https://www.luwen.tech/xy/c-$arg_p.html? permanent; rewrite ^/shengxian(\d+)\.html$ https://www.luwen.tech/xy/c-$1.html permanent; rewrite ^(.*)$ https://www.luwen.tech$1 permanent; } server { listen 443 ssl; server_name www.luwen.tech; charset utf-8; ssl on; ssl_certificate cert/all.luwen.tech.pem; ssl_certificate_key cert/all.luwen.tech.key; ssl_session_timeout 5m; ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_prefer_server_ciphers on; deny 120.239.22.36; root /data/vip/luwen/code/web; index index.php index.html; #阿里云获取真实客户……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/nginx-conf/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/%E5%B8%B8%E8%A7%81web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/" title="常见web安全攻防" >常见web安全攻防</a>
                                 </h1>
                             </header>
@@ -251,52 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/k8s%E6%B1%A1%E7%82%B9%E5%92%8C%E5%AE%B9%E5%BF%8D/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Docker最佳实践" >Docker最佳实践</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年6月3日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                如何编写最佳的Dockerfile 译者按: Dockerfile 的语法非常简单，然而如何加快镜像构建速度，如何减少 Docker 镜像的大小却不是那么直观，需要积累实践经验。这篇博客可以帮助你快速掌握编写 Dockerfile 的技巧。 原文: How to write excellent Dockerfiles 译者: Fundebug 本文采用意译，版权归原作者所有 我已经使用 Docker 有一段时间了，其中编写 Dockerfile 是非常重要……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/docker%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/docker%E5%A4%A7%E5%B0%8F/" title="Docker大小" >Docker大小</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年6月3日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                深刻理解 Docker 镜像大小 「Allen 谈 Docker 系列」 DaoCloud 正在启动 Docker 技术系列文章，每周都会为大家推送一期真材实料的精选 Docker 文章。主讲人为 DaoCloud 核心开发团队成员 Allen（孙宏亮），他是 InfoQ 「Docker 源码分析」专栏作者，已出版《Docker 源码分析》一书。Allen 接触 Docker 近两年，爱钻研系统实现原理，及……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/docker%E5%A4%A7%E5%B0%8F/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -361,6 +361,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/" title="Pod修改时区">Pod修改时区</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/etcd%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" title="Etcd集群部署">Etcd集群部署</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%94%AF%E6%8C%81%E4%BD%8E%E7%89%88%E6%9C%ACtls/" title="阿里云k8s支持低版本tls">阿里云k8s支持低版本tls</a>
     </li>
     
@@ -392,14 +400,6 @@
         <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/" title="Docker镜像清理">Docker镜像清理</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/" title="Php Fpm平滑重启">Php Fpm平滑重启</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -426,7 +426,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(17)</a>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(18)</a>
     </li>
     
     <li>
@@ -462,7 +462,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(5)</a>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(6)</a>
     </li>
     
 </ul>

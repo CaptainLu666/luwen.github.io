@@ -6,7 +6,16 @@
     <description>Recent content in 数据库 on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 18 Mar 2021 10:09:57 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Apr 2021 15:06:08 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Etcd集群部署</title>
+      <link>http://luwen.tech/post/etcd%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Tue, 27 Apr 2021 15:06:08 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/etcd%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</guid>
+      <description>环境：centos 7，集群部署 下载etcd https://github.com/etcd-io/etcd/releases/download/v3.4.15/etcd-v3.4.15-linux-amd64 tar xvf etcd-v3.4.15-linux-amd64 mv etcd etcdctl /usr/bin/ 设置开机自动启动 vim /usr/lib/systemd/system/etcd.service Description=Etcd Server After=network.target After=network-online.target Wants=network-online.target [Service] Type=notify WorkingDirectory=/var/lib/etcd/ EnvironmentFile=-/etc/etcd/etcd.conf User=etcd ExecStart=/usr/bin/etcd Restart=on-failure LimitNOFILE=65536 [Install] WantedBy=multi-user.target 配置etcd Server mkdir -p /etc/etcd /var/lib/etcd useradd -s /sbin/nologin etcd chown etcd:etcd /var/lib/etcd vim /etc/etcd/etcd.conf etcd-01 ETCD_DATA_DIR=&amp;quot;/var/lib/etcd/default.etcd&amp;quot; ETCD_LISTEN_PEER_URLS=&amp;quot;http://172.16.100.23:2380&amp;quot; ETCD_LISTEN_CLIENT_URLS=&amp;quot;http://172.16.100.23:2379,http://127.0.0.1:2379&amp;quot; ETCD_NAME=&amp;quot;apisix-etcd-01&amp;quot; ALLOW_NONE_AUTHENTICATION=yes ETCD_INITIAL_ADVERTISE_PEER_URLS=&amp;quot;http://172.16.100.23:2380&amp;quot; ETCD_ADVERTISE_CLIENT_URLS=&amp;quot;http://172.16.100.23:2379,http://127.0.0.1:2379&amp;quot; ETCD_INITIAL_CLUSTER=&amp;quot;apisix-etcd-01=http://172.16.100.23:2380,apisix-etcd-02=http://172.16.100.30:2380,apisix-etcd-03=http://172.16.100.31:2380&amp;quot; ETCD_INITIAL_CLUSTER_TOKEN=&amp;quot;apisix-etcd-cluster-token&amp;quot; ETCD_INITIAL_CLUSTER_STATE=&amp;quot;new&amp;quot; ETCD_ENABLE_V2=&amp;quot;true&amp;quot; ……02，03</description>
+    </item>
+    
     <item>
       <title>悲观锁和乐观锁</title>
       <link>http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/</link>
