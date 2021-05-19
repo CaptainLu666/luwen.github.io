@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Kubernetes常用命令" >Kubernetes常用命令</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月29日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                1.查看资源占用： kubectl describe node &ldquo;cn-beijing.172.16.89.154&rdquo; | sed &lsquo;1,/Non-terminated Pods/d&rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 4.kubectl get nodes &ndash;show-labels 5.kubectl get nodes 4.删除evicted状态pod kubectl get pods | grep Evicted | awk &lsquo;{print $1}&rsquo; | xargs kubectl delete pod 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 node……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes探针最佳实践" >Kubernetes探针最佳实践</a>
                                 </h1>
                             </header>
@@ -228,6 +251,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/" title="Pod修改时区">Pod修改时区</a>
     </li>
     
@@ -261,10 +288,6 @@
     
     <li>
         <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
 </ul>
@@ -309,7 +332,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/linux/">linux(4)</a>
+        <a href="http://luwen.tech/categories/linux/">linux(5)</a>
     </li>
     
     <li>

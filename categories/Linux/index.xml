@@ -6,7 +6,16 @@
     <description>Recent content in linux on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 24 Nov 2020 11:22:03 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 16:58:24 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Centos7安装apisix</title>
+      <link>http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/</link>
+      <pubDate>Wed, 28 Apr 2021 16:58:24 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/</guid>
+      <description>1.rpm安装 yum install yum-utils yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo yum install -y openresty curl git gcc openresty-openssl111-devel unzip #如果服务器安装了kong这步会有冲突，需要先卸载kong rpm -e kong-community-edition-1.1.0-1.noarch 然后继续安装 yum install -y https://github.com/apache/apisix/releases/download/2.5/apisix-2.5-0.x86_64.rpm 安装dashboard yum install https://github.com/apache/apisix-dashboard/releases/download/v2.6/apisix-dashboard-2.6-0.x86_64.rpm 2.修改配置文件 cd /usr/local/apisix/conf/ config-default.yaml conf.yaml tips:etcd是集群的话就填集群的client地址，如： etcd: host: # it&#39;s possible to define multiple etcd hosts addresses of the same etcd cluster. - &amp;quot;http://172.16.100.23:2379&amp;quot; # multiple</description>
+    </item>
+    
     <item>
       <title>Lua安装luasql Mysql</title>
       <link>http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/</link>

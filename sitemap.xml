@@ -3,18 +3,24 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://luwen.tech/categories/</loc>
-    <lastmod>2021-04-28T10:18:41+08:00</lastmod>
+    <lastmod>2021-04-28T16:58:24+08:00</lastmod>
+  </url><url>
+    <loc>http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/</loc>
+    <lastmod>2021-04-28T16:58:24+08:00</lastmod>
+  </url><url>
+    <loc>http://luwen.tech/categories/linux/</loc>
+    <lastmod>2021-04-28T16:58:24+08:00</lastmod>
+  </url><url>
+    <loc>http://luwen.tech/post/</loc>
+    <lastmod>2021-04-28T16:58:24+08:00</lastmod>
+  </url><url>
+    <loc>http://luwen.tech/</loc>
+    <lastmod>2021-04-28T16:58:24+08:00</lastmod>
   </url><url>
     <loc>http://luwen.tech/categories/Kubernetes/</loc>
     <lastmod>2021-04-28T10:18:41+08:00</lastmod>
   </url><url>
     <loc>http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/</loc>
-    <lastmod>2021-04-28T10:18:41+08:00</lastmod>
-  </url><url>
-    <loc>http://luwen.tech/post/</loc>
-    <lastmod>2021-04-28T10:18:41+08:00</lastmod>
-  </url><url>
-    <loc>http://luwen.tech/</loc>
     <lastmod>2021-04-28T10:18:41+08:00</lastmod>
   </url><url>
     <loc>http://luwen.tech/post/etcd%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</loc>
@@ -61,9 +67,6 @@
   </url><url>
     <loc>http://luwen.tech/post/php-fpm%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/</loc>
     <lastmod>2021-01-15T23:40:40+08:00</lastmod>
-  </url><url>
-    <loc>http://luwen.tech/categories/linux/</loc>
-    <lastmod>2020-11-24T11:22:03+08:00</lastmod>
   </url><url>
     <loc>http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/</loc>
     <lastmod>2020-11-24T11:22:03+08:00</lastmod>

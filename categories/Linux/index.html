@@ -80,6 +80,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/">Centos7安装apisix</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年4月28日
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://luwen.tech/categories/linux">linux</a>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                1.rpm安装 yum install yum-utils yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo yum install -y openresty curl git gcc openresty-openssl111-devel unzip #如果服务器安装了kong这步会有冲突，需要先卸载kong rpm -e kong-community-edition-1.1.0-1.noarch 然后继续安装 yum install -y https://github.com/apache/apisix/releases/download/2.5/apisix-2.5-0.x86_64.rpm 安装dashboard yum install https://github.com/apache/apisix-dashboard/releases/download/v2.6/apisix-dashboard-2.6-0.x86_64.rpm 2.修改配置文件 cd /usr/local/apisix/conf/ config-default.yaml conf.yaml tips:etcd是集群的话就填集群的client地址，如： etcd: host: # it's possible to define multiple etcd hosts addresses of the same etcd cluster. - &quot;http://172.16.100.23:2379&quot; # multiple……
+                                <p class="readmore"><a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/lua%E5%AE%89%E8%A3%85luasql-mysql/">Lua安装luasql Mysql</a>
                                 </h1>
                             </header>
@@ -240,6 +263,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/" title="Pod修改时区">Pod修改时区</a>
     </li>
     
@@ -273,10 +300,6 @@
     
     <li>
         <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
 </ul>
@@ -321,7 +344,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/linux/">linux(4)</a>
+        <a href="http://luwen.tech/categories/linux/">linux(5)</a>
     </li>
     
     <li>

@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式" >Php Fpm三种模式</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年1月16日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/lnmp">lnmp</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ##Php 内存释放策略： 1.定时任务重启 0 0 * * * systemctl reload php-fpm ###2. 配置参数 pm三种进程管理模式 pm = static，始终保持一个固定数量的子进程，这个数由pm.max_children定义，这种方式很不灵活，也通常不是默认的。 pm = dynamic，启动时会产生固定数量的子进程（由pm.start_se……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/" title="Docker镜像清理" >Docker镜像清理</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/" title="Jenkins Slave节点乱码问题" >Jenkins Slave节点乱码问题</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月16日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Devops">Devops</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息 file.encoding=ANSI_X3.4-1968 sun.jnu.encoding=ANSI_X3.4-1968 #……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -361,6 +361,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/" title="Pod修改时区">Pod修改时区</a>
     </li>
     
@@ -394,10 +398,6 @@
     
     <li>
         <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
 </ul>
@@ -442,7 +442,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/linux/">linux(4)</a>
+        <a href="http://luwen.tech/categories/linux/">linux(5)</a>
     </li>
     
     <li>

@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix" >Centos7安装apisix</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年4月28日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/linux">linux</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                1.rpm安装 yum install yum-utils yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo yum install -y openresty curl git gcc openresty-openssl111-devel unzip #如果服务器安装了kong这步会有冲突，需要先卸载kong rpm -e kong-community-edition-1.1.0-1.noarch 然后继续安装 yum install -y https://github.com/apache/apisix/releases/download/2.5/apisix-2.5-0.x86_64.rpm 安装dashboard yum install https://github.com/apache/apisix-dashboard/releases/download/v2.6/apisix-dashboard-2.6-0.x86_64.rpm 2.修改配置文件 cd /usr/local/apisix/conf/ config-default.yaml conf.yaml tips:etcd是集群的话就填集群的client地址，如： etcd: host: # it's possible to define multiple etcd hosts addresses of the same etcd cluster. - &quot;http://172.16.100.23:2379&quot; # multiple……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/" title="Pod修改时区" >Pod修改时区</a>
                                 </h1>
                             </header>
@@ -108,7 +131,7 @@
                             </div>
                             
                             <div class="post-content">
-                                环境：centos 7，集群部署 下载etcd https://github.com/etcd-io/etcd/releases/download/v3.4.15/etcd-v3.4.15-linux-amd64 tar xvf etcd-v3.4.15-linux-amd64 mv etcd etcdctl /usr/bin/ 设置开机自动启动 vim /usr/lib/systemd/system/etcd.service Description=Etcd Server After=network.target After=network-online.target Wants=network-online.target [Service] Type=notify WorkingDirectory=/var/lib/etcd/ EnvironmentFile=-/etc/etcd/etcd.conf User=etcd ExecStart=/usr/bin/etcd Restart=on-failure LimitNOFILE=65536 [Install] WantedBy=multi-user.target 配置etcd Server mkdir -p /etc/etcd /var/lib/etcd useradd -s /sbin/nologin etcd chown etcd:etcd /var/lib/etcd vim /etc/etcd/etcd.conf etcd-01 ETCD_DATA_DIR=&quot;/var/lib/etcd/default.etcd&quot; ETCD_LISTEN_PEER_URLS=&quot;http://172.16.100.23:2380&quot; ETCD_LISTEN_CLIENT_URLS=&quot;http://172.16.100.23:2379,http://127.0.0.1:2379&quot; ETCD_NAME=&quot;apisix-etcd-01&quot; ALLOW_NONE_AUTHENTICATION=yes ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://172.16.100.23:2380&quot; ETCD_ADVERTISE_CLIENT_URLS=&quot;http://172.16.100.23:2379,http://127.0.0.1:2379&quot; ETCD_INITIAL_CLUSTER=&quot;apisix-etcd-01=http://172.16.100.23:2380,apisix-etcd-02=http://172.16.100.30:2380,apisix-etcd-03=http://172.16.100.31:2380&quot; ETCD_INITIAL_CLUSTER_TOKEN=&quot;apisix-etcd-cluster-token&quot; ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot; ETCD_ENABLE_V2=&quot;true&quot; ……02，03……
+                                环境：centos 7，集群部署 下载etcd https://github.com/etcd-io/etcd/releases/download/v3.4.15/etcd-v3.4.15-linux-amd64 tar xvf etcd-v3.4.15-linux-amd64 mv etcd etcdctl /usr/bin/ 设置开机自动启动 vim /usr/lib/systemd/system/etcd.service Description=Etcd Server After=network.target After=network-online.target Wants=network-online.target [Service] Type=notify WorkingDirectory=/var/lib/etcd/ EnvironmentFile=-/etc/etcd/etcd.conf User=etcd ExecStart=/usr/bin/etcd Restart=on-failure LimitNOFILE=65536 [Install] WantedBy=multi-user.target 配置etcd Server mkdir -p /etc/etcd /var/lib/etcd useradd -s /sbin/nologin etcd chown etcd:etcd /var/lib/etcd vim /etc/etcd/etcd.conf etcd-01 ETCD_DATA_DIR=&quot;/var/lib/etcd/default.etcd&quot; ETCD_LISTEN_PEER_URLS=&quot;http://172.16.100.23:2380&quot; ETCD_LISTEN_CLIENT_URLS=&quot;http://172.16.100.23:2379,http://127.0.0.1:2379&quot; ETCD_NAME=&quot;apisix-etcd-01&quot; ALLOW_NONE_AUTHENTICATION=yes ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://172.16.100.23:2380&quot; ETCD_ADVERTISE_CLIENT_URLS=&quot;http://172.16.100.23:2379,http://127.0.0.1:2379&quot; ETCD_INITIAL_CLUSTER=&quot;apisix-etcd-01=http://172.16.100.23:2380,apisix-etcd-02=http://172.16.100.30:2380,apisix-etcd-03=http://172.16.100.31:2380&quot; ETCD_INITIAL_CLUSTER_TOKEN=&quot;apisix-etcd-cluster-token&quot; ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot; ETCD_ENABLE_V2=&quot;true&quot; etcd-02 ETCD_DATA_DIR=&quot;/var/lib/etcd/default.etcd&quot; ETCD_LISTEN_PEER_URLS=&quot;http://172.16.100.30:2380&quot; ETCD_LISTEN_CLIENT_URLS=&quot;http://172.16.100.30:2379,http://127.0.0.1:2379&quot; ETCD_NAME=&quot;apisix-etcd-02&quot; ALLOW_NONE_AUTHENTICATION=yes ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://172.16.100.30:2380&quot; ETCD_ADVERTISE_CLIENT_URLS=&quot;http://172.16.100.30:2379,http://127.0.0.1:2379&quot; ETCD_INITIAL_CLUSTER=&quot;apisix-etcd-01=http://172.16.100.23:2380,apisix-etcd-02=http://172.16.100.30:2380,apisix-etcd-03=http://172.16.100.31:2380&quot; ETCD_INITIAL_CLUSTER_TOKEN=&quot;apisix-etcd-cluster-token&quot; ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot; ETCD_ENABLE_V2=&quot;true&quot; etcd-03 ETCD_DATA_DIR=&quot;/var/lib/etcd/default.etcd&quot; ETCD_LISTEN_PEER_URLS=&quot;http://172.16.100.31:2380&quot; ETCD_LISTEN_CLIENT_URLS=&quot;http://172.16.100.31:2379,http://127.0.0.1:2379&quot; ETCD_NAME=&quot;apisix-etcd-03&quot; ALLOW_NONE_AUTHENTICATION=yes ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://172.16.100.31:2380&quot; ETCD_ADVERTISE_CLIENT_URLS=&quot;http://172.16.100.31:2379,http://127.0.0.1:2379&quot; ETCD_INITIAL_CLUSTER=&quot;apisix-etcd-01=http://172.16.100.23:2380,apisix-etcd-02=http://172.16.100.30:2380,apisix-etcd-03=http://172.16.100.31:2380&quot; ETCD_INITIAL_CLUSTER_TOKEN=&quot;apisix-etcd-cluster-token&quot; ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot; 启动集群 要三台同时启动，不然起不来 systemctl start etcd 查看集群成员 etcdctl member list 查看……
                             </div>
                             <p class="readmore"><a href="http://luwen.tech/post/etcd%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">阅读全文</a></p>
                         </article>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式" >Php Fpm三种模式</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2021年1月16日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/lnmp">lnmp</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                ##Php 内存释放策略： 1.定时任务重启 0 0 * * * systemctl reload php-fpm ###2. 配置参数 pm三种进程管理模式 pm = static，始终保持一个固定数量的子进程，这个数由pm.max_children定义，这种方式很不灵活，也通常不是默认的。 pm = dynamic，启动时会产生固定数量的子进程（由pm.start_se……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -357,6 +357,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/" title="Pod修改时区">Pod修改时区</a>
     </li>
     
@@ -390,10 +394,6 @@
     
     <li>
         <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
 </ul>
@@ -438,7 +438,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/linux/">linux(4)</a>
+        <a href="http://luwen.tech/categories/linux/">linux(5)</a>
     </li>
     
     <li>

@@ -104,6 +104,9 @@
         <li><a href="#下载etcd">下载etcd</a></li>
         <li><a href="#设置开机自动启动">设置开机自动启动</a></li>
         <li><a href="#配置etcd-server">配置etcd Server</a></li>
+        <li><a href="#启动集群">启动集群</a></li>
+        <li><a href="#查看集群成员">查看集群成员</a></li>
+        <li><a href="#当然还可以配置加密">当然还可以配置加密</a></li>
       </ul>
     </li>
   </ul>
@@ -153,9 +156,42 @@ ETCD_INITIAL_CLUSTER_TOKEN=&quot;apisix-etcd-cluster-token&quot;
 ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot;
 ETCD_ENABLE_V2=&quot;true&quot;
 
+etcd-02
 
-……02，03
-</code></pre>
+ETCD_DATA_DIR=&quot;/var/lib/etcd/default.etcd&quot;
+ETCD_LISTEN_PEER_URLS=&quot;http://172.16.100.30:2380&quot;
+ETCD_LISTEN_CLIENT_URLS=&quot;http://172.16.100.30:2379,http://127.0.0.1:2379&quot;
+ETCD_NAME=&quot;apisix-etcd-02&quot;
+ALLOW_NONE_AUTHENTICATION=yes
+ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://172.16.100.30:2380&quot;
+ETCD_ADVERTISE_CLIENT_URLS=&quot;http://172.16.100.30:2379,http://127.0.0.1:2379&quot;
+ETCD_INITIAL_CLUSTER=&quot;apisix-etcd-01=http://172.16.100.23:2380,apisix-etcd-02=http://172.16.100.30:2380,apisix-etcd-03=http://172.16.100.31:2380&quot;
+ETCD_INITIAL_CLUSTER_TOKEN=&quot;apisix-etcd-cluster-token&quot;
+ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot;
+ETCD_ENABLE_V2=&quot;true&quot;
+
+etcd-03
+
+ETCD_DATA_DIR=&quot;/var/lib/etcd/default.etcd&quot;
+ETCD_LISTEN_PEER_URLS=&quot;http://172.16.100.31:2380&quot;
+ETCD_LISTEN_CLIENT_URLS=&quot;http://172.16.100.31:2379,http://127.0.0.1:2379&quot;
+ETCD_NAME=&quot;apisix-etcd-03&quot;
+ALLOW_NONE_AUTHENTICATION=yes
+ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;http://172.16.100.31:2380&quot;
+ETCD_ADVERTISE_CLIENT_URLS=&quot;http://172.16.100.31:2379,http://127.0.0.1:2379&quot;
+ETCD_INITIAL_CLUSTER=&quot;apisix-etcd-01=http://172.16.100.23:2380,apisix-etcd-02=http://172.16.100.30:2380,apisix-etcd-03=http://172.16.100.31:2380&quot;
+ETCD_INITIAL_CLUSTER_TOKEN=&quot;apisix-etcd-cluster-token&quot;
+ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot;
+
+</code></pre><h3 id="启动集群">启动集群</h3>
+<pre><code>要三台同时启动，不然起不来
+systemctl start etcd  
+</code></pre><h3 id="查看集群成员">查看集群成员</h3>
+<pre><code>etcdctl member list
+查看健康状态
+etcdctl --endpoints=&quot;http://172.16.100.23:2379,http://172.16.100.30:2379,http://172.16.100.31:2379&quot; endpoint health
+</code></pre><h3 id="当然还可以配置加密">当然还可以配置加密</h3>
+
                         </div>
 
                         
@@ -219,6 +255,10 @@ ETCD_ENABLE_V2=&quot;true&quot;
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/" title="Pod修改时区">Pod修改时区</a>
     </li>
     
@@ -252,10 +292,6 @@ ETCD_ENABLE_V2=&quot;true&quot;
     
     <li>
         <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用">Brew使用</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式">Php Fpm三种模式</a>
     </li>
     
 </ul>
@@ -300,7 +336,7 @@ ETCD_ENABLE_V2=&quot;true&quot;
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/linux/">linux(4)</a>
+        <a href="http://luwen.tech/categories/linux/">linux(5)</a>
     </li>
     
     <li>
