@@ -6,7 +6,25 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 28 Apr 2021 16:58:24 +0800</lastBuildDate><atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Jul 2021 22:31:14 +0800</lastBuildDate><atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes服务优雅升级</title>
+      <link>http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/</link>
+      <pubDate>Wed, 07 Jul 2021 22:31:14 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/</guid>
+      <description>k8s本身就支持服务滚动升级，但是如果程序没有正确的处理退出信号时，就会导致部分请求直接被中断从而影响用户体验。 先来回顾下 k8s 的滚动升级步骤： 启动一个新的 pod 等待新的 pod 进入 Ready 状态 创建 Endpoint，将新的 pod 纳入负载均衡 移除与老 pod 相关的 Endpoint，并且将老 pod 状态设置为 Termi</description>
+    </item>
+    
+    <item>
+      <title>Php Fpm参数设置</title>
+      <link>http://luwen.tech/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Mon, 28 Jun 2021 22:38:32 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/</guid>
+      <description>php-fpm参数设置</description>
+    </item>
+    
     <item>
       <title>Centos7安装apisix</title>
       <link>http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/</link>

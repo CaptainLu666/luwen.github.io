@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Jenkins增加k8s云配置 | 卢文的博客</title>
-    <meta property="og:title" content="Jenkins增加k8s云配置 - 卢文的博客">
+    <title>Kubernetes服务优雅升级 | 卢文的博客</title>
+    <meta property="og:title" content="Kubernetes服务优雅升级 - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2020-09-22T23:33:52&#43;08:00">
+    <meta property="article:published_time" content="2021-07-07T22:31:14&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2020-09-22T23:33:52&#43;08:00">
+    <meta property="article:modified_time" content="2021-07-07T22:31:14&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="Jenkins增加k8s云配置">
+    <meta name="description" content="Kubernetes服务优雅升级">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">
+    <meta property="og:url" content="http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,16 +74,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Jenkins增加k8s云配置</h1>
+                            <h1 class="post-title">Kubernetes服务优雅升级</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2020年9月22日
+                            2021年7月7日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Devops">Devops</a></span>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
                             
                         </div>
                         
@@ -100,32 +100,103 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#3增加k8s云">3.增加k8s云</a></li>
+        <li><a href="#k8s本身就支持服务滚动升级但是如果程序没有正确的处理退出信号时就会导致部分请求直接被中断从而影响用户体验"><code>k8s</code>本身就支持服务滚动升级，但是如果程序没有正确的处理退出信号时，就会导致部分请求直接被中断从而影响用户体验。</a></li>
+        <li><a href="#调用http-get">调用HTTP GET</a></li>
       </ul>
     </li>
+    <li><a href="#关于-prestop-和-terminationgraceperiodseconds">关于 PreStop 和 terminationGracePeriodSeconds</a></li>
   </ul>
 </nav>
                             </div>
                         </div>
                         
                         <div class="post-content">
-                            <p>###1.根据k8s kubeconfig文件生成cert.pfx</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#certificate-authority-data</span>
-echo testtestsetstststsetetetttttttttttttttttttttttttt |base64 -d &gt; ca.crt
+                            <h3 id="k8s本身就支持服务滚动升级但是如果程序没有正确的处理退出信号时就会导致部分请求直接被中断从而影响用户体验"><code>k8s</code>本身就支持服务滚动升级，但是如果程序没有正确的处理退出信号时，就会导致部分请求直接被中断从而影响用户体验。</h3>
+<p>先来回顾下 k8s 的滚动升级步骤：</p>
+<ol>
+<li>启动一个新的 pod</li>
+<li>等待新的 pod 进入 Ready 状态</li>
+<li>创建 Endpoint，将新的 pod 纳入负载均衡</li>
+<li>移除与老 pod 相关的 Endpoint，并且将老 pod 状态设置为 Terminating，此时将不会有新的请求到达老 pod</li>
+<li>给老 pod 发送 SIGTERM 信号，并且等待 terminationGracePeriodSeconds 这么长的时间。(默认为 30 秒)</li>
+<li>超过 terminationGracePeriodSeconds 等待时间直接强制 kill 进程并关闭旧的 pod</li>
+</ol>
+<p>我们要优雅的停止服务，先要了解 Kubernetes 是如何优雅的停止 Pod的。下面我们先了解一下 Pod 优雅停止的过程。</p>
+<p>当我们 kill 掉一个 Pod 的时候，这个时候 Pod 会先被标记为 Terminating，Service（假如有的话）会把这个 Pod 从 Endpoint 中摘掉，这样子负载均衡不会再给这个 Pod 流量，最后他会先看看是否有 preStop，如果定义了，就执行他，之后给 Pod 发 SIGTERM 信号让 Pod 中的所有容器优雅退出。但是实际情况肯定不是这样子的，我们可能会遇到以下情况：</p>
+<ul>
+<li>容器里的业务代码根本不回处理 SIGTERM 信号</li>
+<li>容器里的业务代码有处理优雅推出的逻辑，但是有问题导致一直退出不了</li>
+<li>容器里的业务已经卡死，导致资源使用满了，处理不了优雅退出的代码逻辑或需要很久才能处理完成</li>
+</ul>
+<p>为了处理以上这几种无法退出的情况，Kubernetes 还有一个 terminationGracePeriodSeconds 的硬停止时间，默认是 30s，如果 30s 内还是无法完成上述的过程，那就就会发送 SIGKILL，强制干掉 Pod。</p>
+<p>通过上面的描述来看，想要优雅的停止 Pod ，我们可以做以下2点：</p>
+<ul>
+<li>定义 preStop 操作</li>
+<li>处理 SIGTERM 信号</li>
+</ul>
+<p>定义preStop操作需要我们改造业务，向业务主动调用优雅停止的接口。比如调用/actuator/shutdown</p>
+<p>而处理SIGTERM信号，主要是需要写在程序代码里面实现优雅停止，当程序接收到Kubernetes的SIGTERM信号后，做优雅退出的操作。</p>
+<p>这里要注意，<code>SIGTERM信号如果进程没有处理的话也其实也就会导致进程被强杀</code>，如果处理了但是超过<code>terminationGracePeriodSeconds</code>配置的时间也一样会被强杀，所以这个时间可以根据具体的情况去设置。</p>
+<p>##一、SpringBoot 处理 SIGTERM 信号</p>
+<p>###1.在<code>SpringBoot</code>中处理 SIGTERM 信号非常简单，只需要一个<code>@PreDestroy</code>注解就可以监听到：</p>
+<pre><code>@SpringBootApplication
+public class Application {
 
-<span style="color:#75715e">#client-certificate-data</span>
-echo wengehenshuaiwewenwenrnwenrnwnrwnenrwenrnwenrnwenrwnenrer |base64 -d &gt; client.crt
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-<span style="color:#75715e">#client-key-data</span>
-echo wengetehaobangdabangzigansinisfjldjflsjlafdjldjfljdlfkjlsjdfdfs |base64 -d &gt; client.key
+    @PreDestroy
+    public void shutdown() {
+       System.out.println(&quot;shutdown&quot;)
+    }
+}
+</code></pre><p>###2.升级Spring Boot至2.3.0以上版本并添加相关配置。</p>
+<p>目前版本的 Spring Boot 优雅停机支持 Jetty, Tomcat 等应用程序都支持优雅停机。</p>
+<p>如何启用呢？其实很简单，只需要在配置中增加一个行：server.shutdown=graceful，同时一般还会加上一个 spring.lifecycle.timeout-per-shutdown-phase=30s，这个的意思是规定时间内如果线程无法执行完毕则会被强制停机，这个时间具体要根据业务的情况来定。</p>
+<p>一般来说需要处理以下步骤：</p>
+<ul>
+<li>池化资源的释放：数据库连接池，HTTP 连接池</li>
+<li>处理线程的释放：已经被连接的HTTP请求</li>
+<li>由于我们是分布式架构的，在停止之前，还需要通知注册中心（Eureka）下线实例的操作。</li>
+</ul>
+<pre><code>server:
+  port: 30619
+  servlet:
+    context-path: /center/${spring.application.name}
+  shutdown: graceful  #启用优雅停止
 
-openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile ca.crt
-</code></pre></div><p>###2.将cert.pfx文件导入jenkins生成凭据</p>
-<p><a href="tips:%E5%AF%86%E7%A0%81%E6%98%AF%E4%B8%8A%E9%9D%A2%E7%94%9F%E6%88%90cert.pfx%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%AF%86%E7%A0%81">tips:密码是上面生成cert.pfx设置的密码</a></p>
-<p>![image-20200922235928690](/Users/luwen/Library/Application Support/typora-user-images/image-20200922235928690.png)</p>
-<h3 id="3增加k8s云">3.增加k8s云</h3>
-<p><a href="tips:k8s%E6%9C%8D%E5%8A%A1%E8%AF%81%E4%B9%A6%E5%A1%AB%E4%B8%8A%E9%9D%A2%E7%9A%84ca.crt">tips:k8s服务证书填上面的ca.crt</a></p>
-<p>![image-20200923000304387](/Users/luwen/Library/Application Support/typora-user-images/image-20200923000304387.png)</p>
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 20s #强制终止的宽限时间
+</code></pre><p>##二、通过容器生命周期 hook 来优雅停止</p>
+<p>在 pod 中容器将停止前，会执行<code>PreStop hook</code>，hook 可以执行一个<code>HTTP GET</code>请求或者<code>exec</code>命令，并且它们执行是阻塞的，可以利用这个特性来做优雅停止。</p>
+<h3 id="调用http-get">调用HTTP GET</h3>
+<pre><code>&quot;lifecycle&quot;: {
+    &quot;preStop&quot;: {
+    &quot;httpGet&quot;: {
+            &quot;path&quot;: &quot;/shutdown&quot;,
+            &quot;port&quot;: 3000,
+            &quot;scheme&quot;: &quot;HTTP&quot;
+        }
+    }
+}
+</code></pre><p>###调用EXEC</p>
+<pre><code>      lifecycle:
+        preStop:
+          exec:
+            command: [&quot;/bin/sh&quot;, &quot;-c&quot;, &quot;sleep 60&quot;]
+</code></pre>
+<h2 id="关于-prestop-和-terminationgraceperiodseconds">关于 PreStop 和 terminationGracePeriodSeconds</h2>
+<ol>
+<li>如果有<code>PreStop hook</code>会执行<code>PreStop hook</code>。</li>
+<li><code>PreStop hook</code>执行完成后会向 pod 发送<code>SIGTERM</code>信号。</li>
+<li>如果在<code>terminationGracePeriodSeconds</code>时间限制内，<code>PreStop hook</code>没有执行完的话，一样会直接发送<code>SIGTERM</code>信号，并且时间延长 2 秒。</li>
+</ol>
+<p>即在有<code>PreStop hook</code>的情况下，也是在<code>terminationGracePeriodSeconds</code>时间限制内，在超过这个时间点之后，还会给出 2 秒进程处理<code>SIGTERM</code>信号的时间，最后直接强杀。</p>
+<p><a href="https://kubernetes.io/docs/concepts/workloads/pods/#termination-of-pods">参考</a></p>
+<p><a href="http://monkeywie.cn/2019/07/11/k8s-graceful-shutdown/">参考2</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/367080873">参考3</a></p>
 
                         </div>
 
@@ -138,15 +209,15 @@ openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile 
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/">优秀的golang学习网址</a></li>
+        <li><a href="/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/">Php Fpm参数设置</a></li>
         
-        <li><a href="/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阿里云自定义权限文档</a></li>
+        <li><a href="/post/centos7%E5%AE%89%E8%A3%85apisix/">Centos7安装apisix</a></li>
         
-        <li><a href="/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/">Jenkins Slave节点乱码问题</a></li>
+        <li><a href="/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/">Pod修改时区</a></li>
         
-        <li><a href="/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">网站性能指标</a></li>
+        <li><a href="/post/etcd%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">Etcd集群部署</a></li>
         
-        <li><a href="/post/nginx-conf/">Nginx Conf</a></li>
+        <li><a href="/post/%E9%98%BF%E9%87%8C%E4%BA%91k8s%E6%94%AF%E6%8C%81%E4%BD%8E%E7%89%88%E6%9C%ACtls/">阿里云k8s支持低版本tls</a></li>
         
     </ul>
 </div>
