@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置" >Jenkins增加k8s云配置</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年9月22日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Devops">Devops</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ###1.根据k8s kubeconfig文件生成cert.pfx #certificate-authority-data echo testtestsetstststsetetetttttttttttttttttttttttttt |base64 -d &gt; ca.crt #client-certificate-data echo wengehenshuaiwewenwenrnwenrnwnrwnenrwenrnwenrnwenrwnenrer |base64 -d &gt; client.crt #client-key-data echo wengetehaobangdabangzigansinisfjldjflsjlafdjldjfljdlfkjlsjdfdfs |base64 -d &gt; client.key openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile ca.crt ###2.将cert.pfx文件导入jenkins生成凭据 tips:密码是上面生成cert.pfx设置的密码 ![image-20200922235928690](/Users/luwen/Library/Application Support/typora-user-images/image-20200922235928690.png) 3.增加k8s云 tips:k8s服务证书……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址" >优秀的golang学习网址</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/mysql%E6%8C%89%E6%97%A5%E6%9C%9F%E5%88%86%E8%A1%A8/" title="Mysql按日期分表" >Mysql按日期分表</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年8月12日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                ###线上数据库历史订单记录表比较大，800多W条记录，频繁查询容易占用系统资源，按日期分表过程如下： 原表order记录数8501257 select count(1) from `order`; +----------+ | count(1) | +----------+ | 8501257 | +----------+ 创建临时新表并复制表结构： create table order_new like `order`; 重命名原表、改新表改名 rename table `order` to order_20200814; rename table order_new to `order`; 按业务需求导入数据 INSERT INTO `order`() SELECT * FROM order_20200814 WHERE CREATE_DATE &gt; &#39;2020-07-14……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/mysql%E6%8C%89%E6%97%A5%E6%9C%9F%E5%88%86%E8%A1%A8/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -361,6 +361,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/" title="监控">监控</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/" title="Kubernetes服务优雅升级">Kubernetes服务优雅升级</a>
     </li>
     
@@ -394,10 +398,6 @@
     
     <li>
         <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="K8s">K8s</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" title="Php内存泄露">Php内存泄露</a>
     </li>
     
 </ul>
@@ -438,7 +438,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(3)</a>
     </li>
     
     <li>

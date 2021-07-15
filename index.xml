@@ -6,7 +6,16 @@
     <description>Recent content on 卢文的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 07 Jul 2021 22:31:14 +0800</lastBuildDate><atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Jul 2021 14:41:16 +0800</lastBuildDate><atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>监控</title>
+      <link>http://luwen.tech/post/%E7%9B%91%E6%8E%A7/</link>
+      <pubDate>Thu, 15 Jul 2021 14:41:16 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E7%9B%91%E6%8E%A7/</guid>
+      <description>###USE 原则指的是，按照如下三个维度来规划资源监控指标： 利用率（Utilization），资源被有效利用起来提供服务的平均时间占比； 饱和度（Saturation），资源拥挤的程度，比如工作队列的长度； 错误率（Errors），错误的数量。 ###RED 原则指的是，按照如下三个维度来规划服务监控指标：</description>
+    </item>
+    
     <item>
       <title>Kubernetes服务优雅升级</title>
       <link>http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/</link>

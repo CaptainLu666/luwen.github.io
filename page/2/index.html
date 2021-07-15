@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" title="Php内存泄露" >Php内存泄露</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年3月19日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/lnmp">lnmp</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                php内存限制 #####一般我们通过修改php.ini的memory_limit来限制php进程内存大小，但是这个限制可以被突破，通过代码： ini_set('memory_limit', '2048M'); #限制内存最大2048M ini_set(&quot;memory_limit&quot;,-1); #放开脚本内存限制 #####我们可以通过修改php-fpm的参数来限制php-fpm的最大内存，这样可以解决内……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁" >悲观锁和乐观锁</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/" title="Jenkins增加k8s云配置" >Jenkins增加k8s云配置</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月22日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Devops">Devops</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                ###1.根据k8s kubeconfig文件生成cert.pfx #certificate-authority-data echo testtestsetstststsetetetttttttttttttttttttttttttt |base64 -d &gt; ca.crt #client-certificate-data echo wengehenshuaiwewenwenrnwenrnwnrwnenrwenrnwenrnwenrwnenrer |base64 -d &gt; client.crt #client-key-data echo wengetehaobangdabangzigansinisfjldjflsjlafdjldjfljdlfkjlsjdfdfs |base64 -d &gt; client.key openssl pkcs12 -export -out cert.pfx -inkey client.key -in client.crt -certfile ca.crt ###2.将cert.pfx文件导入jenkins生成凭据 tips:密码是上面生成cert.pfx设置的密码 ![image-20200922235928690](/Users/luwen/Library/Application Support/typora-user-images/image-20200922235928690.png) 3.增加k8s云 tips:k8s服务证书……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -361,6 +361,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/" title="监控">监控</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/" title="Kubernetes服务优雅升级">Kubernetes服务优雅升级</a>
     </li>
     
@@ -394,10 +398,6 @@
     
     <li>
         <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="K8s">K8s</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" title="Php内存泄露">Php内存泄露</a>
     </li>
     
 </ul>
@@ -438,7 +438,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(2)</a>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(3)</a>
     </li>
     
     <li>

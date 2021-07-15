@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>小程序防盗链 | 卢文的博客</title>
-    <meta property="og:title" content="小程序防盗链 - 卢文的博客">
+    <title>监控 | 卢文的博客</title>
+    <meta property="og:title" content="监控 - 卢文的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2020-10-12T14:24:21&#43;08:00">
+    <meta property="article:published_time" content="2021-07-15T14:41:16&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2020-10-12T14:24:21&#43;08:00">
+    <meta property="article:modified_time" content="2021-07-15T14:41:16&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="小程序防盗链">
+    <meta name="description" content="监控">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/">
+    <meta property="og:url" content="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -74,16 +74,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">小程序防盗链</h1>
+                            <h1 class="post-title">监控</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2020年10月12日
+                            2021年7月15日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://luwen.tech/categories/linux">linux</a></span>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Prometheus">Prometheus</a></span>
                             
                         </div>
                         
@@ -101,21 +101,69 @@
                         </div>
                         
                         <div class="post-content">
-                            <p><strong>开启防盗链后，<code>小程序访问就不显示图片了。如何解决？</code></strong></p>
-<ul>
-<li>
-<p>在白名单中添加<code>servicewechat.com</code>就行了
-就是添加<code>servicewechat.com</code>域名到许可域名中，就好了。</p>
-<blockquote>
-<ul>
-<li>我们在进行小程序开发的时候，接口中的图片如果实现了防盗链，那么可能图片无法显示。</li>
-<li>如果不防盗链的话，万一被人抓取了接口，直接使用了我们的图片，那么大量的流量将被使用。</li>
-<li>所以我们要给小程序开启白名单，让图片在小程序中能够正常显示。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<p><strong>一般建议 支持允许 <code>空 Referer</code>，然后把 <code>servicewechat.com</code> 这个域名加入白名单即可。</strong></p>
+                            <p>###USE 原则指的是，按照如下三个维度来规划资源监控指标：</p>
+<pre><code>利用率（Utilization），资源被有效利用起来提供服务的平均时间占比；
+
+饱和度（Saturation），资源拥挤的程度，比如工作队列的长度；
+
+错误率（Errors），错误的数量。
+</code></pre><p>###RED 原则指的是，按照如下三个维度来规划服务监控指标：</p>
+<pre><code>每秒请求数量（Rate）；
+
+每秒错误数量（Errors）；
+
+服务响应时间（Duration）。
+</code></pre><p><strong>MTBF</strong>：故障间隔时间，可以理解为从上次故障到这次故障，间隔多久，间隔的越长，系统稳定性越高。</p>
+<p><strong>MTTR</strong>：故障平均恢复时间，可以理解为突然发生故障了，到系统恢复正常，经历了多长时间，这个时间越短越好，不然用户等着急了，会收到很多投诉。</p>
+<p><strong>可用性计算公式</strong>：MTBF/（MTBF+MTTR）* 100%，就是用故障的间隔时间除以故障间隔时间+故障平均恢复时间的总和。</p>
+<table>
+<thead>
+<tr>
+<th>系统可用性</th>
+<th>几个九</th>
+<th>日故障时间</th>
+<th>年故障时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>90%</td>
+<td>一个九</td>
+<td>2.4小时</td>
+<td>36.5天</td>
+</tr>
+<tr>
+<td>99%</td>
+<td>两个九</td>
+<td>14.4分</td>
+<td>3.65天</td>
+</tr>
+<tr>
+<td>99.9%</td>
+<td>三个九</td>
+<td>1.44分</td>
+<td>8小时</td>
+</tr>
+<tr>
+<td>99.99%</td>
+<td>四个九</td>
+<td>8.6秒</td>
+<td>52分钟</td>
+</tr>
+<tr>
+<td>99.999%</td>
+<td>五个九</td>
+<td>0.86秒</td>
+<td>5分钟</td>
+</tr>
+<tr>
+<td>99.9999%</td>
+<td>六个九</td>
+<td>86毫秒</td>
+<td>32秒</td>
+</tr>
+</tbody>
+</table>
 
                         </div>
 
@@ -128,15 +176,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">Jenkins增加k8s云配置</a></li>
+        <li><a href="/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/">Kubernetes服务优雅升级</a></li>
         
-        <li><a href="/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/">优秀的golang学习网址</a></li>
+        <li><a href="/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/">Php Fpm参数设置</a></li>
         
-        <li><a href="/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阿里云自定义权限文档</a></li>
+        <li><a href="/post/centos7%E5%AE%89%E8%A3%85apisix/">Centos7安装apisix</a></li>
         
-        <li><a href="/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/">Jenkins Slave节点乱码问题</a></li>
+        <li><a href="/post/pod%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA/">Pod修改时区</a></li>
         
-        <li><a href="/post/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">网站性能指标</a></li>
+        <li><a href="/post/etcd%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">Etcd集群部署</a></li>
         
     </ul>
 </div>
