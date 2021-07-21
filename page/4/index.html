@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/" title="Docker镜像精简" >Docker镜像精简</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年8月13日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ##构建更小体积镜像 使用更小的基础镜像 Alpine 操作系统是一个面向安全的轻型 Linux 发行版。它不同于通常 Linux 发行版，Alpine 采用了 musl libc 和 busybox 以减小系统的体积和运行时资源消耗，但功能上比 busybox 又完善的多，因此得到开源社区越来越多的青睐。在保持瘦身的同时，Alpine 还提供了自己的包管理工具 apk，可……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E7%B2%BE%E7%AE%80/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/mysql%E6%8C%89%E6%97%A5%E6%9C%9F%E5%88%86%E8%A1%A8/" title="Mysql按日期分表" >Mysql按日期分表</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/docker%E7%BB%8F%E5%85%B8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/" title="K8s进程排查" >K8s进程排查</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年4月14日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 #查找容器ID docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Name}} &quot; $(docker ps -q) |grep #查找k8s pod name docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&quot; $(docker ps -q) |grep #如果PID是容器内运行子进程那docker inspect就……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -361,6 +361,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%91%E6%8E%A7/" title="端到端监控">端到端监控</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/" title="监控">监控</a>
     </li>
     
@@ -394,10 +398,6 @@
     
     <li>
         <a href="http://luwen.tech/post/helm%E5%AE%89%E8%A3%85sentry/" title="Helm安装sentry">Helm安装sentry</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="K8s">K8s</a>
     </li>
     
 </ul>
@@ -438,7 +438,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(3)</a>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(4)</a>
     </li>
     
     <li>

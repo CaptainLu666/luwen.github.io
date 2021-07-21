@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="K8s" >K8s</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年3月19日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                问题现象： Pod无法访问自己暴露的服务，存在时好时坏或者调度到自己就出问题的现象。 ##问题原因： Flannel目前默认不允许回环访问。 ##解决方法： 使用Headless Service暴露服务和访问 重建集群使用Terway的网络插件 修改Flannel的配置，然后重建Flannel和……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/php%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" title="Php内存泄露" >Php内存泄露</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/sql%E5%AD%A6%E4%B9%A0/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/" title="小程序防盗链" >小程序防盗链</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年10月12日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/linux">linux</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                开启防盗链后，小程序访问就不显示图片了。如何解决？ 在白名单中添加servicewechat.com就行了 就是添加servicewechat.com域名到许可域名中，就好了。 我们在进行小程序开发的时候，接口中的图片如果实现了防盗链，那么可能图片无法显示。 如果不防盗链的话，万一被人抓……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%98%B2%E7%9B%97%E9%93%BE/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -361,6 +361,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%91%E6%8E%A7/" title="端到端监控">端到端监控</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/" title="监控">监控</a>
     </li>
     
@@ -394,10 +398,6 @@
     
     <li>
         <a href="http://luwen.tech/post/helm%E5%AE%89%E8%A3%85sentry/" title="Helm安装sentry">Helm安装sentry</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/Pod%E8%AE%BF%E9%97%AE%E8%87%AA%E5%B7%B1%E6%9A%B4%E9%9C%B2%E7%9A%84%E6%9C%8D%E5%8A%A1/" title="K8s">K8s</a>
     </li>
     
 </ul>
@@ -438,7 +438,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(3)</a>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(4)</a>
     </li>
     
     <li>
