@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>nginx on 卢文的博客</title>
+    <title>nginx on 卢队长的博客</title>
     <link>http://luwen.tech/categories/nginx/</link>
-    <description>Recent content in nginx on 卢文的博客</description>
+    <description>Recent content in nginx on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 08 Sep 2020 22:27:31 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Sep 2021 09:49:52 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>经过waf等代理后获取客户端真实ip</title>
+      <link>http://luwen.tech/post/%E7%BB%8F%E8%BF%87waf%E7%AD%89%E4%BB%A3%E7%90%86%E5%90%8E%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip/</link>
+      <pubDate>Tue, 07 Sep 2021 09:49:52 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/%E7%BB%8F%E8%BF%87waf%E7%AD%89%E4%BB%A3%E7%90%86%E5%90%8E%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip/</guid>
+      <description>参考文档： https://www.alibabacloud.com/help/zh/doc-detail/42205.htm</description>
+    </item>
+    
     <item>
       <title>Nginx Conf</title>
       <link>http://luwen.tech/post/nginx-conf/</link>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>linux on 卢文的博客</title>
+    <title>linux on 卢队长的博客</title>
     <link>http://luwen.tech/categories/linux/</link>
-    <description>Recent content in linux on 卢文的博客</description>
+    <description>Recent content in linux on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 28 Apr 2021 16:58:24 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/linux/index.xml" rel="self" type="application/rss+xml" />
@@ -58,7 +58,7 @@
       <pubDate>Tue, 21 Jul 2020 23:00:24 +0800</pubDate>
       
       <guid>http://luwen.tech/post/linux%E5%91%BD%E4%BB%A4/</guid>
-      <description>###https检测 curl -vosa --resolve [group-image.sdongpo.com:443:58.20.197.102](http://group-image.sdongpo.com:443:58.20.197.102) https://group-image.sdongpo.com/group_5.1.0/upload_pic/com_thumb_2020022918342000e3f9255e5a3e2c25ac3.jpg linux进程按启动时间排序 ps aux --sort=lstart ps aux --sort=start_time cd /proc; ls -td --full-time --time-style=+%s [0123456789]*;</description>
+      <description>###https检测 curl -vosa --resolve [image.xxxx.com:443:58.20.197.102](http://image.xxxx.com:443:58.20.197.102) https://image.xxxx.com/group_5.1.0/upload_pic/com_thumb_2020022918342000e3f9255e5a3e2c25ac3.jpg 查看响应时间： curl -va -o /dev/null -s -w %{time_namelookup}:%{time_connect}:%{time_starttransfer}:%{time_total} https://image.xxxx.com/website linux进程按启动时间排序 ps aux --sort=lstart ps aux --sort=start_time cd /proc; ls -td --full-time --time-style=+%s [0123456789]*;</description>
     </item>
     
     <item>

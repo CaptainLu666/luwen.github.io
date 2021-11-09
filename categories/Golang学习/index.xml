@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang学习 on 卢队长的博客</title>
+    <link>http://luwen.tech/categories/Golang%E5%AD%A6%E4%B9%A0/</link>
+    <description>Recent content in Golang学习 on 卢队长的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 18 Aug 2021 23:04:32 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang学习之特殊用法</title>
+      <link>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Wed, 18 Aug 2021 23:04:32 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/</guid>
+      <description>1.类型断言 2.函数接受者</description>
+    </item>
+    
+    <item>
+      <title>Golang学习之map</title>
+      <link>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E4%B9%8Bmap/</link>
+      <pubDate>Sat, 07 Aug 2021 22:51:10 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E4%B9%8Bmap/</guid>
+      <description>map: 字典，映射 key要求：唯一，无序，不能是引用类型，（不可以是函数类型，字典类型，切片类型） map不能使用cap() ###map的创建和初始化 ####创建方式： 1. var m1 map[int]string --不能存储数据 2. m2 := map[int]string{} --能存储数据 3. m3 := make(map[int]string) --默认len为0 4. m4 := make(map[int]string) --默认 初始化 1. var m map[int]string = map[int]string{1: &amp;quot;aaa&amp;quot;, 2: &amp;quot;bbb&amp;quot;} 保证ke</description>
+    </item>
+    
+  </channel>
+</rss>

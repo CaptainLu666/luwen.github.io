@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Devops on 卢文的博客</title>
-    <link>http://luwen.tech/categories/Devops/</link>
-    <description>Recent content in Devops on 卢文的博客</description>
+    <title>DevOps on 卢队长的博客</title>
+    <link>http://luwen.tech/categories/DevOps/</link>
+    <description>Recent content in DevOps on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 22 Sep 2020 23:33:52 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Devops/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Aug 2021 16:05:29 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/DevOps/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Devops建设</title>
+      <link>http://luwen.tech/post/devops%E5%BB%BA%E8%AE%BE/</link>
+      <pubDate>Mon, 02 Aug 2021 16:05:29 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/devops%E5%BB%BA%E8%AE%BE/</guid>
+      <description>devops建设</description>
+    </item>
+    
     <item>
       <title>Jenkins增加k8s云配置</title>
       <link>http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/</link>

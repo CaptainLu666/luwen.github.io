@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.81.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Golang学习之map | 卢队长的博客</title>
+    <meta property="og:title" content="Golang学习之map - 卢队长的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2021-08-07T22:51:10&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-08-07T22:51:10&#43;08:00">
+        
+    <meta name="Keywords" content="golang,go语言,python,kubernetes">
+    <meta name="description" content="Golang学习之map">
+        
+    <meta name="author" content="SniperLu">
+    <meta property="og:url" content="http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E4%B9%8Bmap/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://luwen.tech">
+                        卢队长的博客
+                    </a>
+                
+                <p class="description">专注于linux运维，k8s云原生架构，python，golang</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://luwen.tech">首页</a>
+                    
+                    <a  href="http://luwen.tech/books/" title="新书">新书</a>
+                    
+                    <a  href="http://luwen.tech/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://luwen.tech/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Golang学习之map</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021年8月7日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Golang%E5%AD%A6%E4%B9%A0">Golang学习</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#初始化">初始化</a></li>
+        <li><a href="#赋值">赋值</a></li>
+        <li><a href="#map的使用">map的使用</a></li>
+        <li><a href="#map的删除和传参">map的删除和传参</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>map: 字典，映射</p>
+<p>key要求：唯一，无序，不能是引用类型，（不可以是函数类型，字典类型，切片类型）</p>
+<p>map不能使用cap()</p>
+<p>###map的创建和初始化</p>
+<p>####创建方式：</p>
+<pre><code>1.  var m1 map[int]string      --不能存储数据
+2.  m2 := map[int]string{}      --能存储数据
+3.  m3 := make(map[int]string)  --默认len为0
+4.  m4 := make(map[int]string)  --默认
+</code></pre><h3 id="初始化">初始化</h3>
+<pre><code>1. var m map[int]string = map[int]string{1: &quot;aaa&quot;, 2: &quot;bbb&quot;}  保证key不重复
+2. m := map[int]string{1: &quot;aaa&quot;, 2: &quot;bbb&quot;}
+</code></pre><h3 id="赋值">赋值</h3>
+<pre><code>赋值过程中，如果新的map元素的key和与原map元素key相同 ----&gt;覆盖（替换）操作
+                                          不同 ----&gt;添加
+</code></pre><h3 id="map的使用">map的使用</h3>
+<pre><code>//遍历map
+for key值，value值 := range map {
+
+}
+for key值 := range map {
+
+}
+for _, value值 ：= range map {
+
+}
+for k,v := range m {
+    fmt.Printf(&quot;key:%d --- value: %q\n&quot;, k, v)
+}
+//不写v，默认读k
+for k := range m {
+    fmt.Printf(&quot;key:%d --- value: %q\n&quot;, k, v)
+}
+//读value
+for _, v := range m {
+    fmt.Printf(&quot;%s&quot;, v)
+}
+
+判断map中的key是否存在
+map[下标] 运算：返回两个值，第一个表示value的值，如果value不存在，nil
+                         第二个表示key是否存在的bool型，存在返回true，不存在返回false
+var m map[int]string = map[int]string{1:&quot;luff&quot;, 130:&quot;Sanji&quot;, 1301:&quot;Zoro&quot;}
+if v, has := m[1]; has {   //m[下标]返回两个值，一个value,第二个是bool类型，代表key是否存在
+    fmt.Println(&quot;value=&quot;, v, has)
+} else {
+    fmt.Println(&quot;value=&quot;, v, has)
+}
+</code></pre><h3 id="map的删除和传参">map的删除和传参</h3>
+<pre><code>删除map:
+delete(),   参1：待删除元素的map  参2：待删除key值
+</code></pre>
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/devops%E5%BB%BA%E8%AE%BE/">Devops建设</a></li>
+        
+        <li><a href="/post/thanos&#43;prometheus%E7%9B%91%E6%8E%A7%E8%B7%A8%E5%9C%B0%E5%9F%9F%E5%A4%9A%E9%9B%86%E7%BE%A4/">Thanos&#43;prometheus监控跨地域多集群</a></li>
+        
+        <li><a href="/post/%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%91%E6%8E%A7/">端到端监控</a></li>
+        
+        <li><a href="/post/%E7%9B%91%E6%8E%A7/">监控</a></li>
+        
+        <li><a href="/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/">Kubernetes服务优雅升级</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://luwen.tech">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/post/%E7%BB%8F%E8%BF%87waf%E7%AD%89%E4%BB%A3%E7%90%86%E5%90%8E%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip/" title="经过waf等代理后获取客户端真实ip">经过waf等代理后获取客户端真实ip</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/" title="Golang学习之特殊用法">Golang学习之特殊用法</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E4%B9%8Bmap/" title="Golang学习之map">Golang学习之map</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/devops%E5%BB%BA%E8%AE%BE/" title="Devops建设">Devops建设</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/thanos&#43;prometheus%E7%9B%91%E6%8E%A7%E8%B7%A8%E5%9C%B0%E5%9F%9F%E5%A4%9A%E9%9B%86%E7%BE%A4/" title="Thanos&#43;prometheus监控跨地域多集群">Thanos&#43;prometheus监控跨地域多集群</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%91%E6%8E%A7/" title="端到端监控">端到端监控</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/" title="监控">监控</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/" title="Kubernetes服务优雅升级">Kubernetes服务优雅升级</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" title="Php Fpm参数设置">Php Fpm参数设置</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://luwen.tech/categories/Aliyun/">Aliyun(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/DevOps/">DevOps(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Devops/">Devops(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Docker/">Docker(8)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Golang/">Golang(3)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Golang%E5%AD%A6%E4%B9%A0/">Golang学习(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(19)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Linux/">Linux(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Mac/">Mac(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/Prometheus/">Prometheus(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/linux/">linux(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/lnmp/">lnmp(4)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/nginx/">nginx(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E5%8D%8F%E8%AE%AE/">协议(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E5%AE%89%E5%85%A8/">安全(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(6)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/SniperLu" title="SniperLu’s github">SniperLu的github地址</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="https://www.cnblogs.com/mikeluwen/" title="SniperLu&#39;s blog">SniperLu的原博客地址</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://luwen.tech/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="http://luwen.tech">卢队长的博客 By SniperLu</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
