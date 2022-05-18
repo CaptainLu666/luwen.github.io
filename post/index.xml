@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 18 May 2022 15:31:07 +0800</lastBuildDate><atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 May 2022 16:43:45 +0800</lastBuildDate><atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql备份文件恢复单表</title>
+      <link>http://luwen.tech/post/mysql%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%8D%95%E8%A1%A8/</link>
+      <pubDate>Wed, 18 May 2022 16:43:45 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/mysql%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%8D%95%E8%A1%A8/</guid>
+      <description>示例：恢复zabbix库的users表 &amp;lt;1&amp;gt;从全备份中导出该表的建表语句到新的sql文件中 格式： sed -e&#39;/./{H;$!d;}&#39; -e &#39;x;/CREATE TABLE `表名`/!d;q&#39; 全备sql文件 &amp;gt; 新sql文件 命令： sed -e&#39;/./{H;$!d;}&#39; -e &#39;x;/CREATE TABLE `users`/!d;q&#39; all.2018-12.sql &amp;gt; users.sql &amp;lt;2&amp;gt;从全备份中导出该表的insert into语句追加到上一个sql文件中 格式</description>
+    </item>
+    
     <item>
       <title>Http缓存流程</title>
       <link>http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/</link>

@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/mysql%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%8D%95%E8%A1%A8/" title="Mysql备份文件恢复单表" >Mysql备份文件恢复单表</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2022年5月18日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                示例：恢复zabbix库的users表 &lt;1&gt;从全备份中导出该表的建表语句到新的sql文件中 格式： sed -e'/./{H;$!d;}' -e 'x;/CREATE TABLE `表名`/!d;q' 全备sql文件 &gt; 新sql文件 命令： sed -e'/./{H;$!d;}' -e 'x;/CREATE TABLE `users`/!d;q' all.2018-12.sql &gt; users.sql &lt;2&gt;从全备份中导出该表的insert into语句追加到上一个sql文件中 格式……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/mysql%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%8D%95%E8%A1%A8/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/" title="Http缓存流程" >Http缓存流程</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%91%E6%8E%A7/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/" title="监控" >监控</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2021年7月15日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Prometheus">Prometheus</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                ###USE 原则指的是，按照如下三个维度来规划资源监控指标： 利用率（Utilization），资源被有效利用起来提供服务的平均时间占比； 饱和度（Saturation），资源拥挤的程度，比如工作队列的长度； 错误率（Errors），错误的数量。 ###RED 原则指的是，按照如下三个维度来规划服务监控指标：……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -361,6 +361,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/mysql%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%8D%95%E8%A1%A8/" title="Mysql备份文件恢复单表">Mysql备份文件恢复单表</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/" title="Http缓存流程">Http缓存流程</a>
     </li>
     
@@ -394,10 +398,6 @@
     
     <li>
         <a href="http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/" title="Kubernetes服务优雅升级">Kubernetes服务优雅升级</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" title="Php Fpm参数设置">Php Fpm参数设置</a>
     </li>
     
 </ul>
@@ -478,7 +478,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(7)</a>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(8)</a>
     </li>
     
 </ul>
