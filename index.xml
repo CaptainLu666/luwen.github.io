@@ -6,7 +6,34 @@
     <description>Recent content on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 07 Sep 2021 09:49:52 +0800</lastBuildDate><atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 May 2022 15:31:07 +0800</lastBuildDate><atom:link href="http://luwen.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Http缓存流程</title>
+      <link>http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Wed, 18 May 2022 15:31:07 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/</guid>
+      <description>一、什么是HTTP缓存 HTTP缓存属于私有缓存，只能用于单独用户。你可能已经见过浏览器设置中的“缓存”选项。浏览器缓存拥有用户通过 HTTP 下载的所有文档。这些缓存为浏览过的文档提供向后/向前导航，保存网页，查看源码等功能，可以避免再次向服务器发起多余的请求。它同样可以提供缓存内容的离线</description>
+    </item>
+    
+    <item>
+      <title>Mysql索引</title>
+      <link>http://luwen.tech/mysql%E7%B4%A2%E5%BC%95/</link>
+      <pubDate>Sun, 16 Jan 2022 15:23:25 +0800</pubDate>
+      
+      <guid>http://luwen.tech/mysql%E7%B4%A2%E5%BC%95/</guid>
+      <description>索引 对于任何的数据库管理系统，索引都是进行优化的最主要因素，对于少量的数据，即使没有合适的索引对数据库性能的影响并不是很大，但是随着数据量的增加，数据库性能会急剧下降，所以索引的目的在于提高检索数据的效率。 索引占用空间么？ 索引占用空间，但是空间小；能够带来速度的明显提升 索引是不是</description>
+    </item>
+    
+    <item>
+      <title>Fiy工单系统部署文档</title>
+      <link>http://luwen.tech/fiy-cmdb%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Wed, 15 Dec 2021 13:42:16 +0800</pubDate>
+      
+      <guid>http://luwen.tech/fiy-cmdb%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</guid>
+      <description>安装后端 配置好配置文件： config/settings.yml 初始化数据库： go run main.go migrate -c config/settings.yml 打包镜像： docker build -t fiy:latest . 安装fiy-ui:</description>
+    </item>
+    
     <item>
       <title>经过waf等代理后获取客户端真实ip</title>
       <link>http://luwen.tech/post/%E7%BB%8F%E8%BF%87waf%E7%AD%89%E4%BB%A3%E7%90%86%E5%90%8E%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip/</link>

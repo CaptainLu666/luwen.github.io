@@ -70,6 +70,75 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/prometheus/" title="Prometheus" >Prometheus</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年1月7日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Prometheus">Prometheus</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                自定义exporter实现 Concepts Data model prometheus 原理上以Time_series 的方式存储数据。流的时间戳值属于同样的度量和同样的标记维度。 Metric names and labels metric name 指定了系统的一般特性,比如http_request_total 表示全部接收到的HTTP请求。 Label启用了Prometheus的多维数据模型，……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/prometheus/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/" title="Docker构建镜像" >Docker构建镜像</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年11月26日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Docker">Docker</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                指定国内源build镜像 docker build &ndash;build-arg APT_MIRROR=&ldquo;http://mirrors.163.com&rdquo; -t openapi:v1.1 .……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/docker%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/prometheus-operator/" title="Prometheus Operator" >Prometheus Operator</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年11月15日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Prometheus Operator 中所有的 API 对象都是 CRD 中定义好的 Schema，API Server会校验。当开发者使用 ConfigMap 保存配置没有任何校验，配置文件写错时，自表现为功能不可用，问题排查复杂。在 Prometheus Operator 中，所有在 Prometheus 对象、ServiceMonitor 对象、PrometheusRule 对象中的配置都是有 Schema 校验的，校验失……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/prometheus-operator/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/redis%E6%85%A2%E5%88%86%E6%9E%90/" title="Redis慢分析" >Redis慢分析</a>
                                 </h1>
                             </header>
@@ -228,75 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/%E8%A7%A3%E5%86%B3golang%E4%BE%9D%E8%B5%96%E5%8C%85%E9%97%AE%E9%A2%98/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/" title="Kubernetes弹性伸缩" >Kubernetes弹性伸缩</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月14日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                自动弹性伸缩(AutoScaling)，是Kubernetes的一大功能和亮点。在OpenStack IaaS云计算中也有类似的服务，即Senlin。即基于资源使用情况自动弹性缩容和扩容工作负载。Kubernetes的自动弹性伸缩有两个维度： Cluster Autoscaler：处理K8s集群N……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/" title="Rds优化" >Rds优化</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月12日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                事务长事务的防范手段。参数loose_max_statement_time可以控制大查询的最大执行时间，超过这个时间后，会把查询kill掉。参数loose_rds_strict_trx_idle_timeout可以控制空闲事务的最长存活时间，当一个事务空闲状态超过这个值时候，会主……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Kubernetes常用命令" >Kubernetes常用命令</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年9月29日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                1.查看资源占用： kubectl describe node &ldquo;cn-beijing.172.16.89.154&rdquo; | sed &lsquo;1,/Non-terminated Pods/d&rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 4.kubectl get nodes &ndash;show-labels 5.kubectl get nodes 4.删除evicted状态pod kubectl get pods | grep Evicted | awk &lsquo;{print $1}&rsquo; | xargs kubectl delete pod 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 node……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -365,6 +365,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/" title="Http缓存流程">Http缓存流程</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E7%BB%8F%E8%BF%87waf%E7%AD%89%E4%BB%A3%E7%90%86%E5%90%8E%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip/" title="经过waf等代理后获取客户端真实ip">经过waf等代理后获取客户端真实ip</a>
     </li>
     
@@ -398,10 +402,6 @@
     
     <li>
         <a href="http://luwen.tech/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" title="Php Fpm参数设置">Php Fpm参数设置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
     </li>
     
 </ul>
@@ -438,6 +438,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/HTTP%E5%8D%8F%E8%AE%AE/">HTTP协议(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(19)</a>
     </li>
     
@@ -451,6 +455,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/golang%E5%BC%80%E5%8F%91/">golang开发(1)</a>
     </li>
     
     <li>
@@ -474,7 +482,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(6)</a>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(7)</a>
     </li>
     
 </ul>
@@ -516,7 +524,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2021 <a href="http://luwen.tech">卢队长的博客 By SniperLu</a>.
+        &copy; 2022 <a href="http://luwen.tech">卢队长的博客 By SniperLu</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

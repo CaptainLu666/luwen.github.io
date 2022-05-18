@@ -70,6 +70,75 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/" title="Kubernetes弹性伸缩" >Kubernetes弹性伸缩</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月14日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                自动弹性伸缩(AutoScaling)，是Kubernetes的一大功能和亮点。在OpenStack IaaS云计算中也有类似的服务，即Senlin。即基于资源使用情况自动弹性缩容和扩容工作负载。Kubernetes的自动弹性伸缩有两个维度： Cluster Autoscaler：处理K8s集群N……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/" title="Rds优化" >Rds优化</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月12日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                事务长事务的防范手段。参数loose_max_statement_time可以控制大查询的最大执行时间，超过这个时间后，会把查询kill掉。参数loose_rds_strict_trx_idle_timeout可以控制空闲事务的最长存活时间，当一个事务空闲状态超过这个值时候，会主……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/rds%E4%BC%98%E5%8C%96/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Kubernetes常用命令" >Kubernetes常用命令</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年9月29日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                1.查看资源占用： kubectl describe node &ldquo;cn-beijing.172.16.89.154&rdquo; | sed &lsquo;1,/Non-terminated Pods/d&rsquo; 2.进入pod Kubectl exec -it pod -n namespace /bin/bash 3.查看pod资源消耗 Kubectl top pod -n prod 4.kubectl get nodes &ndash;show-labels 5.kubectl get nodes 4.删除evicted状态pod kubectl get pods | grep Evicted | awk &lsquo;{print $1}&rsquo; | xargs kubectl delete pod 指定 Node 节点调度 有三种方式指定 Pod 只运行在指定的 Node 节点上 nodeSelector：只调度到匹配指定 label 的 Node 上 node……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/kubernetes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/kubernetes%E6%8E%A2%E9%92%88%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="Kubernetes探针最佳实践" >Kubernetes探针最佳实践</a>
                                 </h1>
                             </header>
@@ -232,6 +301,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/" title="Http缓存流程">Http缓存流程</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E7%BB%8F%E8%BF%87waf%E7%AD%89%E4%BB%A3%E7%90%86%E5%90%8E%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip/" title="经过waf等代理后获取客户端真实ip">经过waf等代理后获取客户端真实ip</a>
     </li>
     
@@ -265,10 +338,6 @@
     
     <li>
         <a href="http://luwen.tech/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" title="Php Fpm参数设置">Php Fpm参数设置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
     </li>
     
 </ul>
@@ -305,6 +374,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/HTTP%E5%8D%8F%E8%AE%AE/">HTTP协议(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(19)</a>
     </li>
     
@@ -318,6 +391,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/golang%E5%BC%80%E5%8F%91/">golang开发(1)</a>
     </li>
     
     <li>
@@ -341,7 +418,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(6)</a>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(7)</a>
     </li>
     
 </ul>
@@ -383,7 +460,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2021 <a href="http://luwen.tech">卢队长的博客 By SniperLu</a>.
+        &copy; 2022 <a href="http://luwen.tech">卢队长的博客 By SniperLu</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

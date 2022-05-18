@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang开发 on 卢队长的博客</title>
+    <link>http://luwen.tech/categories/golang%E5%BC%80%E5%8F%91/</link>
+    <description>Recent content in golang开发 on 卢队长的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 15 Dec 2021 13:42:16 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/golang%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fiy工单系统部署文档</title>
+      <link>http://luwen.tech/fiy-cmdb%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Wed, 15 Dec 2021 13:42:16 +0800</pubDate>
+      
+      <guid>http://luwen.tech/fiy-cmdb%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</guid>
+      <description>安装后端 配置好配置文件： config/settings.yml 初始化数据库： go run main.go migrate -c config/settings.yml 打包镜像： docker build -t fiy:latest . 安装fiy-ui:</description>
+    </item>
+    
+  </channel>
+</rss>

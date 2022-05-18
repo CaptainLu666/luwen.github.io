@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTTP协议 on 卢队长的博客</title>
+    <link>http://luwen.tech/categories/HTTP%E5%8D%8F%E8%AE%AE/</link>
+    <description>Recent content in HTTP协议 on 卢队长的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 18 May 2022 15:31:07 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/HTTP%E5%8D%8F%E8%AE%AE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Http缓存流程</title>
+      <link>http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Wed, 18 May 2022 15:31:07 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/</guid>
+      <description>一、什么是HTTP缓存 HTTP缓存属于私有缓存，只能用于单独用户。你可能已经见过浏览器设置中的“缓存”选项。浏览器缓存拥有用户通过 HTTP 下载的所有文档。这些缓存为浏览过的文档提供向后/向前导航，保存网页，查看源码等功能，可以避免再次向服务器发起多余的请求。它同样可以提供缓存内容的离线</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -70,6 +70,75 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/" title="悲观锁和乐观锁" >悲观锁和乐观锁</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年3月18日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                乐观锁和悲观锁概念 一、并发控制 当程序中可能出现并发的情况时，就需要保证在并发情况下数据的准确性，以此确保当前用户和其他用户一起操作时，所得到的结果和他单独操作时的结果是一样的。这种手段就叫做并发控制。并发控制的目的是保证一个用户的工作不会对另一个用户的工作产生不合理的影响。 没有做……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/" title="Brew使用" >Brew使用</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年3月16日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Mac">Mac</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                Mac 下brew 安装更新报错 git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow fatal: unable to access 'https://github.com/Homebrew/homebrew-core/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443 fatal: unable to access 'https://github.com/Homebrew/homebrew-cask/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443 解决办法 git config --global --unset http.proxy git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow 查看git 配置 git config --global --list……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/brew%E4%BD%BF%E7%94%A8/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" title="Php Fpm三种模式" >Php Fpm三种模式</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2021年1月16日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/lnmp">lnmp</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                ##Php 内存释放策略： 1.定时任务重启 0 0 * * * systemctl reload php-fpm ###2. 配置参数 pm三种进程管理模式 pm = static，始终保持一个固定数量的子进程，这个数由pm.max_children定义，这种方式很不灵活，也通常不是默认的。 pm = dynamic，启动时会产生固定数量的子进程（由pm.start_se……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/php-fpm%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/docker%E9%95%9C%E5%83%8F%E6%B8%85%E7%90%86/" title="Docker镜像清理" >Docker镜像清理</a>
                                 </h1>
                             </header>
@@ -228,75 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/jenkins%E5%A2%9E%E5%8A%A0k8s%E4%BA%91%E9%85%8D%E7%BD%AE/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/" title="优秀的golang学习网址" >优秀的golang学习网址</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月18日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Golang">Golang</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                golang学习之路 golang学习电子书籍 飞雪无情 李文周的博客 李文周的视频课程 Golang新开发者要注意的陷阱和常见错误 Tony Bai 曹春晖 鸟窝 draveness 码农桃花源 go语言原本 go夜读 常用文件操作 Practical-go-lessons……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/" title="阿里云自定义权限文档" >阿里云自定义权限文档</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月17日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Aliyun">Aliyun</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                https://help.aliyun.com/document_detail/93739.html……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/%E9%98%BF%E9%87%8C%E4%BA%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90%E6%96%87%E6%A1%A3/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/" title="Jenkins Slave节点乱码问题" >Jenkins Slave节点乱码问题</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2020年9月16日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Devops">Devops</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                jenkins配置slave进行构建时，发现slave构建的控制台输入中文乱码，查看master，slave的jenkins系统信息file.encoding和sun.jnu.encoding都没有问题，从系统管理-&gt;节点管理-&gt;slave节点-&gt;系统信息 file.encoding=ANSI_X3.4-1968 sun.jnu.encoding=ANSI_X3.4-1968 #……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/jenkins-slave%E8%8A%82%E7%82%B9%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -365,6 +365,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/" title="Http缓存流程">Http缓存流程</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/%E7%BB%8F%E8%BF%87waf%E7%AD%89%E4%BB%A3%E7%90%86%E5%90%8E%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip/" title="经过waf等代理后获取客户端真实ip">经过waf等代理后获取客户端真实ip</a>
     </li>
     
@@ -398,10 +402,6 @@
     
     <li>
         <a href="http://luwen.tech/post/php-fpm%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE/" title="Php Fpm参数设置">Php Fpm参数设置</a>
-    </li>
-    
-    <li>
-        <a href="http://luwen.tech/post/centos7%E5%AE%89%E8%A3%85apisix/" title="Centos7安装apisix">Centos7安装apisix</a>
     </li>
     
 </ul>
@@ -438,6 +438,10 @@
     </li>
     
     <li>
+        <a href="http://luwen.tech/categories/HTTP%E5%8D%8F%E8%AE%AE/">HTTP协议(1)</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/categories/Kubernetes/">Kubernetes(19)</a>
     </li>
     
@@ -451,6 +455,10 @@
     
     <li>
         <a href="http://luwen.tech/categories/Prometheus/">Prometheus(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://luwen.tech/categories/golang%E5%BC%80%E5%8F%91/">golang开发(1)</a>
     </li>
     
     <li>
@@ -474,7 +482,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(6)</a>
+        <a href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(7)</a>
     </li>
     
 </ul>
@@ -516,7 +524,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2021 <a href="http://luwen.tech">卢队长的博客 By SniperLu</a>.
+        &copy; 2022 <a href="http://luwen.tech">卢队长的博客 By SniperLu</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

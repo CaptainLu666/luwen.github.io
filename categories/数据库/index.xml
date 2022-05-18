@@ -6,7 +6,16 @@
     <description>Recent content in 数据库 on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 27 Apr 2021 15:06:08 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Jan 2022 15:23:25 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql索引</title>
+      <link>http://luwen.tech/mysql%E7%B4%A2%E5%BC%95/</link>
+      <pubDate>Sun, 16 Jan 2022 15:23:25 +0800</pubDate>
+      
+      <guid>http://luwen.tech/mysql%E7%B4%A2%E5%BC%95/</guid>
+      <description>索引 对于任何的数据库管理系统，索引都是进行优化的最主要因素，对于少量的数据，即使没有合适的索引对数据库性能的影响并不是很大，但是随着数据量的增加，数据库性能会急剧下降，所以索引的目的在于提高检索数据的效率。 索引占用空间么？ 索引占用空间，但是空间小；能够带来速度的明显提升 索引是不是</description>
+    </item>
+    
     <item>
       <title>Etcd集群部署</title>
       <link>http://luwen.tech/post/etcd%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</link>
