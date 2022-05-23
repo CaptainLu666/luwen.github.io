@@ -7,22 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>HTTP协议 | 卢队长的博客</title>
-    <meta property="og:title" content="HTTP协议 - 卢队长的博客">
+    <title>Golang谚语 | 卢队长的博客</title>
+    <meta property="og:title" content="Golang谚语 - 卢队长的博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2022-05-23T14:17:25&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2022-05-23T14:17:25&#43;08:00">
         
     <meta name="Keywords" content="golang,go语言,python,kubernetes">
-    <meta name="description" content="HTTP协议">
+    <meta name="description" content="Golang谚语">
         
     <meta name="author" content="SniperLu">
-    <meta property="og:url" content="http://luwen.tech/categories/HTTP%E5%8D%8F%E8%AE%AE/">
+    <meta property="og:url" content="http://luwen.tech/post/golang%E8%B0%9A%E8%AF%AD/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
+        <link rel="stylesheet" href="/css/prism.css">
+    
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://luwen.tech/categories/HTTP%E5%8D%8F%E8%AE%AE/index.xml" title="卢队长的博客" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -31,7 +36,6 @@
     
     
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -47,7 +51,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://luwen.tech">首页</a>
+                    <a class="current" href="http://luwen.tech">首页</a>
                     
                     <a  href="http://luwen.tech/books/" title="新书">新书</a>
                     
@@ -68,48 +72,150 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">HTTP协议</span>
-                        中的文章
-                    </h3>
-                    
-
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/">Http缓存流程</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2022年5月18日
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Golang谚语</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2022年5月23日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
                             
-                            <div class="post-meta meta-category">
-                                |
-                                
-                                    <a href="http://luwen.tech/categories/HTTP%E5%8D%8F%E8%AE%AE">HTTP协议</a>
-                                
-                            </div>
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Golang">Golang</a></span>
                             
-                            <div class="post-content">
-                                一、什么是HTTP缓存 HTTP缓存属于私有缓存，只能用于单独用户。你可能已经见过浏览器设置中的“缓存”选项。浏览器缓存拥有用户通过 HTTP 下载的所有文档。这些缓存为浏览过的文档提供向后/向前导航，保存网页，查看源码等功能，可以避免再次向服务器发起多余的请求。它同样可以提供缓存内容的离线……
-                                <p class="readmore"><a href="http://luwen.tech/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/">阅读全文</a></p>
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                                <nav id="TableOfContents"></nav>
                             </div>
-                        </article>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p><strong>核心理念****是：简单、诗意、简洁（Simple, Poetic, Pithy）。</strong></p>
+<ul>
+<li>
+<h1 id="谚语">谚语</h1>
+</li>
+</ul>
+<ol>
+<li>
+<p>不要通过共享内存来通信，通过通信来共享内存（Don&rsquo;t communicate by sharing memory, share memory by communicating）。</p>
+</li>
+<li>
+<p>并发不是并行（Concurrency is not parallelism）。</p>
+</li>
+<li>
+<p>通道是协调的，互斥是串行的（Channels orchestrate; mutexes serialize）。</p>
+</li>
+<li>
+<p>接口越大，抽象性越弱（The bigger the interface, the weaker the abstraction）。</p>
+</li>
+<li>
+<p>让零值变得有用（Make the zero value useful）。</p>
+</li>
+<li>
+<p>interface{} 什么也没说（interface{} says nothing）。</p>
+</li>
+<li>
+<p>Gofmt 的风格没有人喜欢，但 Gofmt 却是大家的最爱（Gofmt&rsquo;s style is</p>
+<p>no one&rsquo;s favorite, yet gofmt is everyone&rsquo;s favorite）。</p>
+</li>
+<li>
+<p>复制一点总比依赖一点好（A little copying is better than a little dependency）。</p>
+</li>
+<li>
+<p>Syscall 必须始终用 build 标签来保护（Syscall must always be guarded with build tags）。</p>
+</li>
+<li>
+<p>Cgo 必须始终用构建标签来保护（Cgo must always be guarded with build tags）。</p>
+</li>
+<li>
+<p>Cgo 不是 Go（Cgo is not Go）。</p>
+</li>
+<li>
+<p>使用 unsafe 包没有任何保证（With the unsafe package there are no guarantees）。</p>
+</li>
+<li>
+<p>清晰的比聪明的好（Clear is better than clever）。</p>
+</li>
+<li>
+<p>反射从来不是清晰的（Reflection is never clear）。</p>
+</li>
+<li>
+<p>错误就是价值（Errors are values）。</p>
+</li>
+<li>
+<p>不要只是检查错误，要优雅地处理它们（Don&rsquo;t just check errors, handle them gracefully）。</p>
+</li>
+<li>
+<p>设计架构，命名组件，记录细节（Design the architecture, name the components, document the details）。</p>
+</li>
+<li>
+<p>文档是为用户准备的（Documentation is for users）。</p>
+</li>
+<li>
+<p>不要使用恐慌（Don&rsquo;t panic）。</p>
+</li>
+</ol>
+
+                        </div>
+
+                        
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/mysql%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%8D%95%E8%A1%A8/">Mysql备份文件恢复单表</a></li>
+        
+        <li><a href="/post/http%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B/">Http缓存流程</a></li>
+        
+        <li><a href="/mysql%E7%B4%A2%E5%BC%95/">Mysql索引</a></li>
+        
+        <li><a href="/fiy-cmdb%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/">Fiy工单系统部署文档</a></li>
+        
+        <li><a href="/post/%E7%BB%8F%E8%BF%87waf%E7%AD%89%E4%BB%A3%E7%90%86%E5%90%8E%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9C%9F%E5%AE%9Eip/">经过waf等代理后获取客户端真实ip</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
                     
+    
 
-                    
-
-
-
-
-
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "free3y/free3y_issue"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -292,13 +398,28 @@
 </footer>
 
 
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
 
 
 

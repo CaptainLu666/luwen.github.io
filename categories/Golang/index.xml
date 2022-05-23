@@ -6,7 +6,16 @@
     <description>Recent content in Golang on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 18 Sep 2020 16:53:10 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 May 2022 14:17:25 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang谚语</title>
+      <link>http://luwen.tech/post/golang%E8%B0%9A%E8%AF%AD/</link>
+      <pubDate>Mon, 23 May 2022 14:17:25 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/golang%E8%B0%9A%E8%AF%AD/</guid>
+      <description>核心理念****是：简单、诗意、简洁（Simple, Poetic, Pithy）。 谚语 不要通过共享内存来通信，通过通信来共享内存（Don&amp;rsquo;t communicate by sharing memory, share memory by communicating）。 并发不是并行（Concurrency is not parallelism）。 通道是协调的，互斥是串行的（Ch</description>
+    </item>
+    
     <item>
       <title>优秀的golang学习网址</title>
       <link>http://luwen.tech/post/%E4%BC%98%E7%A7%80%E7%9A%84golang%E5%AD%A6%E4%B9%A0%E7%BD%91%E5%9D%80/</link>

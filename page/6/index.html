@@ -70,6 +70,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/" title="K8s进程排查" >K8s进程排查</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年4月14日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                在使用docker时经常出现一台docker主机上跑了多个容器，可能其中一个容器里的进程导致了整个宿主机load很高，其实一条命令就可以找出罪魁祸首 #查找容器ID docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Name}} &quot; $(docker ps -q) |grep #查找k8s pod name docker inspect -f &quot;{{.Id}} {{.State.Pid}} {{.Config.Hostname}}&quot; $(docker ps -q) |grep #如果PID是容器内运行子进程那docker inspect就……
+                            </div>
+                            <p class="readmore"><a href="http://luwen.tech/post/k8s%E8%BF%9B%E7%A8%8B%E6%8E%92%E6%9F%A5/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://luwen.tech/post/%E4%BA%91%E5%8E%9F%E7%94%9F/" title="云原生" >云原生</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@
                             <p class="readmore"><a href="http://luwen.tech/post/k8s%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://luwen.tech/post/k8s-token/" title="K8s Token" >K8s Token</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年10月28日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://luwen.tech/categories/Kubernetes">Kubernetes</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                kubectl get sa admin -n kube-system -o yaml apiVersion: v1 kind: ServiceAccount metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&quot;apiVersion&quot;:&quot;v1&quot;,&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}} creationTimestamp: 2018-11-05T09:23:39Z name: admin namespace: kube-system resourceVersion: &quot;889&quot; selfLink: /api/v1/namespaces/kube-system/serviceaccounts/admin uid: 7af4f177-e0dc-11e8-8ef4-00163e009d2a secrets: - name: admin-token-5tctj 查看对应的clusterrolebinding： kubectl get clusterrolebinding admin -oyaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRoleBinding metadata: annotations: kubectl.kubernetes.io/last-applied-configuration: | {&quot;apiVersion&quot;:&quot;rbac.authorization.k8s.io/v1beta1&quot;,&quot;kind&quot;:&quot;ClusterRoleBinding&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;&quot;},&quot;roleRef&quot;:{&quot;apiGroup&quot;:&quot;rbac.authorization.k8s.io&quot;,&quot;kind&quot;:&quot;ClusterRole&quot;,&quot;name&quot;:&quot;cluster-admin&quot;},&quot;subjects&quot;:[{&quot;kind&quot;:&quot;ServiceAccount&quot;,&quot;name&quot;:&quot;admin&quot;,&quot;namespace&quot;:&quot;kube-system&quot;}]} creationTimestamp: 2018-11-05T09:23:39Z name: admin resourceVersion: &quot;886&quot; selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/admin uid: 7af6ff9d-e0dc-11e8-8ef4-00163e009d2a roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: admin namespace: kube-system 查看admin sa绑定的clusterrole和对应的权限。命令： kubectl get clusterrole cluster-admin -o yaml apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRole metadata:……
-                            </div>
-                            <p class="readmore"><a href="http://luwen.tech/post/k8s-token/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -365,6 +365,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://luwen.tech/post/golang%E8%B0%9A%E8%AF%AD/" title="Golang谚语">Golang谚语</a>
+    </li>
+    
+    <li>
         <a href="http://luwen.tech/post/mysql%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%8D%95%E8%A1%A8/" title="Mysql备份文件恢复单表">Mysql备份文件恢复单表</a>
     </li>
     
@@ -400,10 +404,6 @@
         <a href="http://luwen.tech/post/%E7%9B%91%E6%8E%A7/" title="监控">监控</a>
     </li>
     
-    <li>
-        <a href="http://luwen.tech/post/Kubernetes%E6%9C%8D%E5%8A%A1%E4%BC%98%E9%9B%85%E5%8D%87%E7%BA%A7/" title="Kubernetes服务优雅升级">Kubernetes服务优雅升级</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -430,7 +430,7 @@
     </li>
     
     <li>
-        <a href="http://luwen.tech/categories/Golang/">Golang(3)</a>
+        <a href="http://luwen.tech/categories/Golang/">Golang(4)</a>
     </li>
     
     <li>

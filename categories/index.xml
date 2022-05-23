@@ -6,7 +6,16 @@
     <description>Recent content in Categories on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 18 May 2022 16:43:45 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 May 2022 14:17:25 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang</title>
+      <link>http://luwen.tech/categories/Golang/</link>
+      <pubDate>Mon, 23 May 2022 14:17:25 +0800</pubDate>
+      
+      <guid>http://luwen.tech/categories/Golang/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>数据库</title>
       <link>http://luwen.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
@@ -112,15 +121,6 @@
       <pubDate>Fri, 15 Jan 2021 23:57:37 +0800</pubDate>
       
       <guid>http://luwen.tech/categories/Docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Golang</title>
-      <link>http://luwen.tech/categories/Golang/</link>
-      <pubDate>Fri, 18 Sep 2020 16:53:10 +0800</pubDate>
-      
-      <guid>http://luwen.tech/categories/Golang/</guid>
       <description></description>
     </item>
     

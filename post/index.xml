@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 18 May 2022 16:43:45 +0800</lastBuildDate><atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 May 2022 14:17:25 +0800</lastBuildDate><atom:link href="http://luwen.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang谚语</title>
+      <link>http://luwen.tech/post/golang%E8%B0%9A%E8%AF%AD/</link>
+      <pubDate>Mon, 23 May 2022 14:17:25 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/golang%E8%B0%9A%E8%AF%AD/</guid>
+      <description>核心理念****是：简单、诗意、简洁（Simple, Poetic, Pithy）。 谚语 不要通过共享内存来通信，通过通信来共享内存（Don&amp;rsquo;t communicate by sharing memory, share memory by communicating）。 并发不是并行（Concurrency is not parallelism）。 通道是协调的，互斥是串行的（Ch</description>
+    </item>
+    
     <item>
       <title>Mysql备份文件恢复单表</title>
       <link>http://luwen.tech/post/mysql%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E5%8D%95%E8%A1%A8/</link>
