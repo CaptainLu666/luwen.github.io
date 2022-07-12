@@ -6,7 +6,16 @@
     <description>Recent content in Golang学习 on 卢队长的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 18 Aug 2021 23:04:32 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 May 2022 23:02:15 +0800</lastBuildDate><atom:link href="http://luwen.tech/categories/Golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang基础知识</title>
+      <link>http://luwen.tech/post/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link>
+      <pubDate>Sun, 22 May 2022 23:02:15 +0800</pubDate>
+      
+      <guid>http://luwen.tech/post/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Golang学习之特殊用法</title>
       <link>http://luwen.tech/post/golang%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/</link>
